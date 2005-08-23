@@ -20,32 +20,24 @@
  *
  * @version $Id$
  */
-function Slide (slideXMLNode) {
+function Slide (xmlDocument, slideXmlNode) {
 	this.title;
 	this.caption;
-	this.mediaUrl;
-	this.image;
+	this.media = new Array();
 	
 	this.display = display;
 	this.load = load;
 	this.unload = unload;
 	
-	for (j=0; j < slideXMLNode.childNodes.length; j++) {
-		tagname = slideXMLNode.childNodes[j].tagName;
-		switch (tagname) {
-			case 'title':
-				if (slideXMLNode.childNodes[j].firstChild != null)
-					this.title = slideXMLNode.childNodes[j].firstChild.nodeValue;
-				break;
-			case 'caption':
-				if (slideXMLNode.childNodes[j].firstChild != null)
-					this.caption = slideXMLNode.childNodes[j].firstChild.nodeValue;
-				break;
-			case 'mediaUrl':
-				if (slideXMLNode.childNodes[j].firstChild != null)
-					this.mediaUrl = slideXMLNode.childNodes[j].firstChild.nodeValue;
-				break;
-		}
+	var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
+	this.title = titleElements[0].firstChild.nodeValue;
+	
+	var captionElements = getElementsByPath(xmlDocument, slideXmlNode, "caption");
+	this.caption = captionElements[0].firstChild.nodeValue;
+	
+	var mediaElements = getElementsByPath(xmlDocument, slideXmlNode, "media");
+	for (var i = 0; i < mediaElements.length; i++) {
+		this.media[i] = new Media( xmlDocument, mediaElements[i]);
 	}
 	
 
@@ -59,12 +51,12 @@ function Slide (slideXMLNode) {
 	 */
 	function display () {
 		this.load();
-		destination = getElementFromDocument('slide');
+		var destination = getElementFromDocument('slide');
+		destination.innerHTML = "";
 		
-		destination.innerHTML = "<img src='" + this.image.src + "' align='left' />";
+ 		destination.innerHTML += "<div id='image'>The Image Goes Here</div>";
 		destination.innerHTML += "\n<strong>" + this.title + "</strong>";
 		destination.innerHTML += "\n<br/>" + this.caption + "";
-		destination.innerHTML += "\n<br/><em>" + this.image.src + "</em>";
 		
 	}
 	
@@ -76,9 +68,8 @@ function Slide (slideXMLNode) {
 	 * @since 8/23/05
 	 */
 	function load () {
-		if (this.image == null) {
-			this.image = new Image();
-			this.image.src = this.mediaUrl;
+		for (var i = 0; i < this.media.length; i++) {
+			this.media[i].load();
 		}
 	}
 	
@@ -90,6 +81,8 @@ function Slide (slideXMLNode) {
 	 * @since 8/23/05
 	 */
 	function unload () {
-		this.image = null;
+		for (var i = 0; i < this.media.length; i++) {
+			this.media[i].unload();
+		}
 	}
 }

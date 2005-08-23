@@ -4,36 +4,92 @@
 	<slide>
 		<title>The First Slide</title>
 		<caption>This is the first slide in the slideshow</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</url>
+			</version>
+		</media>
 	</slide>
 	<slide>
 		<title>The Second Slide</title>
 		<caption>This is the second slide in the slideshow</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basket.png</mediaUrl>
+		<media>
+			<type>image</type>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basket.png</url>
+			</version>
+		</media>
 	</slide>
 	<slide>
 		<title>The Third Slide</title>
 		<caption>This is the second slide in the slideshow</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/miterbox.png</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
+			</version>
+			<version>
+				<size>thumb</size>
+				<height>100px</height>
+				<width>100px</width>
+				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
+			</version>
+		</media>
 	</slide>
 	<slide>
 		<title>The Fourth Slide</title>
 		<caption>A Flower</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/flower.jpg</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/flower.jpg</url>
+			</version>
+		</media>
 	</slide>
 	<slide>
 		<title>The Fifth Slide</title>
 		<caption>A second flower</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/flower2.jpg</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/flower2.jpg</url>
+			</version>
+		</media>			
 	</slide>
 	<slide>
 		<title>The Sixth Slide</title>
 		<caption>Ducks in the road.</caption>
-		<mediaUrl>http://slug.middlebury.edu/~afranco/segue_userfiles/intr0201a-l05/Ducks.JPG</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/intr0201a-l05/Ducks.JPG</url>
+			</version>
+		</media>
 	</slide>
 	<slide>
 		<title>The Seventh Slide</title>
 		<caption>Self portrait.</caption>
-		<mediaUrl>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</mediaUrl>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>300px</width>
+				<url>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</url>
+			</version>
+		</media>
 	</slide>
 </slideshow>

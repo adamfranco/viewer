@@ -22,10 +22,8 @@
  */
 function SlideShow () {
 	var req;
-	var slides;
-	var currentIndex = 0;
-	var tmp = 'hi';
-	this.tmp = tmp;
+	this.slides;
+	this.currentIndex = 0;
 	
 	var me = this;
 	this.loadXMLDoc = loadXMLDoc;
@@ -104,14 +102,13 @@ function SlideShow () {
 	 * @since 8/22/05
 	 */
 	function createSlides ( xmlDocument ) {		
-		slideElements = xmlDocument.getElementsByTagName('slide');
-		slides = new Array(slideElements.length);
-		for (i=0; i < slideElements.length; i++) {			
-			slides[i] = new Slide(slideElements.item(i));
+		var slideElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/slide");
+		this.slides = new Array(slideElements.length);
+		for (var i = 0; i < slideElements.length; i++) {
+ 			this.slides[i] = new Slide(xmlDocument, slideElements[i]);
 		}
-		
 		this.display();
-		this.cacheAround(currentIndex);
+// 		this.cacheAround(currentIndex);
 	}
 	
 	/**
@@ -122,22 +119,22 @@ function SlideShow () {
 	 * @since 8/22/05
 	 */
 	function display () {
-		destination = getElementFromDocument('toolbars');
+		var destination = getElementFromDocument('toolbars');
 		
-		destination.innerHTML = "\n<br/>Slide Number: " + (currentIndex + 1);
-		destination.innerHTML += " of: " + slides.length;
+		destination.innerHTML = "\n<br/>Slide Number: " + (this.currentIndex + 1);
+		destination.innerHTML += " of: " + this.slides.length;
 		
 		var previousDisabled = "";
 		var nextDisabled = "";
-		if (currentIndex <= 0)
+		if (this.currentIndex <= 0)
 			previousDisabled = " disabled='disabled'";
-		if (currentIndex >= (slides.length - 1))
+		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
 		destination.innerHTML += "<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
 		destination.innerHTML += "<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
 		
-		slides[currentIndex].display();
+		this.slides[this.currentIndex].display();
 	}
 	
 	/**
@@ -148,10 +145,10 @@ function SlideShow () {
 	 * @since 8/23/05
 	 */
 	function next () {
-		currentIndex++;
+		this.currentIndex++;
 		this.display();
 		
-		this.cacheAround(currentIndex);
+		this.cacheAround(this.currentIndex);
 	}
 	
 	/**
@@ -162,10 +159,10 @@ function SlideShow () {
 	 * @since 8/23/05
 	 */
 	function previous () {
-		currentIndex--;
+		this.currentIndex--;
 		this.display();
 		
-		this.cacheAround(currentIndex);
+		this.cacheAround(this.currentIndex);
 	}
 	
 	/**
@@ -182,19 +179,19 @@ function SlideShow () {
 		var numToCacheBehind = 5;
 				
 		// Load the needed images
-		for (i = index + 1; (i <= (index + numToCacheAhead) && (i < slides.length)); i++) {
-			slides[i].load();
+		for (i = index + 1; (i <= (index + numToCacheAhead) && (i < this.slides.length)); i++) {
+			this.slides[i].load();
 		}
 		for (i = index - 1; (i >= (index - numToCacheBehind) && (i >= 0)); i--) {
-			slides[i].load();
+			this.slides[i].load();
 		}
 		
 		// unload the excess images
-		for (i = (index + numToCacheAhead + 1); i < slides.length; i++) {
-			slides[i].unload();
+		for (i = (index + numToCacheAhead + 1); i < this.slides.length; i++) {
+			this.slides[i].unload();
 		}
 		for (i = (index - numToCacheBehind - 1); i >= 0; i--) {
-			slides[i].unload();
+			this.slides[i].unload();
 		}
 	}
 }

@@ -39,6 +39,8 @@
 			
 			<?php require_once(dirname(__FILE__)."/main/js_library/slide.class.js"); ?>
 			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media.class.js"); ?>
+			
 			<?php require_once(dirname(__FILE__)."/main/js_library/functions.js"); ?>
 			
 			/**
