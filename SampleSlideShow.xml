@@ -1,0 +1,39 @@
+<?xml version="1.0" standalone="yes"?>
+<slideshow>
+	<title>My Test Slideshow</title>
+	<slide>
+		<title>The First Slide</title>
+		<caption>This is the first slide in the slideshow</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Second Slide</title>
+		<caption>This is the second slide in the slideshow</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basket.png</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Third Slide</title>
+		<caption>This is the second slide in the slideshow</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/miterbox.png</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Fourth Slide</title>
+		<caption>A Flower</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/flower.jpg</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Fifth Slide</title>
+		<caption>A second flower</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/flower2.jpg</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Sixth Slide</title>
+		<caption>Ducks in the road.</caption>
+		<mediaUrl>http://slug.middlebury.edu/~afranco/segue_userfiles/intr0201a-l05/Ducks.JPG</mediaUrl>
+	</slide>
+	<slide>
+		<title>The Seventh Slide</title>
+		<caption>Self portrait.</caption>
+		<mediaUrl>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</mediaUrl>
+	</slide>
+</slideshow>
