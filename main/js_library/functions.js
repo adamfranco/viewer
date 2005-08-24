@@ -42,3 +42,41 @@ function getElementsByPath (xmlDocument, contextNode, searchString) {
 		return contextNode.selectNodes(searchString);
 	}
 }
+
+/**
+ * Answer an array only the unique elements of the input array
+ * 
+ * @param array inputArray
+ * @return array
+ * @access public
+ * @since 8/24/05
+ */
+function arrayUnique ( inputArray ) {
+	var uniqueArray = new Array();
+	var i = 0;
+	for (var j = 0; j < inputArray.length; j++) {
+		if (!inArray(inputArray[j], uniqueArray)) {
+			uniqueArray[i] = inputArray[j];
+			i++;
+		}
+	}
+	return uniqueArray;
+}
+
+/**
+ * Answer true if the value passed is in the array
+ * 
+ * @param mixed value
+ * @param array array
+ * @return boolean
+ * @access public
+ * @since 8/24/05
+ */
+function inArray ( value, array ) {
+	for (var i = 0; i < array.length; i++) {
+		if (array[i] == value)
+			return true;
+	}
+	
+	return false;
+}

@@ -27,6 +27,23 @@
 				color: green;
 				/*text-decoration: blink;*/
 			}
+			
+			.toolbar {
+				border-bottom: 1px solid #000;
+				padding: 5px;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+			}
+			
+			.content {
+				margin-top: 5px;
+			}
+			
+			#media_buttons {
+
+			}
+			
 			/* ]]> */
 		</style>
 		
@@ -60,7 +77,7 @@
 		<title>Concerto: Browsing Exhibition *Turkey* </title>
 	</head>
 	<body onload='Javascript:runSlideShow()'>
-		<div id='toolbars'>
+		<div id='toolbars' class='toolbar'>
 			Toolbars
 		</div>
 		<div id='slide' />

@@ -7,22 +7,40 @@
 		<media>
 			<version>
 				<size>original</size>
-				<height>300px</height>
-				<width>300px</width>
+				<height>36px</height>
+				<width>115px</width>
 				<url>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</url>
 			</version>
 		</media>
 	</slide>
 	<slide>
 		<title>The Second Slide</title>
-		<caption>This is the second slide in the slideshow</caption>
+		<caption>This is a basket icon</caption>
 		<media>
-			<type>image</type>
 			<version>
+				<type>image</type>
 				<size>original</size>
-				<height>300px</height>
-				<width>300px</width>
+				<height>396px</height>
+				<width>432px</width>
 				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basket.png</url>
+			</version>
+		</media>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>396px</height>
+				<width>432px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basketplus.png</url>
+			</version>
+		</media>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>396px</height>
+				<width>432px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basketminus.png</url>
 			</version>
 		</media>
 	</slide>
@@ -32,8 +50,8 @@
 		<media>
 			<version>
 				<size>original</size>
-				<height>300px</height>
-				<width>300px</width>
+				<height>500px</height>
+				<width>500px</width>
 				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
 			</version>
 			<version>
@@ -51,7 +69,7 @@
 			<version>
 				<size>original</size>
 				<height>300px</height>
-				<width>300px</width>
+				<width>222px</width>
 				<url>http://slug.middlebury.edu/~afranco/flower.jpg</url>
 			</version>
 		</media>
@@ -63,7 +81,7 @@
 			<version>
 				<size>original</size>
 				<height>300px</height>
-				<width>300px</width>
+				<width>222px</width>
 				<url>http://slug.middlebury.edu/~afranco/flower2.jpg</url>
 			</version>
 		</media>			
@@ -74,8 +92,8 @@
 		<media>
 			<version>
 				<size>original</size>
-				<height>300px</height>
-				<width>300px</width>
+				<height>600px</height>
+				<width>462px</width>
 				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/intr0201a-l05/Ducks.JPG</url>
 			</version>
 		</media>
@@ -86,8 +104,8 @@
 		<media>
 			<version>
 				<size>original</size>
-				<height>300px</height>
-				<width>300px</width>
+				<height>1065px</height>
+				<width>1597px</width>
 				<url>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</url>
 			</version>
 		</media>

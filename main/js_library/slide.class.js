@@ -24,10 +24,16 @@ function Slide (xmlDocument, slideXmlNode) {
 	this.title;
 	this.caption;
 	this.media = new Array();
+	this.currentMediaIndex = 0;
 	
 	this.display = display;
 	this.load = load;
 	this.unload = unload;
+	this.getMediaSizes = getMediaSizes;
+	this.displayMediaButtons = displayMediaButtons;
+	this.nextMedia = nextMedia;
+	this.previousMedia = previousMedia;
+	
 	
 	var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
 	this.title = titleElements[0].firstChild.nodeValue;
@@ -49,15 +55,51 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function display () {
-		this.load();
+	function display (mediaSize) {
+		this.load(mediaSize);
 		var destination = getElementFromDocument('slide');
 		destination.innerHTML = "";
 		
- 		destination.innerHTML += "<div id='image'>The Image Goes Here</div>";
+		destination.innerHTML += "\n<div id='media_buttons' class='toolbar'/>";
+ 		destination.innerHTML += "\n<div id='image' class='content'>The Image Goes Here</div>";
+		destination.innerHTML += "\n<div id='slide_text' class='content'>";
 		destination.innerHTML += "\n<strong>" + this.title + "</strong>";
 		destination.innerHTML += "\n<br/>" + this.caption + "";
+		destination.innerHTML += "\n</div>";
 		
+		this.media[this.currentMediaIndex].display(mediaSize);
+		this.displayMediaButtons();
+	}
+	
+	/**
+	 * Display the media buttons if we have more than one media item.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function displayMediaButtons () {
+		var destination = getElementFromDocument('media_buttons');
+		var toolbars = getElementFromDocument('toolbars');
+		if (this.media.length > 1) {
+			destination.style.display = "block";
+			destination.innerHTML = "Media Number: ";
+			destination.innerHTML += (this.currentMediaIndex + 1);
+			destination.innerHTML += " of: ";
+			destination.innerHTML += this.media.length;
+			
+			var previousDisabled = "";
+			var nextDisabled = "";
+			if (this.currentMediaIndex <= 0)
+				previousDisabled = " disabled='disabled'";
+			if (this.currentMediaIndex >= (this.media.length - 1))
+				nextDisabled = " disabled='disabled'";
+				
+			destination.innerHTML += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previousMedia()' value='&lt;'/>";
+			destination.innerHTML += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.nextMedia()' value='&gt;'/>";
+		} else {
+			destination.style.display = "none";
+		}
 	}
 	
 	/**
@@ -67,9 +109,9 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function load () {
+	function load (mediaSize) {
 		for (var i = 0; i < this.media.length; i++) {
-			this.media[i].load();
+			this.media[i].load(mediaSize);
 		}
 	}
 	
@@ -84,5 +126,43 @@ function Slide (xmlDocument, slideXmlNode) {
 		for (var i = 0; i < this.media.length; i++) {
 			this.media[i].unload();
 		}
+	}
+	
+	/**
+	 * Answer the availible sizes of media
+	 * 
+	 * @return array
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function getMediaSizes () {
+		var sizes = new Array();
+		for (var i = 0; i < this.media.length; i++) {
+			sizes = sizes.concat(this.media[i].getMediaSizes());
+		}
+		
+		return arrayUnique(sizes);
+	}
+	
+	/**
+	 * Advance to the next slide and display it.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function nextMedia () {
+		this.currentMediaIndex++;
+	}
+	
+	/**
+	 * Go back to the previous slide and display it.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function previousMedia () {
+		this.currentMediaIndex--;
 	}
 }

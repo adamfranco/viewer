@@ -24,6 +24,8 @@ function SlideShow () {
 	var req;
 	this.slides;
 	this.currentIndex = 0;
+	this.mediaSize = 'original';
+	this.title = 'SlideShow';
 	
 	var me = this;
 	this.loadXMLDoc = loadXMLDoc;
@@ -33,6 +35,10 @@ function SlideShow () {
 	this.processReqChange = processReqChange;
 	this.createSlides = createSlides;
 	this.cacheAround = cacheAround;
+	this.getMediaSizes = getMediaSizes;
+	this.changeMediaSize = changeMediaSize;
+	this.nextMedia = nextMedia;
+	this.previousMedia = previousMedia;
 	
 	/**
 	 * Load the XML document and set the callback to process when loading
@@ -102,13 +108,19 @@ function SlideShow () {
 	 * @since 8/22/05
 	 */
 	function createSlides ( xmlDocument ) {		
+		var titleElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/title");
+		if (titleElements.length > 0) {
+			this.title = titleElements[0].firstChild.nodeValue;
+			document.title = this.title;
+		}
+		
 		var slideElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/slide");
 		this.slides = new Array(slideElements.length);
 		for (var i = 0; i < slideElements.length; i++) {
  			this.slides[i] = new Slide(xmlDocument, slideElements[i]);
 		}
 		this.display();
-// 		this.cacheAround(currentIndex);
+		this.cacheAround(this.currentIndex);
 	}
 	
 	/**
@@ -121,8 +133,8 @@ function SlideShow () {
 	function display () {
 		var destination = getElementFromDocument('toolbars');
 		
-		destination.innerHTML = "\n<br/>Slide Number: " + (this.currentIndex + 1);
-		destination.innerHTML += " of: " + this.slides.length;
+		destination.innerHTML = "\nSlide Number: " + (this.currentIndex + 1);
+		destination.innerHTML += " of: " + this.slides.length + " ";
 		
 		var previousDisabled = "";
 		var nextDisabled = "";
@@ -131,10 +143,26 @@ function SlideShow () {
 		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
-		destination.innerHTML += "<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
-		destination.innerHTML += "<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
+		destination.innerHTML += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
+		destination.innerHTML += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
 		
-		this.slides[this.currentIndex].display();
+		
+		var sizes = this.getMediaSizes();
+		var selected;
+		var sizeSelect = "\n<select id='media_size' onchange='Javascript:slideShow.changeMediaSize()'>";
+		for (var i = 0; i < sizes.length; i++) {
+			if (this.mediaSize == sizes[i]) {
+				selected = " selected='selected'";
+			} else {
+				selected = '';
+			}
+			sizeSelect += "\n\t<option value='" + sizes[i] + "'" + selected + ">" + sizes[i] + "</option>";
+		}
+		sizeSelect += "\n</select>";
+		
+		destination.innerHTML += sizeSelect;
+		
+		this.slides[this.currentIndex].display(this.mediaSize);
 	}
 	
 	/**
@@ -180,10 +208,10 @@ function SlideShow () {
 				
 		// Load the needed images
 		for (i = index + 1; (i <= (index + numToCacheAhead) && (i < this.slides.length)); i++) {
-			this.slides[i].load();
+			this.slides[i].load(this.mediaSize);
 		}
 		for (i = index - 1; (i >= (index - numToCacheBehind) && (i >= 0)); i--) {
-			this.slides[i].load();
+			this.slides[i].load(this.mediaSize);
 		}
 		
 		// unload the excess images
@@ -193,6 +221,62 @@ function SlideShow () {
 		for (i = (index - numToCacheBehind - 1); i >= 0; i--) {
 			this.slides[i].unload();
 		}
+	}
+	
+	/**
+	 * Answer the availible sizes of media
+	 * 
+	 * @return array
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function getMediaSizes () {
+		if (this.sizes == null) {
+			var sizes = new Array();
+			for (var i = 0; i < this.slides.length; i++) {
+				sizes = sizes.concat(this.slides[i].getMediaSizes());
+			}
+			this.sizes = arrayUnique(sizes);
+		}
+		return this.sizes;
+	}
+	
+	/**
+	 * Change the media size.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function changeMediaSize () {
+		var sizeElement = getElementFromDocument('media_size');
+		this.mediaSize = sizeElement.value;
+		this.display();
+		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
+	 * Advance to the next media and display it.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function nextMedia () {
+		this.slides[this.currentIndex].nextMedia();
+		this.display();
+	}
+	
+	/**
+	 * Go back to the previous media and display it.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function previousMedia () {
+		this.slides[this.currentIndex].previousMedia();
+		this.display();
 	}
 }
 
