@@ -27,6 +27,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	this.currentMediaSize = 'original';
 	this.zoomLevel = 1;
 	this.zoomIncrement = 1.25;
+	this.fitMargin = 20;
 	
 	this.display = display;
 	this.redisplay = redisplay;
@@ -39,6 +40,9 @@ function Media ( xmlDocument, mediaXMLNode) {
 	this.zoomOut = zoomOut;
 	this.zoomToFull = zoomToFull;
 	this.zoomToFit = zoomToFit;
+	this.isLargerThanTarget = isLargerThanTarget;
+	this.getCenteredX = getCenteredX;
+	this.getCenteredY = getCenteredY;
 	
 	var versionElements = getElementsByPath(xmlDocument, mediaXMLNode, "version");
 	for (var i = 0; i < versionElements.length; i++) {
@@ -49,6 +53,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 			var size = this.getSizeIndex('original');
 		
 		this.versions[size] = new Array();
+		this.versions[size]['zoomToFit'] = true;
 		
 		var urlElements = getElementsByPath(xmlDocument, versionElements[i], "url");
 		if (urlElements.length > 0)
@@ -79,13 +84,22 @@ function Media ( xmlDocument, mediaXMLNode) {
 		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var size = this.selectSizeIndex(mediaSize);
+		
+		// If we haven't displayed this media yet, zoom to fit.
+		if (this.versions[size]['zoomToFit'] != null) {
+			this.versions[size]['zoomToFit'] = null;
+			if (this.isLargerThanTarget(this.versions[size])) {
+				this.zoomToFit();
+				return;
+			}
+		}
 				
 		var html = "";
  		html += "<img";
  		html += " src='" + this.versions[size]['image'].src + "'";
  		html += " height='" + (pixelsToInteger(this.versions[size]['height']) * this.zoomLevel) + "px'";
  		html += " width='" + (pixelsToInteger(this.versions[size]['width']) * this.zoomLevel) + "px'";
- 		html += " align='left' />";
+ 		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
 		var destination = getElementFromDocument('image');
 		destination.innerHTML = html;
 	}
@@ -236,8 +250,8 @@ function Media ( xmlDocument, mediaXMLNode) {
 	function zoomToFit () {
 		var version = this.versions[this.selectSizeIndex(this.currentMediaSize)];
 		
-		var targetHeight = getElementHeight('image');
-		var targetWidth = getElementWidth('image');
+		var targetHeight = getElementHeight('image') - this.fitMargin;
+		var targetWidth = getElementWidth('image') - this.fitMargin;
 		var imageHeight = pixelsToInteger(version['height']);
 		var imageWidth = pixelsToInteger(version['width']);
 		
@@ -250,6 +264,68 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 		this.zoomLevel = widthRatio;
 	 	
 		this.redisplay();
+	}
+	
+	/**
+	 * Answer the integer number of pixels in the X-direction to offset the 
+	 * image in order to center it.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function getCenteredX () {
+		var version = this.versions[this.selectSizeIndex(this.currentMediaSize)];
+		
+		var targetWidth = getElementWidth('image') - this.fitMargin;
+		var imageWidth = pixelsToInteger(version['width']) * this.zoomLevel;
+		
+		if (imageWidth > targetWidth) {
+			return 0;
+		} else {
+			return ((targetWidth/2) - (imageWidth/2));
+		}
+	}
+	
+	/**
+	 * Answer the integer number of pixels in the X-direction to offset the 
+	 * image in order to center it.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function getCenteredY () {
+		var version = this.versions[this.selectSizeIndex(this.currentMediaSize)];
+		
+		var targetHeight = getElementHeight('image') - this.fitMargin;
+		var imageHeight = pixelsToInteger(version['height']) * this.zoomLevel;
+		
+		if (imageHeight > targetHeight) {
+			return 0;
+		} else {
+			return ((targetHeight/2) - (imageHeight/2));
+		}
+	}
+	
+	/**
+	 * Answer true if the image is larger than the target area it will go in.
+	 * 
+	 * @param array version The image version to check.
+	 * @return boolean
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function isLargerThanTarget (version) {
+		var targetHeight = getElementHeight('image') - this.fitMargin;
+		var targetWidth = getElementWidth('image') - this.fitMargin;
+		var imageHeight = pixelsToInteger(version['height']);
+		var imageWidth = pixelsToInteger(version['width']);
+		
+		if (imageHeight < targetHeight && imageWidth < targetWidth)
+			return false;
+		else
+			return true;
 	}
 }
 

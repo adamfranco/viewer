@@ -53,6 +53,7 @@ function SlideShow () {
 	viewerElement.innerHTML += "\n<div id='toolbars' class='toolbar' />";
 	viewerElement.innerHTML += "\n<div id='slide' />";
 	viewerElement.innerHTML += "\n<span id='loading' class='hidden'>loading...</span>";
+// 	viewerElement.style.overflow = 'hidden';
 	
 	var toolbarsElement = getElementFromDocument('toolbars');
 	toolbarsElement.style.height =  this.getToolbarHeight() + "px";

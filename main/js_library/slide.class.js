@@ -75,20 +75,22 @@ function Slide (xmlDocument, slideXmlNode) {
 		var mediaButtonsElement = getElementFromDocument('media_buttons');
 		mediaButtonsElement.style.position = "absolute";
 		mediaButtonsElement.style.top = "0px";
-		mediaButtonsElement.style.left = "0px";
+		mediaButtonsElement.style.left = "200px";
 		mediaButtonsElement.style.height = "30px";
-		mediaButtonsElement.style.width = getElementWidth('slide') + "px";
-		mediaButtonsElement.style.border = "1px solid #0f0";
+		mediaButtonsElement.style.width = (getElementWidth('slide') - 200) + "px";
+// 		mediaButtonsElement.style.border = "1px solid #0f0";
 
 		
 		var textElement = getElementFromDocument('slide_text');
 		textElement.style.position = "absolute";
-		textElement.style.top = "30px";
 		textElement.style.left = "0px";
-		textElement.style.height = (getElementHeight('slide') - 30) + "px";
-		textElement.style.width = "200px";
+		textElement.style.top = "0px";
+		textElement.style.height = (getElementHeight('slide') - 5) + "px";
+		textElement.style.width = "195px";
 		textElement.style.overflow = "scroll";
-		textElement.style.border = "1px solid #f00";
+		textElement.style.paddingTop = "5px";
+		textElement.style.paddingLeft = "5px";
+// 		textElement.style.border = "1px solid #f00";
 		
 		textElement.innerHTML = "\n<strong>" + this.title + "</strong>";
 		textElement.innerHTML += "\n<br/>" + this.caption + "";
@@ -96,12 +98,17 @@ function Slide (xmlDocument, slideXmlNode) {
 		
 		var imageElement = getElementFromDocument('image');
 		imageElement.style.position = "absolute";
-		imageElement.style.top = "30px";
 		imageElement.style.left = "200px";
-		imageElement.style.height = (getElementHeight('slide') - 30) + "px";
+		if (this.media.length > 1) {
+			imageElement.style.top = "30px";
+			imageElement.style.height = (getElementHeight('slide') - 30) + "px";
+		} else {
+			imageElement.style.top = "0px";
+			imageElement.style.height = getElementHeight('slide') + "px";
+		}
 		imageElement.style.width = (getElementWidth('slide') - 200) + "px";
 		imageElement.style.overflow = "scroll";
-		imageElement.style.border = "1px solid #00f";
+// 		imageElement.style.border = "1px solid #00f";
 		
 		
 		this.media[this.currentMediaIndex].display(mediaSize);
