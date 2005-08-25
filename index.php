@@ -29,20 +29,14 @@
 			}
 			
 			.toolbar {
-				border-bottom: 1px solid #000;
-				padding: 5px;
-				left: 0px;
-				top: 0px;
-				width: 100%;
+				border-bottom: 1px solid #500;
 			}
 			
 			.content {
 				margin-top: 5px;
 			}
 			
-			#media_buttons {
 
-			}
 			
 			/* ]]> */
 		</style>
@@ -60,27 +54,17 @@
 			
 			<?php require_once(dirname(__FILE__)."/main/js_library/functions.js"); ?>
 			
-			/**
-			 * Run our slideshow
-			 * 
-			 * @access public
-			 * @since 8/22/05
-			 */
-			function runSlideShow () {
-				slideShow = new SlideShow();
-				slideShow.loadXMLDoc(
-					'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml');
-			}
-			
 			/*]]>*/
 		</script>
 		<title>Concerto: Browsing Exhibition *Turkey* </title>
 	</head>
-	<body onload='Javascript:runSlideShow()'>
-		<div id='toolbars' class='toolbar'>
-			Toolbars
+	<body onload="Javascript:runSlideShow('http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml')">
+<!-- 
+		<div style='border: 2px dashed #0aa'>
+ -->
+			<div id='viewer' style='height: 500px; width: 600px; border: 1px solid #500; position: relative;' />
+<!-- 
 		</div>
-		<div id='slide' />
-		<span id="loading" class="hidden">loading...</span>
+ -->
 	</body>
 </html>

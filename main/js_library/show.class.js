@@ -39,7 +39,36 @@ function SlideShow () {
 	this.changeMediaSize = changeMediaSize;
 	this.nextMedia = nextMedia;
 	this.previousMedia = previousMedia;
+	this.zoomIn = zoomIn;
+	this.zoomOut = zoomOut;
+	this.zoomToFull = zoomToFull;
+	this.zoomToFit = zoomToFit;
+	this.getViewerHeight = getViewerHeight;
+	this.getViewerWidth = getViewerWidth;
+	this.getToolbarHeight = getToolbarHeight;
 	
+	// Write our main div elements
+	var viewerElement = getElementFromDocument('viewer');
+	viewerElement.innerHTML = "";
+	viewerElement.innerHTML += "\n<div id='toolbars' class='toolbar' />";
+	viewerElement.innerHTML += "\n<div id='slide' />";
+	viewerElement.innerHTML += "\n<span id='loading' class='hidden'>loading...</span>";
+	
+	var toolbarsElement = getElementFromDocument('toolbars');
+	toolbarsElement.style.height =  this.getToolbarHeight() + "px";
+	toolbarsElement.style.width =  this.getViewerWidth() + "px";
+	toolbarsElement.style.position = "absolute";
+	toolbarsElement.style.left = "0px";
+	toolbarsElement.style.top = "0px";
+	
+	var slideElement = getElementFromDocument('slide');
+	slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
+	slideElement.style.width =  this.getViewerWidth() + "px";
+	slideElement.style.position = "absolute";
+	slideElement.style.left = "0px";
+	slideElement.style.top = this.getToolbarHeight() + "px";
+	
+		
 	/**
 	 * Load the XML document and set the callback to process when loading
 	 * state changes.
@@ -130,11 +159,15 @@ function SlideShow () {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function display () {
+	function display () {		
 		var destination = getElementFromDocument('toolbars');
+		var html = "";
 		
-		destination.innerHTML = "\nSlide Number: " + (this.currentIndex + 1);
-		destination.innerHTML += " of: " + this.slides.length + " ";
+		
+		// Next/Previous buttons
+		html += "\n<div id='main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+		html += "\nSlide Number: " + (this.currentIndex + 1);
+		html += " of: " + this.slides.length + " ";
 		
 		var previousDisabled = "";
 		var nextDisabled = "";
@@ -143,25 +176,36 @@ function SlideShow () {
 		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
-		destination.innerHTML += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
-		destination.innerHTML += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
+		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
+		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
 		
 		
+		// Media size selection
 		var sizes = this.getMediaSizes();
 		var selected;
-		var sizeSelect = "\n<select id='media_size' onchange='Javascript:slideShow.changeMediaSize()'>";
+		html += "\n<select id='media_size' onchange='Javascript:slideShow.changeMediaSize()'>";
 		for (var i = 0; i < sizes.length; i++) {
 			if (this.mediaSize == sizes[i]) {
 				selected = " selected='selected'";
 			} else {
 				selected = '';
 			}
-			sizeSelect += "\n\t<option value='" + sizes[i] + "'" + selected + ">" + sizes[i] + "</option>";
+			html += "\n\t<option value='" + sizes[i] + "'" + selected + ">" + sizes[i] + "</option>";
 		}
-		sizeSelect += "\n</select>";
+		html += "\n</select>";
+				
 		
-		destination.innerHTML += sizeSelect;
+		// Zoom Buttons
+		html += " \n<input type='button' onclick='Javascript:slideShow.zoomIn()' value='+'/>";
+		html += "\n<input type='button' onclick='Javascript:slideShow.zoomOut()' value='-'/>";
+		html += " \n<input type='button' onclick='Javascript:slideShow.zoomToFull()' value='100%'/>";
+		html += "\n<input type='button' onclick='Javascript:slideShow.zoomToFit()' value='&lt;--&gt;'/>";
 		
+		
+		html += "\n</div>";
+		destination.innerHTML = html;
+		
+		// display the size
 		this.slides[this.currentIndex].display(this.mediaSize);
 	}
 	
@@ -264,7 +308,6 @@ function SlideShow () {
 	 */
 	function nextMedia () {
 		this.slides[this.currentIndex].nextMedia();
-		this.display();
 	}
 	
 	/**
@@ -276,7 +319,91 @@ function SlideShow () {
 	 */
 	function previousMedia () {
 		this.slides[this.currentIndex].previousMedia();
-		this.display();
+	}
+	
+	/**
+	 * Zoom in on the current slide
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomIn () {
+		this.slides[this.currentIndex].zoomIn();
+	}
+	
+	/**
+	 * Zoom in on the current slide
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomOut () {
+		this.slides[this.currentIndex].zoomOut();
+	}
+	
+	/**
+	 * Zoom to 100%
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFull () {
+		this.slides[this.currentIndex].zoomToFull();
+	}
+	
+	/**
+	 * Zoom to fit
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFit () {
+		this.slides[this.currentIndex].zoomToFit();
+	}
+	
+	/**
+	 * Answer the height of the viewer. 
+	 * This will either be the height of the viewer <div> tag or the height of
+	 * the window.
+	 * 
+	 * @return string
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function getViewerHeight () {
+		return getElementHeight('viewer');
+		
+		// @todo, add window size sniffing.
+	}
+	
+	/**
+	 * Answer the width of the viewer. 
+	 * This will either be the width of the viewer <div> tag or the width of
+	 * the window.
+	 * 
+	 * @return string
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function getViewerWidth () {
+		return getElementWidth('viewer');
+		
+		// @todo, add window size sniffing.
+	}
+	
+	/**
+	 * Answer the height of the toolbars.
+	 * 
+	 * @return string
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function getToolbarHeight () {
+		return '30';
 	}
 }
 

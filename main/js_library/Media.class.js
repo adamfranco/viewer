@@ -24,12 +24,21 @@ function Media ( xmlDocument, mediaXMLNode) {
 		
 	this.versions = new Array ();
 	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
+	this.currentMediaSize = 'original';
+	this.zoomLevel = 1;
+	this.zoomIncrement = 1.25;
+	
 	this.display = display;
+	this.redisplay = redisplay;
 	this.load = load;
 	this.unload = unload;
 	this.getMediaSizes = getMediaSizes;
 	this.getSizeIndex = getSizeIndex;
 	this.selectSizeIndex = selectSizeIndex;
+	this.zoomIn = zoomIn;
+	this.zoomOut = zoomOut;
+	this.zoomToFull = zoomToFull;
+	this.zoomToFit = zoomToFit;
 	
 	var versionElements = getElementsByPath(xmlDocument, mediaXMLNode, "version");
 	for (var i = 0; i < versionElements.length; i++) {
@@ -61,27 +70,41 @@ function Media ( xmlDocument, mediaXMLNode) {
 	/**
 	 * Display the slide content in the 'slide' div.
 	 * 
+	 * @param string mediaSize
 	 * @return void
 	 * @access public
 	 * @since 8/22/05
 	 */
 	function display (mediaSize) {
+		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var size = this.selectSizeIndex(mediaSize);
-		
+				
 		var html = "";
  		html += "<img";
  		html += " src='" + this.versions[size]['image'].src + "'";
- 		html += " height='" + this.versions[size]['height'] + "'";
- 		html += " width='" + this.versions[size]['width'] + "'";
+ 		html += " height='" + (pixelsToInteger(this.versions[size]['height']) * this.zoomLevel) + "px'";
+ 		html += " width='" + (pixelsToInteger(this.versions[size]['width']) * this.zoomLevel) + "px'";
  		html += " align='left' />";
 		var destination = getElementFromDocument('image');
 		destination.innerHTML = html;
 	}
 	
 	/**
+	 * Redisplay the media based on our current media size
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function redisplay () {
+		this.display(this.currentMediaSize);
+	}
+	
+	/**
 	 * Load and cache the image
 	 * 
+	 * @param string mediaSize
 	 * @return void
 	 * @access public
 	 * @since 8/23/05
@@ -165,6 +188,68 @@ function Media ( xmlDocument, mediaXMLNode) {
 		}
 		
 		alert("No media version exists.");
+	}
+	
+	/**
+	 * Zoom in and redisplay
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomIn () {
+		this.zoomLevel = this.zoomLevel * this.zoomIncrement;
+		this.redisplay();
+	}
+	
+	/**
+	 * Zoom in and redisplay
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomOut () {
+		this.zoomLevel = this.zoomLevel / this.zoomIncrement;
+		this.redisplay();
+	}
+	
+	/**
+	 * Zoom to 100% and redisplay
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFull () {
+		this.zoomLevel = 1;
+		this.redisplay();
+	}
+	
+	/**
+	 * Zoom to fit and redisplay
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFit () {
+		var version = this.versions[this.selectSizeIndex(this.currentMediaSize)];
+		
+		var targetHeight = getElementHeight('image');
+		var targetWidth = getElementWidth('image');
+		var imageHeight = pixelsToInteger(version['height']);
+		var imageWidth = pixelsToInteger(version['width']);
+		
+		var heightRatio = targetHeight/imageHeight;
+		var widthRatio = targetWidth/imageWidth;
+		
+		if (heightRatio <= widthRatio)
+	 		this.zoomLevel = heightRatio;
+	 	else
+	 		this.zoomLevel = widthRatio;
+	 	
+		this.redisplay();
 	}
 }
 

@@ -25,14 +25,20 @@ function Slide (xmlDocument, slideXmlNode) {
 	this.caption;
 	this.media = new Array();
 	this.currentMediaIndex = 0;
+	this.currentMediaSize;
 	
 	this.display = display;
+	this.redisplay = redisplay;
 	this.load = load;
 	this.unload = unload;
 	this.getMediaSizes = getMediaSizes;
 	this.displayMediaButtons = displayMediaButtons;
 	this.nextMedia = nextMedia;
 	this.previousMedia = previousMedia;
+	this.zoomIn = zoomIn;
+	this.zoomOut = zoomOut;
+	this.zoomToFull = zoomToFull;
+	this.zoomToFit = zoomToFit;
 	
 	
 	var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
@@ -51,24 +57,69 @@ function Slide (xmlDocument, slideXmlNode) {
 	/**
 	 * Display the slide content in the 'slide' div.
 	 * 
+	 * @param string mediaSize
 	 * @return void
 	 * @access public
 	 * @since 8/22/05
 	 */
 	function display (mediaSize) {
+		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var destination = getElementFromDocument('slide');
-		destination.innerHTML = "";
+		var html = "";
 		
-		destination.innerHTML += "\n<div id='media_buttons' class='toolbar'/>";
- 		destination.innerHTML += "\n<div id='image' class='content'>The Image Goes Here</div>";
-		destination.innerHTML += "\n<div id='slide_text' class='content'>";
-		destination.innerHTML += "\n<strong>" + this.title + "</strong>";
-		destination.innerHTML += "\n<br/>" + this.caption + "";
-		destination.innerHTML += "\n</div>";
+// 		html += "\n<div id='media_buttons' class='toolbar'";
+// 		html += " style='";
+// 			html += " position: absolute;";
+// 			html += " height: 30px;";
+// 			html += " width: " + getElementWidth('slide') + "px;";
+// 			html += " border: 1px solid #0f0;";
+// 		html += "' />";
+
+		
+		html += "\n<div id='slide_text' class='content'";
+		html += " style='";
+			html += " overflow: scroll;";
+			html += " position: absolute;";
+			html += " height: " + (getElementHeight('slide') - 30) + "px;";
+			html += " width: 200px;";
+			html += " border: 1px solid #f00;";
+			html += " top: 30px;";
+			html += " left: 0px;";
+		html += "'>";
+		
+		html += "\n<strong>" + this.title + "</strong>";
+		html += "\n<br/>" + this.caption + "";
+		html += "\n</div>";
+
+ 		 		
+ 		html += "\n<div id='image' class='content'";
+ 		html += " style='";
+ 			html += " overflow: scroll;";
+ 			html += " position: absolute;";
+ 			html += " height: " + (getElementHeight('slide') - 30) + "px;";
+ 			html += " width: " + (getElementWidth('slide') - 200) + "px;";
+ 			html += " border: 1px solid #00f;";
+ 			html += " top: 30px;";
+			html += " left: 200px;";
+			
+ 		html += "' />";
+		
+		destination.innerHTML = html;
 		
 		this.media[this.currentMediaIndex].display(mediaSize);
-		this.displayMediaButtons();
+// 		this.displayMediaButtons();
+	}
+	
+	/**
+	 * Redisplay the slide with the current mediaSize
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function redisplay () {
+		this.display(this.currentMediaSize);
 	}
 	
 	/**
@@ -83,10 +134,10 @@ function Slide (xmlDocument, slideXmlNode) {
 		var toolbars = getElementFromDocument('toolbars');
 		if (this.media.length > 1) {
 			destination.style.display = "block";
-			destination.innerHTML = "Media Number: ";
-			destination.innerHTML += (this.currentMediaIndex + 1);
-			destination.innerHTML += " of: ";
-			destination.innerHTML += this.media.length;
+			var html = "Media Number: ";
+			html += (this.currentMediaIndex + 1);
+			html += " of: ";
+			html += this.media.length;
 			
 			var previousDisabled = "";
 			var nextDisabled = "";
@@ -95,8 +146,10 @@ function Slide (xmlDocument, slideXmlNode) {
 			if (this.currentMediaIndex >= (this.media.length - 1))
 				nextDisabled = " disabled='disabled'";
 				
-			destination.innerHTML += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previousMedia()' value='&lt;'/>";
-			destination.innerHTML += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.nextMedia()' value='&gt;'/>";
+			html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previousMedia()' value='&lt;'/>";
+			html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.nextMedia()' value='&gt;'/>";
+			
+			destination.innerHTML = html;
 		} else {
 			destination.style.display = "none";
 		}
@@ -153,6 +206,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 */
 	function nextMedia () {
 		this.currentMediaIndex++;
+		this.redisplay();
 	}
 	
 	/**
@@ -164,5 +218,50 @@ function Slide (xmlDocument, slideXmlNode) {
 	 */
 	function previousMedia () {
 		this.currentMediaIndex--;
+		this.redisplay();
+	}
+	
+	/**
+	 * Zoom in on the current media
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomIn () {
+		this.media[this.currentMediaIndex].zoomIn();
+	}
+	
+	/**
+	 * Zoom in on the current media
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomOut () {
+		this.media[this.currentMediaIndex].zoomOut();
+	}
+	
+	/**
+	 * Zoom to 100%
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFull () {
+		this.media[this.currentMediaIndex].zoomToFull();
+	}
+	
+	/**
+	 * Zoom to fit
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	function zoomToFit () {
+		this.media[this.currentMediaIndex].zoomToFit();
 	}
 }
