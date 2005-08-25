@@ -33,7 +33,6 @@
 			}
 			
 			.content {
-				margin-top: 5px;
 			}
 			
 

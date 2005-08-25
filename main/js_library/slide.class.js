@@ -66,49 +66,46 @@ function Slide (xmlDocument, slideXmlNode) {
 		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var destination = getElementFromDocument('slide');
-		var html = "";
+		destination.innerHTML = "";
 		
-// 		html += "\n<div id='media_buttons' class='toolbar'";
-// 		html += " style='";
-// 			html += " position: absolute;";
-// 			html += " height: 30px;";
-// 			html += " width: " + getElementWidth('slide') + "px;";
-// 			html += " border: 1px solid #0f0;";
-// 		html += "' />";
+		destination.innerHTML += "\n<div id='media_buttons' class='toolbar' />";
+		destination.innerHTML += "\n<div id='slide_text' class='content' />";
+		destination.innerHTML += "\n<div id='image' />";
+		
+		var mediaButtonsElement = getElementFromDocument('media_buttons');
+		mediaButtonsElement.style.position = "absolute";
+		mediaButtonsElement.style.top = "0px";
+		mediaButtonsElement.style.left = "0px";
+		mediaButtonsElement.style.height = "30px";
+		mediaButtonsElement.style.width = getElementWidth('slide') + "px";
+		mediaButtonsElement.style.border = "1px solid #0f0";
 
 		
-		html += "\n<div id='slide_text' class='content'";
-		html += " style='";
-			html += " overflow: scroll;";
-			html += " position: absolute;";
-			html += " height: " + (getElementHeight('slide') - 30) + "px;";
-			html += " width: 200px;";
-			html += " border: 1px solid #f00;";
-			html += " top: 30px;";
-			html += " left: 0px;";
-		html += "'>";
+		var textElement = getElementFromDocument('slide_text');
+		textElement.style.position = "absolute";
+		textElement.style.top = "30px";
+		textElement.style.left = "0px";
+		textElement.style.height = (getElementHeight('slide') - 30) + "px";
+		textElement.style.width = "200px";
+		textElement.style.overflow = "scroll";
+		textElement.style.border = "1px solid #f00";
 		
-		html += "\n<strong>" + this.title + "</strong>";
-		html += "\n<br/>" + this.caption + "";
-		html += "\n</div>";
-
- 		 		
- 		html += "\n<div id='image' class='content'";
- 		html += " style='";
- 			html += " overflow: scroll;";
- 			html += " position: absolute;";
- 			html += " height: " + (getElementHeight('slide') - 30) + "px;";
- 			html += " width: " + (getElementWidth('slide') - 200) + "px;";
- 			html += " border: 1px solid #00f;";
- 			html += " top: 30px;";
-			html += " left: 200px;";
-			
- 		html += "' />";
+		textElement.innerHTML = "\n<strong>" + this.title + "</strong>";
+		textElement.innerHTML += "\n<br/>" + this.caption + "";
 		
-		destination.innerHTML = html;
+		
+		var imageElement = getElementFromDocument('image');
+		imageElement.style.position = "absolute";
+		imageElement.style.top = "30px";
+		imageElement.style.left = "200px";
+		imageElement.style.height = (getElementHeight('slide') - 30) + "px";
+		imageElement.style.width = (getElementWidth('slide') - 200) + "px";
+		imageElement.style.overflow = "scroll";
+		imageElement.style.border = "1px solid #00f";
+		
 		
 		this.media[this.currentMediaIndex].display(mediaSize);
-// 		this.displayMediaButtons();
+ 		this.displayMediaButtons();
 	}
 	
 	/**
