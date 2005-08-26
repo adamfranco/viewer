@@ -39,6 +39,9 @@ function getElementFromDocument(id) {
  * @since 8/23/05
  */
 function getElementsByPath (xmlDocument, contextNode, searchString) {
+	if (xmlDocument == null || contextNode == null || searchString == null) {
+		alert("Invalid arguments for getElementsByPath(" + xmlDocument + ", " + contextNode + ", '" + searchString + "');");
+	}
 	if (xmlDocument.evaluate) {
 		// Mozilla Version
 		var nodeIterator = xmlDocument.evaluate(

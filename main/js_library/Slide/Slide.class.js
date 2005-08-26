@@ -21,38 +21,38 @@
  * @version $Id$
  */
 function Slide (xmlDocument, slideXmlNode) {
-	this.title;
-	this.caption;
-	this.media = new Array();
-	this.currentMediaIndex = 0;
-	this.currentMediaSize;
-	
-	this.display = display;
-	this.redisplay = redisplay;
-	this.load = load;
-	this.unload = unload;
-	this.getMediaSizes = getMediaSizes;
-	this.displayMediaButtons = displayMediaButtons;
-	this.nextMedia = nextMedia;
-	this.previousMedia = previousMedia;
-	this.zoomIn = zoomIn;
-	this.zoomOut = zoomOut;
-	this.zoomToFull = zoomToFull;
-	this.zoomToFit = zoomToFit;
-	
-	
-	var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
-	this.title = titleElements[0].firstChild.nodeValue;
-	
-	var captionElements = getElementsByPath(xmlDocument, slideXmlNode, "caption");
-	this.caption = captionElements[0].firstChild.nodeValue;
-	
-	var mediaElements = getElementsByPath(xmlDocument, slideXmlNode, "media");
-	for (var i = 0; i < mediaElements.length; i++) {
-		this.media[i] = new Media( xmlDocument, mediaElements[i]);
+	if ( arguments.length > 0 ) {
+		this.init( xmlDocument, slideXmlNode );
 	}
+}
 	
-
+	/**
+	 * initialize our object. Necessary for proper inheritance to work.
+	 * 
+	 * @param object Document xmlDocument
+	 * @param object Node slideXmlNode
+	 * @return void
+	 * @access public
+	 * @since 8/26/05
+	 */
+	Slide.prototype.init = function ( xmlDocument, slideXmlNode ) {
+		this.title;
+		this.caption;
+		this.media = new Array();
+		this.currentMediaIndex = 0;
+		this.currentMediaSize;	
+		
+		var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
+		this.title = titleElements[0].firstChild.nodeValue;
+		
+		var captionElements = getElementsByPath(xmlDocument, slideXmlNode, "caption");
+		this.caption = captionElements[0].firstChild.nodeValue;
+		
+		var mediaElements = getElementsByPath(xmlDocument, slideXmlNode, "media");
+		for (var i = 0; i < mediaElements.length; i++) {
+			this.media[i] = new MediaContainer( xmlDocument, mediaElements[i]);
+		}
+	}
 	
 	/**
 	 * Display the slide content in the 'slide' div.
@@ -62,57 +62,8 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function display (mediaSize) {
-		this.currentMediaSize = mediaSize;
-		this.load(mediaSize);
-		var destination = getElementFromDocument('slide');
-		destination.innerHTML = "";
-		
-		destination.innerHTML += "\n<div id='media_buttons' class='toolbar' />";
-		destination.innerHTML += "\n<div id='slide_text' class='content' />";
-		destination.innerHTML += "\n<div id='image' />";
-		
-		var mediaButtonsElement = getElementFromDocument('media_buttons');
-		mediaButtonsElement.style.position = "absolute";
-		mediaButtonsElement.style.top = "0px";
-		mediaButtonsElement.style.left = "200px";
-		mediaButtonsElement.style.height = "30px";
-		mediaButtonsElement.style.width = (getElementWidth('slide') - 200) + "px";
-// 		mediaButtonsElement.style.border = "1px solid #0f0";
-
-		
-		var textElement = getElementFromDocument('slide_text');
-		textElement.style.position = "absolute";
-		textElement.style.left = "0px";
-		textElement.style.top = "0px";
-		textElement.style.height = (getElementHeight('slide') - 5) + "px";
-		textElement.style.width = "195px";
-		textElement.style.overflow = "scroll";
-		textElement.style.paddingTop = "5px";
-		textElement.style.paddingLeft = "5px";
-// 		textElement.style.border = "1px solid #f00";
-		
-		textElement.innerHTML = "\n<strong>" + this.title + "</strong>";
-		textElement.innerHTML += "\n<br/>" + this.caption + "";
-		
-		
-		var imageElement = getElementFromDocument('image');
-		imageElement.style.position = "absolute";
-		imageElement.style.left = "200px";
-		if (this.media.length > 1) {
-			imageElement.style.top = "30px";
-			imageElement.style.height = (getElementHeight('slide') - 30) + "px";
-		} else {
-			imageElement.style.top = "0px";
-			imageElement.style.height = getElementHeight('slide') + "px";
-		}
-		imageElement.style.width = (getElementWidth('slide') - 200) + "px";
-		imageElement.style.overflow = "scroll";
-// 		imageElement.style.border = "1px solid #00f";
-		
-		
-		this.media[this.currentMediaIndex].display(mediaSize);
- 		this.displayMediaButtons();
+	Slide.prototype.display = function (mediaSize) {
+		alert ("display() must be overridden by a child class of Slide.");
 	}
 	
 	/**
@@ -122,7 +73,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function redisplay () {
+	Slide.prototype.redisplay = function () {
 		this.display(this.currentMediaSize);
 	}
 	
@@ -133,7 +84,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function displayMediaButtons () {
+	Slide.prototype.displayMediaButtons = function () {
 		var destination = getElementFromDocument('media_buttons');
 		var toolbars = getElementFromDocument('toolbars');
 		if (this.media.length > 1) {
@@ -166,7 +117,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function load (mediaSize) {
+	Slide.prototype.load = function (mediaSize) {
 		for (var i = 0; i < this.media.length; i++) {
 			this.media[i].load(mediaSize);
 		}
@@ -179,7 +130,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function unload () {
+	Slide.prototype.unload = function () {
 		for (var i = 0; i < this.media.length; i++) {
 			this.media[i].unload();
 		}
@@ -192,7 +143,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function getMediaSizes () {
+	Slide.prototype.getMediaSizes = function () {
 		var sizes = new Array();
 		for (var i = 0; i < this.media.length; i++) {
 			sizes = sizes.concat(this.media[i].getMediaSizes());
@@ -208,7 +159,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function nextMedia () {
+	Slide.prototype.nextMedia = function () {
 		this.currentMediaIndex++;
 		this.redisplay();
 	}
@@ -220,7 +171,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function previousMedia () {
+	Slide.prototype.previousMedia = function () {
 		this.currentMediaIndex--;
 		this.redisplay();
 	}
@@ -232,7 +183,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomIn () {
+	Slide.prototype.zoomIn = function () {
 		this.media[this.currentMediaIndex].zoomIn();
 	}
 	
@@ -243,7 +194,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomOut () {
+	Slide.prototype.zoomOut = function () {
 		this.media[this.currentMediaIndex].zoomOut();
 	}
 	
@@ -254,7 +205,7 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFull () {
+	Slide.prototype.zoomToFull = function () {
 		this.media[this.currentMediaIndex].zoomToFull();
 	}
 	
@@ -265,7 +216,6 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFit () {
+	Slide.prototype.zoomToFit = function () {
 		this.media[this.currentMediaIndex].zoomToFit();
 	}
-}

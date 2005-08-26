@@ -29,7 +29,7 @@
 			}
 			
 			.toolbar {
-				border-bottom: 1px solid #500;
+				border: 1px solid #500;
 			}
 			
 			.content {
@@ -45,11 +45,29 @@
 			
 			var slideShow;
 			
-			<?php require_once(dirname(__FILE__)."/main/js_library/show.class.js"); ?>
+			<?php require_once(dirname(__FILE__)."/main/js_library/Show.class.js"); ?>
 			
-			<?php require_once(dirname(__FILE__)."/main/js_library/slide.class.js"); ?>
+			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/Slide.class.js"); ?>
 			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media.class.js"); ?>
+			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextLeftSlide.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextRightSlide.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextBottomSlide.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextTopSlide.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/MediaContainer.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media/Media.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media/ImageMedia.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media/AudioMedia.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media/VideoMedia.class.js"); ?>
+			
+			<?php require_once(dirname(__FILE__)."/main/js_library/Media/FileMedia.class.js"); ?>
 			
 			<?php require_once(dirname(__FILE__)."/main/js_library/functions.js"); ?>
 			

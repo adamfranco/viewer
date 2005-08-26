@@ -147,7 +147,20 @@ function SlideShow () {
 		var slideElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/slide");
 		this.slides = new Array(slideElements.length);
 		for (var i = 0; i < slideElements.length; i++) {
- 			this.slides[i] = new Slide(xmlDocument, slideElements[i]);
+			var positionElements = getElementsByPath(xmlDocument, slideElements[i], "text-position");
+			if (positionElements[0])
+				var position = positionElements[0].firstChild.nodeValue;
+			else
+				var position = null;
+			
+			if (position == 'right')
+	 			this.slides[i] = new TextRightSlide(xmlDocument, slideElements[i]);
+	 		else if (position == 'bottom')
+	 			this.slides[i] = new TextBottomSlide(xmlDocument, slideElements[i]);
+	 		else if (position == 'top')
+	 			this.slides[i] = new TextTopSlide(xmlDocument, slideElements[i]);
+	 		else
+	 			this.slides[i] = new TextLeftSlide(xmlDocument, slideElements[i]);
 		}
 		this.display();
 		this.cacheAround(this.currentIndex);
