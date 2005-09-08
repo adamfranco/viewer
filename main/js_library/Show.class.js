@@ -26,12 +26,21 @@ function SlideShow () {
 	this.currentIndex = 0;
 	this.mediaSize = 'original';
 	this.title = 'SlideShow';
+	this.showPlaybackToolbar = true;
+	this.playing = false;
+	this.slide_delay = 3;
+	this.loop = false;
+	
 	
 	var me = this;
 	this.loadXMLDoc = loadXMLDoc;
 	this.display = display;
 	this.next = next;
+	this.hasNext = hasNext;
 	this.previous = previous;
+	this.play = play;
+	this.playAdvance = playAdvance;
+	this.pause = pause;
 	this.processReqChange = processReqChange;
 	this.createSlides = createSlides;
 	this.cacheAround = cacheAround;
@@ -217,6 +226,54 @@ function SlideShow () {
 		
 		
 		html += "\n</div>";
+		
+		
+		
+		if (this.showPlaybackToolbar == true) {
+			// Slideshow playing controls
+			html += "\n<div id='playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+			
+			if (this.playing == true) {
+				html += " \n<input id='play_button' type='button' onclick='Javascript:slideShow.play()' value='|&gt;' disabled='disabled'/>";
+				html += " \n<input id='pause_button' type='button' onclick='Javascript:slideShow.pause()' value='||'/>";
+			} else {
+				html += " \n<input id='play_button' type='button' onclick='Javascript:slideShow.play()' value='|&gt;'/>";
+				html += " \n<input id='pause_button' type='button' onclick='Javascript:slideShow.pause()' value='||' disabled='disabled'/>";
+			}
+			
+			// Media size selection
+			html += " Delay: ";
+			var selected;
+			html += "\n<select id='slide_delay' onchange='Javascript:slideShow.changeDelay()'>";
+			for (var i = 1; i <= 10; i++) {
+				if (this.slide_delay == i) {
+					selected = " selected='selected'";
+				} else {
+					selected = '';
+				}
+				html += "\n\t<option value='" + i + "'" + selected + ">" + i + "s</option>";
+			}
+			for (var i = 15; i <= 45; i=i+15) {
+				if (this.slide_delay == i) {
+					selected = " selected='selected'";
+				} else {
+					selected = '';
+				}
+				html += "\n\t<option value='" + i + "'" + selected + ">" + i + "s</option>";
+			}
+			for (var i = 60; i <= 600; i=i+60) {
+				if (this.slide_delay == i) {
+					selected = " selected='selected'";
+				} else {
+					selected = '';
+				}
+				html += "\n\t<option value='" + i + "'" + selected + ">" + (i/60) + "m</option>";
+			}
+			html += "\n</select>";
+			
+			html += "\n</div>";
+		}
+		
 		destination.innerHTML = html;
 		
 		// display the size
@@ -231,10 +288,31 @@ function SlideShow () {
 	 * @since 8/23/05
 	 */
 	function next () {
-		this.currentIndex++;
-		this.display();
+		if (this.currentIndex < (this.slides.length - 1)) {
+			this.currentIndex++;
+		} else if (this.loop == true) {
+			this.currentIndex = 0;
+		}
 		
+		this.display();
 		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
+	 * Answer true if there is a next slide
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function hasNext () {
+		if (this.currentIndex < (this.slides.length - 1)) {
+			return true;
+		} else if (this.loop == true) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -249,6 +327,58 @@ function SlideShow () {
 		this.display();
 		
 		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
+	 * Play the slideshow.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function play () {
+		this.playing = true;
+		window._slideShow = this;
+		setTimeout("window._slideShow.playAdvance();", (this.slide_delay * 1000));
+		
+		var playButton = getElementFromDocument('play_button');
+		playButton.disabled = true;
+		var pauseButton = getElementFromDocument('pause_button');
+		pauseButton.disabled = false;
+	}
+	
+	/**
+	 * Advance to the next slide in the slideshow.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function playAdvance () {
+		if (this.playing == true) {
+			if (this.hasNext()) {
+				this.next();
+				window._slideShow = this;
+				setTimeout("window._slideShow.playAdvance();", (this.slide_delay * 1000));
+			} else {
+				this.playing = false;
+			}
+		}
+	}
+	
+	/**
+	 * Pause the slideshow.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function pause () {
+		this.playing = false;
+		var playButton = getElementFromDocument('play_button');
+		playButton.disabled = false;
+		var pauseButton = getElementFromDocument('pause_button');
+		pauseButton.disabled = true;
 	}
 	
 	/**
@@ -417,7 +547,10 @@ function SlideShow () {
 	 * @since 8/25/05
 	 */
 	function getToolbarHeight () {
-		return '30';
+		if (this.showPlaybackToolbar == true)
+			return '60';
+		else
+			return '30';
 	}
 }
 
