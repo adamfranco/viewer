@@ -66,6 +66,8 @@ function ImageMedia ( xmlDocument, mediaXMLNode) {
 				return;
 			}
 		}
+		
+		
 				
 		var html = "";
  		html += "<img";
@@ -73,8 +75,15 @@ function ImageMedia ( xmlDocument, mediaXMLNode) {
  		html += " height='" + (pixelsToInteger(this.height) * this.zoomLevel) + "px'";
  		html += " width='" + (pixelsToInteger(this.width) * this.zoomLevel) + "px'";
  		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
+ 		
 		var destination = getElementFromDocument('image');
 		destination.innerHTML = html;
+		
+		destination._scrollTarget = this;
+		destination.onscroll = updateScroll;
+		
+		this.setScrollXPercent(this.scrollXPercent);
+		this.setScrollYPercent(this.scrollYPercent);
 	}
 	
 	/**

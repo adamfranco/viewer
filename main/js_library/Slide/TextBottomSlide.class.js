@@ -59,7 +59,7 @@ function TextBottomSlide (xmlDocument, slideXmlNode) {
 			imageElement.style.height = (getElementHeight('slide') - 200) + "px";
 		}
 		imageElement.style.width = getElementWidth('slide') + "px";
-		imageElement.style.overflow = "scroll";
+		imageElement.style.overflow = "auto";
 // 		imageElement.style.border = "1px solid #00f";		
 
 
@@ -78,7 +78,7 @@ function TextBottomSlide (xmlDocument, slideXmlNode) {
 		textElement.style.top = (getElementHeight('slide') - 200) + "px";
 		textElement.style.height = "195px";
 		textElement.style.width = getElementWidth('slide') + "px";
-		textElement.style.overflow = "scroll";
+		textElement.style.overflow = "auto";
 		textElement.style.paddingTop = "5px";
 		textElement.style.paddingLeft = "5px";
 // 		textElement.style.border = "1px solid #f00";

@@ -52,12 +52,14 @@
 		<caption>This is the second slide in the slideshow</caption>
 		<media>
 			<version>
+				<type>image</type>
 				<size>original</size>
 				<height>500px</height>
 				<width>500px</width>
 				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
 			</version>
 			<version>
+				<type>image</type>
 				<size>thumb</size>
 				<height>100px</height>
 				<width>100px</width>
@@ -70,6 +72,7 @@
 		<caption>A Flower</caption>
 		<media>
 			<version>
+				<type>image</type>
 				<size>original</size>
 				<height>300px</height>
 				<width>222px</width>

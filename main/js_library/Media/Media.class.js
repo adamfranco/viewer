@@ -39,7 +39,9 @@ function Media ( xmlDocument, mediaXMLNode) {
 		
 		this.zoomLevel = 1;
 		this.zoomIncrement = 1.25;
-		this.fitMargin = 20;		
+		this.fitMargin = 20;
+		this.scrollXPercent = 0.5;
+		this.scrollYPercent = 0.5;
 				
 		var urlElements = getElementsByPath(xmlDocument, mediaXMLNode, "url");
 		if (urlElements.length > 0)
@@ -70,7 +72,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 		this.load();
 				
 		var html = "";
-		html += "<div style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;'>";
+		html += "<div id='download_link' style='position: absolute;'>";
 		html += "<a";
 		html += " href='" + this.url + "'>";
 		html += "Download the Media";
@@ -79,6 +81,10 @@ function Media ( xmlDocument, mediaXMLNode) {
 		
 		var destination = getElementFromDocument('image');
 		destination.innerHTML = html;
+		
+		var downloadLink = getElementFromDocument('download_link');
+		downloadLink.style.top = this.getCenteredY(downloadLink.offsetHeight) + "px";
+		downloadLink.style.left = this.getCenteredX(downloadLink.offsetWidth) + "px";
 	}
 	
 	/**
@@ -172,9 +178,10 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	Media.prototype.getCenteredX = function () {
+	Media.prototype.getCenteredX = function (imageWidth) {
 		var targetWidth = getElementWidth('image') - this.fitMargin;
-		var imageWidth = pixelsToInteger(this.width) * this.zoomLevel;
+		if (imageWidth == null)
+			var imageWidth = pixelsToInteger(this.width) * this.zoomLevel;
 		
 		if (imageWidth > targetWidth) {
 			return 0;
@@ -191,15 +198,80 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	Media.prototype.getCenteredY = function () {
+	Media.prototype.getCenteredY = function (imageHeight) {
 		var targetHeight = getElementHeight('image') - this.fitMargin;
-		var imageHeight = pixelsToInteger(this.height) * this.zoomLevel;
+		if (imageHeight == null)
+			var imageHeight = pixelsToInteger(this.height) * this.zoomLevel;
 		
 		if (imageHeight > targetHeight) {
 			return 0;
 		} else {
 			return ((targetHeight/2) - (imageHeight/2));
 		}
+	}
+	
+	/**
+	 * Answer the percentage that the image is scrolled in the X-direction.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getScrollXPercent = function () {
+		var target = getElementFromDocument('image');
+		return ((target.scrollLeft + target.clientWidth/2)/target.scrollWidth);
+	}
+	
+	/**
+	 * Answer the percentage that the image is scrolled in the Y-direction.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getScrollYPercent = function () {
+		var target = getElementFromDocument('image');
+		return ((target.scrollTop + target.clientHeight/2)/target.scrollHeight);
+	}
+	
+	/**
+	 * Set the new scroll amount so that it is the same percentage scroll as
+	 * the parameter
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.setScrollXPercent = function (scrollPercent) {
+		var target = getElementFromDocument('image');
+		target.scrollLeft = Math.round((target.scrollWidth * scrollPercent) - target.clientWidth/2);
+	}
+	
+	/**
+	 * Set the new scroll amount so that it is the same percentage scroll as
+	 * the parameter
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.setScrollYPercent = function (scrollPercent) {
+		var target = getElementFromDocument('image');
+		target.scrollTop = Math.round((target.scrollHeight * scrollPercent) - target.clientHeight/2);
+	}
+	
+	/**
+	 * Update the scroll percentage based on the the current one.
+	 * "this" will be the element that onscroll was set to, so it must
+	 * have its target set at the same time as the onscroll event was set.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/25/05
+	 */
+	updateScroll = function () {
+		this._scrollTarget.scrollXPercent = this._scrollTarget.getScrollXPercent();
+		this._scrollTarget.scrollYPercent = this._scrollTarget.getScrollYPercent();
 	}
 	
 	/**
