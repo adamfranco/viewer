@@ -20,9 +20,9 @@
  *
  * @version $Id$
  */
-function Media ( xmlDocument, mediaXMLNode) {
+function Media ( viewerElementId, xmlDocument, mediaXMLNode) {
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, xmlDocument, mediaXMLNode );
 	}
 }
 
@@ -35,13 +35,14 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	Media.prototype.init = function ( xmlDocument, mediaXMLNode) {
+	Media.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 		this.zoomLevel = 1;
 		this.zoomIncrement = 1.25;
 		this.fitMargin = 20;
 		this.scrollXPercent = 0.5;
 		this.scrollYPercent = 0.5;
+		this.viewerElementId = viewerElementId;
 				
 		var urlElements = getElementsByPath(xmlDocument, mediaXMLNode, "url");
 		if (urlElements.length > 0)
@@ -72,17 +73,17 @@ function Media ( xmlDocument, mediaXMLNode) {
 		this.load();
 				
 		var html = "";
-		html += "<div id='download_link' style='position: absolute;'>";
+		html += "<div id='" + this.viewerElementId + "_download_link' style='position: absolute;'>";
 		html += "<a";
 		html += " href='" + this.url + "'>";
 		html += "Download the Media";
 		html += "</a>";
 		html += "</div>";
 		
-		var destination = getElementFromDocument('image');
+		var destination = getElementFromDocument(this.viewerElementId + '_image');
 		destination.innerHTML = html;
 		
-		var downloadLink = getElementFromDocument('download_link');
+		var downloadLink = getElementFromDocument(this.viewerElementId + '_download_link');
 		downloadLink.style.top = this.getCenteredY(downloadLink.offsetHeight) + "px";
 		downloadLink.style.left = this.getCenteredX(downloadLink.offsetWidth) + "px";
 	}
@@ -154,8 +155,8 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.zoomToFit = function () {
-		var targetHeight = getElementHeight('image') - this.fitMargin;
-		var targetWidth = getElementWidth('image') - this.fitMargin;
+		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
+		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
 		var imageHeight = pixelsToInteger(this.height);
 		var imageWidth = pixelsToInteger(this.width);
 		
@@ -179,7 +180,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getCenteredX = function (imageWidth) {
-		var targetWidth = getElementWidth('image') - this.fitMargin;
+		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
 		if (imageWidth == null)
 			var imageWidth = pixelsToInteger(this.width) * this.zoomLevel;
 		
@@ -199,7 +200,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getCenteredY = function (imageHeight) {
-		var targetHeight = getElementHeight('image') - this.fitMargin;
+		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
 		if (imageHeight == null)
 			var imageHeight = pixelsToInteger(this.height) * this.zoomLevel;
 		
@@ -218,7 +219,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getScrollXPercent = function () {
-		var target = getElementFromDocument('image');
+		var target = getElementFromDocument(this.viewerElementId + '_image');
 		return ((target.scrollLeft + target.clientWidth/2)/target.scrollWidth);
 	}
 	
@@ -230,7 +231,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getScrollYPercent = function () {
-		var target = getElementFromDocument('image');
+		var target = getElementFromDocument(this.viewerElementId + '_image');
 		return ((target.scrollTop + target.clientHeight/2)/target.scrollHeight);
 	}
 	
@@ -243,7 +244,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.setScrollXPercent = function (scrollPercent) {
-		var target = getElementFromDocument('image');
+		var target = getElementFromDocument(this.viewerElementId + '_image');
 		target.scrollLeft = Math.round((target.scrollWidth * scrollPercent) - target.clientWidth/2);
 	}
 	
@@ -256,7 +257,7 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.setScrollYPercent = function (scrollPercent) {
-		var target = getElementFromDocument('image');
+		var target = getElementFromDocument(this.viewerElementId + '_image');
 		target.scrollTop = Math.round((target.scrollHeight * scrollPercent) - target.clientHeight/2);
 	}
 	
@@ -282,8 +283,8 @@ function Media ( xmlDocument, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.isLargerThanTarget = function () {
-		var targetHeight = getElementHeight('image') - this.fitMargin;
-		var targetWidth = getElementWidth('image') - this.fitMargin;
+		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
+		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
 		var imageHeight = pixelsToInteger(this.height);
 		var imageWidth = pixelsToInteger(this.width);
 		

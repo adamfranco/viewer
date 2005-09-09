@@ -24,10 +24,10 @@ FileMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function FileMedia ( xmlDocument, mediaXMLNode) {
+function FileMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, xmlDocument, mediaXMLNode );
 	}
 }
 
@@ -40,6 +40,6 @@ function FileMedia ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	FileMedia.prototype.init = function ( xmlDocument, mediaXMLNode) {
-		FileMedia.superclass.init.call(this, xmlDocument, mediaXMLNode);
+	FileMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
+		FileMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
 	}

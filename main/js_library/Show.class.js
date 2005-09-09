@@ -20,16 +20,17 @@
  *
  * @version $Id$
  */
-function SlideShow () {
+function SlideShow (viewerElementId, xmlDocumentUrl) {
 	var req;
 	this.slides;
 	this.currentIndex = 0;
 	this.mediaSize = 'original';
 	this.title = 'SlideShow';
-	this.showPlaybackToolbar = true;
+	this.showPlaybackToolbar = false;
 	this.playing = false;
 	this.slide_delay = 3;
 	this.loop = false;
+	this.viewerElementId = viewerElementId;
 	
 	
 	var me = this;
@@ -63,30 +64,36 @@ function SlideShow () {
 	
 	// Attach ourselves to the View obect for later referencing from static
 	// methods.
-	var viewerElement = getElementFromDocument('viewer');
+	var viewerElement = getElementFromDocument(this.viewerElementId);
 	viewerElement._slideShow = this;
 	
 	// Write our main div elements
-	var viewerElement = getElementFromDocument('viewer');
+	var viewerElement = getElementFromDocument(this.viewerElementId);
 	viewerElement.innerHTML = "";
-	viewerElement.innerHTML += "\n<div id='toolbars' class='toolbar' />";
-	viewerElement.innerHTML += "\n<div id='slide' />";
-	viewerElement.innerHTML += "\n<span id='loading' class='hidden'>loading...</span>";
+	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
+	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
+	viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='hidden'>loading...</span>";
 // 	viewerElement.style.overflow = 'hidden';
 	
-	var toolbarsElement = getElementFromDocument('toolbars');
+	var toolbarsElement = getElementFromDocument(this.viewerElementId + '_toolbars');
 	toolbarsElement.style.height =  this.getToolbarHeight() + "px";
 	toolbarsElement.style.width =  this.getViewerWidth() + "px";
 	toolbarsElement.style.position = "absolute";
 	toolbarsElement.style.left = "0px";
 	toolbarsElement.style.top = "0px";
 	
-	var slideElement = getElementFromDocument('slide');
+	var slideElement = getElementFromDocument(this.viewerElementId + '_slide');
 	slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
 	slideElement.style.width =  this.getViewerWidth() + "px";
 	slideElement.style.position = "absolute";
 	slideElement.style.left = "0px";
 	slideElement.style.top = this.getToolbarHeight() + "px";
+	
+	
+	// Load our xmlDocument
+	this.loadXMLDoc(xmlDocumentUrl);
+	
+//----------------------------------------------------------------------------
 	
 		
 	/**
@@ -129,7 +136,7 @@ function SlideShow () {
 
 		// For some reason IE6 fails if the 'var' is not
 		// placed before working.
-		var working = getElementFromDocument('loading');
+		var working = getElementFromDocument(me.viewerElementId + '_loading');
 		if (req.readyState > 0 && req.readyState < 4) {
 			working.className = 'shown';
 		} else {
@@ -173,13 +180,13 @@ function SlideShow () {
 				var position = null;
 			
 			if (position == 'right')
-	 			this.slides[i] = new TextRightSlide(xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextRightSlide(viewerElementId, xmlDocument, slideElements[i]);
 	 		else if (position == 'bottom')
-	 			this.slides[i] = new TextBottomSlide(xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextBottomSlide(viewerElementId, xmlDocument, slideElements[i]);
 	 		else if (position == 'top')
-	 			this.slides[i] = new TextTopSlide(xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextTopSlide(viewerElementId, xmlDocument, slideElements[i]);
 	 		else
-	 			this.slides[i] = new TextLeftSlide(xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextLeftSlide(viewerElementId, xmlDocument, slideElements[i]);
 		}
 		this.display();
 		this.cacheAround(this.currentIndex);
@@ -193,17 +200,17 @@ function SlideShow () {
 	 * @since 8/22/05
 	 */
 	function display () {		
-		var destination = getElementFromDocument('toolbars');
+		var destination = getElementFromDocument(this.viewerElementId + '_toolbars');
 		destination.style.height =  this.getToolbarHeight() + "px";
 		
-		var slideElement = getElementFromDocument('slide');
+		var slideElement = getElementFromDocument(this.viewerElementId + '_slide');
 		slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
 		slideElement.style.top =  this.getToolbarHeight()  + "px";
 		
 		var html = "";
 		
 		// Main Tool Bar
-		html += "\n<div id='main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+		html += "\n<div id='" + this.viewerElementId + "_main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
 			
 		// Next/Previous buttons
 		var previousDisabled = "";
@@ -213,10 +220,10 @@ function SlideShow () {
 		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
-		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toStart()' value='&lt;&lt;'/>";
-		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.previous()' value='&lt;'/>";
-		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.next()' value='&gt;'/>";
-		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toEnd()' value='&gt;&gt;'/>";
+		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toStart()' value='&lt;&lt;'/>";
+		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previous()' value='&lt;'/>";
+		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.next()' value='&gt;'/>";
+		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toEnd()' value='&gt;&gt;'/>";
 		
 		
 		html += "\n &nbsp;&nbsp; " + (this.currentIndex + 1);
@@ -225,7 +232,7 @@ function SlideShow () {
 		// Media size selection
 		var sizes = this.getMediaSizes();
 		var selected;
-		html += "\nSize: <select id='media_size' onchange='Javascript:getElementFromDocument(\"viewer\")._slideShow.changeMediaSize()'>";
+		html += "\nSize: <select id='" + this.viewerElementId + "_media_size' onchange='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.changeMediaSize()'>";
 		for (var i = 0; i < sizes.length; i++) {
 			if (this.mediaSize == sizes[i]) {
 				selected = " selected='selected'";
@@ -238,15 +245,15 @@ function SlideShow () {
 				
 		
 		// Zoom Buttons
-		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomIn()' value='+'/>";
-		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomOut()' value='-'/>";
-		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFull()' value='100%'/>";
-		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFit()' value='&lt;--&gt;'/>";
+		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomIn()' value='+'/>";
+		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomOut()' value='-'/>";
+		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFull()' value='100%'/>";
+		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFit()' value='&lt;--&gt;'/>";
 		
 		if (this.showPlaybackToolbar == true)
-			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.togglePlayControls()' value='- |&gt;'/>";
+			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' value='... X'/>";
 		else
-			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.togglePlayControls()' value='+ |&gt;'/>";
+			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' value='... &nbsp;'/>";
 		
 		
 		html += "\n</div>";
@@ -255,20 +262,20 @@ function SlideShow () {
 		
 		if (this.showPlaybackToolbar == true) {
 			// Slideshow playing controls
-			html += "\n<div id='playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
 			
 			if (this.playing == true) {
-				html += " \n<input id='play_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.play()' value='|&gt;' disabled='disabled'/>";
-				html += " \n<input id='pause_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.pause()' value='||'/>";
+				html += " \n<input id='" + this.viewerElementId + "_play_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()' value='|&gt;' disabled='disabled'/>";
+				html += " \n<input id='" + this.viewerElementId + "_pause_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()' value='||'/>";
 			} else {
-				html += " \n<input id='play_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.play()' value='|&gt;'/>";
-				html += " \n<input id='pause_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.pause()' value='||' disabled='disabled'/>";
+				html += " \n<input id='" + this.viewerElementId + "_play_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()' value='|&gt;'/>";
+				html += " \n<input id='" + this.viewerElementId + "_pause_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()' value='||' disabled='disabled'/>";
 			}
 			
 			// Media size selection
 			html += " &nbsp;&nbsp; Delay: ";
 			var selected;
-			html += "\n<select id='slide_delay' onchange='Javascript:getElementFromDocument(\"viewer\")._slideShow.changeDelay()'>";
+			html += "\n<select id='" + this.viewerElementId + "_slide_delay' onchange='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.changeDelay()'>";
 			for (var i = 1; i <= 10; i++) {
 				if (this.slide_delay == i) {
 					selected = " selected='selected'";
@@ -298,9 +305,9 @@ function SlideShow () {
 			html += " &nbsp;&nbsp; ";
 			
 			if (this.loop == true) {
-				html += " \n<input id='loop_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toggleLoop()' value='<__]'/>";
+				html += " \n<input id='" + this.viewerElementId + "_loop_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()' value='<__]'/>";
 			} else {
-				html += " \n<input id='loop_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toggleLoop()' value='--&gt;|'/>";
+				html += " \n<input id='" + this.viewerElementId + "_loop_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()' value='--&gt;|'/>";
 			}
 			
 			html += "\n</div>";
@@ -398,12 +405,12 @@ function SlideShow () {
 	 */
 	function play () {
 		this.playing = true;
-		setTimeout("getElementFromDocument('viewer')._slideShow.playAdvance();", 
+		setTimeout("getElementFromDocument('" + this.viewerElementId + "')._slideShow.playAdvance();", 
 			(this.slide_delay * 1000));
 				
-		var playButton = getElementFromDocument('play_button');
+		var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 		playButton.disabled = true;
-		var pauseButton = getElementFromDocument('pause_button');
+		var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 		pauseButton.disabled = false;
 	}
 	
@@ -418,14 +425,14 @@ function SlideShow () {
 		if (this.playing == true) {
 			if (this.hasNext()) {
 				this.next();
-				setTimeout("getElementFromDocument('viewer')._slideShow.playAdvance();", 
+				setTimeout("getElementFromDocument('" + this.viewerElementId + "')._slideShow.playAdvance();", 
 					(this.slide_delay * 1000));				
 			} else {
 				this.playing = false;
 				
-				var playButton = getElementFromDocument('play_button');
+				var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 				playButton.disabled = false;
-				var pauseButton = getElementFromDocument('pause_button');
+				var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 				pauseButton.disabled = true;
 			}
 		}
@@ -440,9 +447,9 @@ function SlideShow () {
 	 */
 	function pause () {
 		this.playing = false;
-		var playButton = getElementFromDocument('play_button');
+		var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 		playButton.disabled = false;
-		var pauseButton = getElementFromDocument('pause_button');
+		var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 		pauseButton.disabled = true;
 	}
 
@@ -454,7 +461,7 @@ function SlideShow () {
 	 * @since 8/24/05
 	 */
 	function changeDelay () {
-		var delayElement = getElementFromDocument('slide_delay');
+		var delayElement = getElementFromDocument(this.viewerElementId + '_slide_delay');
 		this.slide_delay = delayElement.value;
 	}
 	
@@ -538,7 +545,7 @@ function SlideShow () {
 	 * @since 8/24/05
 	 */
 	function changeMediaSize () {
-		var sizeElement = getElementFromDocument('media_size');
+		var sizeElement = getElementFromDocument(this.viewerElementId + '_media_size');
 		this.mediaSize = sizeElement.value;
 		this.display();
 		this.cacheAround(this.currentIndex);
@@ -620,7 +627,7 @@ function SlideShow () {
 	 * @since 8/25/05
 	 */
 	function getViewerHeight () {
-		return getElementHeight('viewer');
+		return getElementHeight(this.viewerElementId);
 		
 		// @todo, add window size sniffing.
 	}
@@ -635,7 +642,7 @@ function SlideShow () {
 	 * @since 8/25/05
 	 */
 	function getViewerWidth () {
-		return getElementWidth('viewer');
+		return getElementWidth(this.viewerElementId);
 		
 		// @todo, add window size sniffing.
 	}

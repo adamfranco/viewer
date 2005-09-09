@@ -24,10 +24,10 @@ ImageMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function ImageMedia ( xmlDocument, mediaXMLNode) {
+function ImageMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, xmlDocument, mediaXMLNode );
 	}
 }
 
@@ -40,8 +40,8 @@ function ImageMedia ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	ImageMedia.prototype.init = function ( xmlDocument, mediaXMLNode) {
-		ImageMedia.superclass.init.call(this, xmlDocument, mediaXMLNode);
+	ImageMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
+		ImageMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
 			
 		this.startAtZoomToFit = true;
 		this.image = null;
@@ -76,7 +76,7 @@ function ImageMedia ( xmlDocument, mediaXMLNode) {
  		html += " width='" + (pixelsToInteger(this.width) * this.zoomLevel) + "px'";
  		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
  		
-		var destination = getElementFromDocument('image');
+		var destination = getElementFromDocument(this.viewerElementId + '_image');
 		destination.innerHTML = html;
 		
 		destination._scrollTarget = this;

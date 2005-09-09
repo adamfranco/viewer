@@ -20,11 +20,12 @@
  *
  * @version $Id$
  */
-function MediaContainer ( xmlDocument, mediaXMLNode) {
+function MediaContainer ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 	this.versions = new Array ();
 	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
 	this.currentMediaSize = 'original';
+	this.viewerElementId = viewerElementId;
 	
 	this.display = display;
 	this.load = load;
@@ -50,13 +51,13 @@ function MediaContainer ( xmlDocument, mediaXMLNode) {
 			var type = typeElements[0].firstChild.nodeValue;
 		
 		if (type == 'image')
-			this.versions[size] = new ImageMedia(xmlDocument, versionElements[i]);
+			this.versions[size] = new ImageMedia(this.viewerElementId, xmlDocument, versionElements[i]);
 		else if (type == 'audio')
-			this.versions[size] = new AudioMedia(xmlDocument, versionElements[i]);
+			this.versions[size] = new AudioMedia(this.viewerElementId, xmlDocument, versionElements[i]);
 		else if (type == 'video')
-			this.versions[size] = new VideoMedia(xmlDocument, versionElements[i]);
+			this.versions[size] = new VideoMedia(this.viewerElementId, xmlDocument, versionElements[i]);
 		else
-			this.versions[size] = new FileMedia(xmlDocument, versionElements[i]);
+			this.versions[size] = new FileMedia(this.viewerElementId, xmlDocument, versionElements[i]);
 	}
 	
 	/**

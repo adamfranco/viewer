@@ -24,10 +24,10 @@ AudioMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function AudioMedia ( xmlDocument, mediaXMLNode) {
+function AudioMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, xmlDocument, mediaXMLNode );
 	}
 }
 
@@ -40,6 +40,6 @@ function AudioMedia ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	AudioMedia.prototype.init = function ( xmlDocument, mediaXMLNode) {
-		AudioMedia.superclass.init.call(this, xmlDocument, mediaXMLNode);
+	AudioMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
+		AudioMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
 	}

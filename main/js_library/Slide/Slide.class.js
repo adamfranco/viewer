@@ -20,9 +20,9 @@
  *
  * @version $Id$
  */
-function Slide (xmlDocument, slideXmlNode) {
+function Slide (viewerElementId, xmlDocument, slideXmlNode) {
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, slideXmlNode );
+		this.init( viewerElementId, xmlDocument, slideXmlNode );
 	}
 }
 	
@@ -35,12 +35,13 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	Slide.prototype.init = function ( xmlDocument, slideXmlNode ) {
+	Slide.prototype.init = function ( viewerElementId, xmlDocument, slideXmlNode ) {
 		this.title;
 		this.caption;
 		this.media = new Array();
 		this.currentMediaIndex = 0;
-		this.currentMediaSize;	
+		this.currentMediaSize;
+		this.viewerElementId = viewerElementId;
 		
 		var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
 		this.title = titleElements[0].firstChild.nodeValue;
@@ -50,7 +51,7 @@ function Slide (xmlDocument, slideXmlNode) {
 		
 		var mediaElements = getElementsByPath(xmlDocument, slideXmlNode, "media");
 		for (var i = 0; i < mediaElements.length; i++) {
-			this.media[i] = new MediaContainer( xmlDocument, mediaElements[i]);
+			this.media[i] = new MediaContainer( this.viewerElementId, xmlDocument, mediaElements[i]);
 		}
 	}
 	
@@ -85,8 +86,8 @@ function Slide (xmlDocument, slideXmlNode) {
 	 * @since 8/24/05
 	 */
 	Slide.prototype.displayMediaButtons = function () {
-		var destination = getElementFromDocument('media_buttons');
-		var toolbars = getElementFromDocument('toolbars');
+		var destination = getElementFromDocument(this.viewerElementId + '_media_buttons');
+		var toolbars = getElementFromDocument(this.viewerElementId + '_toolbars');
 		if (this.media.length > 1) {
 			destination.style.display = "block";
 			var html = "Media Number: ";
@@ -101,8 +102,8 @@ function Slide (xmlDocument, slideXmlNode) {
 			if (this.currentMediaIndex >= (this.media.length - 1))
 				nextDisabled = " disabled='disabled'";
 				
-			html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.previousMedia()' value='&lt;'/>";
-			html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.nextMedia()' value='&gt;'/>";
+			html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previousMedia()' value='&lt;'/>";
+			html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.nextMedia()' value='&gt;'/>";
 			
 			destination.innerHTML = html;
 		} else {

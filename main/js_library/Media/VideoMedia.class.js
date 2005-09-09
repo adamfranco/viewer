@@ -24,10 +24,10 @@ VideoMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function VideoMedia ( xmlDocument, mediaXMLNode) {
+function VideoMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, xmlDocument, mediaXMLNode );
 	}
 }
 
@@ -40,6 +40,6 @@ function VideoMedia ( xmlDocument, mediaXMLNode) {
 	 * @access public
 	 * @since 8/26/05
 	 */
-	VideoMedia.prototype.init = function ( xmlDocument, mediaXMLNode) {
-		VideoMedia.superclass.init.call(this, xmlDocument, mediaXMLNode);
+	VideoMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
+		VideoMedia.superclass.init.call(this, xmlDocument, viewerElementId, mediaXMLNode);
 	}

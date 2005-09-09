@@ -29,10 +29,11 @@
 			}
 			
 			.toolbar {
-				border: 1px solid #500;
+				border-bottom: 1px solid #500;
 			}
 			
-			.content {
+			.viewer {
+				 border: 1px solid #500;
 			}
 			
 
@@ -42,44 +43,18 @@
 		
 		<script type='text/javascript'>
 			/*<![CDATA[*/
-			
-			var slideShow;
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Show.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/Slide.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextLeftSlide.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextRightSlide.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextBottomSlide.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Slide/TextTopSlide.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/MediaContainer.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media/Media.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media/ImageMedia.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media/AudioMedia.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media/VideoMedia.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/Media/FileMedia.class.js"); ?>
-			
-			<?php require_once(dirname(__FILE__)."/main/js_library/functions.js"); ?>
+						
+			<?php require_once(dirname(__FILE__)."/viewer.js.php"); ?>
 			
 			/*]]>*/
 		</script>
 		<title>Concerto: Browsing Exhibition *Turkey* </title>
 	</head>
-	<body onload="Javascript:runSlideShow('http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml')">
+	<body onload="Javascript:new SlideShow('viewerA', 'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml')">
 <!-- 
 		<div style='border: 2px dashed #0aa'>
  -->
-			<div id='viewer' style='height: 500px; width: 600px; border: 1px solid #500; position: relative;' />
+			<div id='viewerA' class='viewer' style='height: 500px; width: 600px; position: relative;' />
 <!-- 
 		</div>
  -->
