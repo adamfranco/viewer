@@ -44,6 +44,8 @@ function SlideShow () {
 	this.playAdvance = playAdvance;
 	this.pause = pause;
 	this.changeDelay = changeDelay;
+	this.togglePlayControls = togglePlayControls;
+	this.toggleLoop = toggleLoop;
 	this.processReqChange = processReqChange;
 	this.createSlides = createSlides;
 	this.cacheAround = cacheAround;
@@ -192,6 +194,12 @@ function SlideShow () {
 	 */
 	function display () {		
 		var destination = getElementFromDocument('toolbars');
+		destination.style.height =  this.getToolbarHeight() + "px";
+		
+		var slideElement = getElementFromDocument('slide');
+		slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
+		slideElement.style.top =  this.getToolbarHeight()  + "px";
+		
 		var html = "";
 		
 		// Main Tool Bar
@@ -235,6 +243,11 @@ function SlideShow () {
 		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFull()' value='100%'/>";
 		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFit()' value='&lt;--&gt;'/>";
 		
+		if (this.showPlaybackToolbar == true)
+			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.togglePlayControls()' value='- |&gt;'/>";
+		else
+			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.togglePlayControls()' value='+ |&gt;'/>";
+		
 		
 		html += "\n</div>";
 		
@@ -253,7 +266,7 @@ function SlideShow () {
 			}
 			
 			// Media size selection
-			html += " Delay: ";
+			html += " &nbsp;&nbsp; Delay: ";
 			var selected;
 			html += "\n<select id='slide_delay' onchange='Javascript:getElementFromDocument(\"viewer\")._slideShow.changeDelay()'>";
 			for (var i = 1; i <= 10; i++) {
@@ -281,6 +294,14 @@ function SlideShow () {
 				html += "\n\t<option value='" + i + "'" + selected + ">" + (i/60) + "m</option>";
 			}
 			html += "\n</select>";
+			
+			html += " &nbsp;&nbsp; ";
+			
+			if (this.loop == true) {
+				html += " \n<input id='loop_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toggleLoop()' value='<__]'/>";
+			} else {
+				html += " \n<input id='loop_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toggleLoop()' value='--&gt;|'/>";
+			}
 			
 			html += "\n</div>";
 		}
@@ -435,6 +456,30 @@ function SlideShow () {
 	function changeDelay () {
 		var delayElement = getElementFromDocument('slide_delay');
 		this.slide_delay = delayElement.value;
+	}
+	
+	/**
+	 * Toggle the visibility of the play controls
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function togglePlayControls () {
+		this.showPlaybackToolbar = !(this.showPlaybackToolbar);
+		this.display();
+	}
+	
+	/**
+	 * Toggle the looping of the slideshow playing
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function toggleLoop () {
+		this.loop = !(this.loop);
+		this.display();
 	}
 	
 	/**
