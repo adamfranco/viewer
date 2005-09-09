@@ -72,8 +72,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	viewerElement.innerHTML = "";
 	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
 	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
-	viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='hidden'>loading...</span>";
-// 	viewerElement.style.overflow = 'hidden';
+	viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='loading'>loading...</span>";
 	
 	var toolbarsElement = getElementFromDocument(this.viewerElementId + '_toolbars');
 	toolbarsElement.style.height =  this.getToolbarHeight() + "px";
@@ -138,9 +137,9 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		// placed before working.
 		var working = getElementFromDocument(me.viewerElementId + '_loading');
 		if (req.readyState > 0 && req.readyState < 4) {
-			working.className = 'shown';
+			working.style.display = 'inline';
 		} else {
-			working.className = 'hidden';
+			working.style.display = 'none';
 		}
 				
 		// only if req shows "loaded"
