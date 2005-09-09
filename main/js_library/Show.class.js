@@ -38,9 +38,12 @@ function SlideShow () {
 	this.next = next;
 	this.hasNext = hasNext;
 	this.previous = previous;
+	this.toStart = toStart;
+	this.toEnd = toEnd;
 	this.play = play;
 	this.playAdvance = playAdvance;
 	this.pause = pause;
+	this.changeDelay = changeDelay;
 	this.processReqChange = processReqChange;
 	this.createSlides = createSlides;
 	this.cacheAround = cacheAround;
@@ -55,6 +58,11 @@ function SlideShow () {
 	this.getViewerHeight = getViewerHeight;
 	this.getViewerWidth = getViewerWidth;
 	this.getToolbarHeight = getToolbarHeight;
+	
+	// Attach ourselves to the View obect for later referencing from static
+	// methods.
+	var viewerElement = getElementFromDocument('viewer');
+	viewerElement._slideShow = this;
 	
 	// Write our main div elements
 	var viewerElement = getElementFromDocument('viewer');
@@ -186,12 +194,10 @@ function SlideShow () {
 		var destination = getElementFromDocument('toolbars');
 		var html = "";
 		
-		
-		// Next/Previous buttons
+		// Main Tool Bar
 		html += "\n<div id='main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
-		html += "\nSlide Number: " + (this.currentIndex + 1);
-		html += " of: " + this.slides.length + " ";
-		
+			
+		// Next/Previous buttons
 		var previousDisabled = "";
 		var nextDisabled = "";
 		if (this.currentIndex <= 0)
@@ -199,14 +205,19 @@ function SlideShow () {
 		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
-		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:slideShow.previous()' value='previous'/>";
-		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:slideShow.next()' value='next'/>";
+		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toStart()' value='&lt;&lt;'/>";
+		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.previous()' value='&lt;'/>";
+		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.next()' value='&gt;'/>";
+		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.toEnd()' value='&gt;&gt;'/>";
 		
+		
+		html += "\n &nbsp;&nbsp; " + (this.currentIndex + 1);
+		html += " of " + this.slides.length + " &nbsp;&nbsp; ";
 		
 		// Media size selection
 		var sizes = this.getMediaSizes();
 		var selected;
-		html += "\n<select id='media_size' onchange='Javascript:slideShow.changeMediaSize()'>";
+		html += "\nSize: <select id='media_size' onchange='Javascript:getElementFromDocument(\"viewer\")._slideShow.changeMediaSize()'>";
 		for (var i = 0; i < sizes.length; i++) {
 			if (this.mediaSize == sizes[i]) {
 				selected = " selected='selected'";
@@ -215,14 +226,14 @@ function SlideShow () {
 			}
 			html += "\n\t<option value='" + sizes[i] + "'" + selected + ">" + sizes[i] + "</option>";
 		}
-		html += "\n</select>";
+		html += "\n</select> &nbsp;&nbsp; ";
 				
 		
 		// Zoom Buttons
-		html += " \n<input type='button' onclick='Javascript:slideShow.zoomIn()' value='+'/>";
-		html += "\n<input type='button' onclick='Javascript:slideShow.zoomOut()' value='-'/>";
-		html += " \n<input type='button' onclick='Javascript:slideShow.zoomToFull()' value='100%'/>";
-		html += "\n<input type='button' onclick='Javascript:slideShow.zoomToFit()' value='&lt;--&gt;'/>";
+		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomIn()' value='+'/>";
+		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomOut()' value='-'/>";
+		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFull()' value='100%'/>";
+		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.zoomToFit()' value='&lt;--&gt;'/>";
 		
 		
 		html += "\n</div>";
@@ -234,17 +245,17 @@ function SlideShow () {
 			html += "\n<div id='playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
 			
 			if (this.playing == true) {
-				html += " \n<input id='play_button' type='button' onclick='Javascript:slideShow.play()' value='|&gt;' disabled='disabled'/>";
-				html += " \n<input id='pause_button' type='button' onclick='Javascript:slideShow.pause()' value='||'/>";
+				html += " \n<input id='play_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.play()' value='|&gt;' disabled='disabled'/>";
+				html += " \n<input id='pause_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.pause()' value='||'/>";
 			} else {
-				html += " \n<input id='play_button' type='button' onclick='Javascript:slideShow.play()' value='|&gt;'/>";
-				html += " \n<input id='pause_button' type='button' onclick='Javascript:slideShow.pause()' value='||' disabled='disabled'/>";
+				html += " \n<input id='play_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.play()' value='|&gt;'/>";
+				html += " \n<input id='pause_button' type='button' onclick='Javascript:getElementFromDocument(\"viewer\")._slideShow.pause()' value='||' disabled='disabled'/>";
 			}
 			
 			// Media size selection
 			html += " Delay: ";
 			var selected;
-			html += "\n<select id='slide_delay' onchange='Javascript:slideShow.changeDelay()'>";
+			html += "\n<select id='slide_delay' onchange='Javascript:getElementFromDocument(\"viewer\")._slideShow.changeDelay()'>";
 			for (var i = 1; i <= 10; i++) {
 				if (this.slide_delay == i) {
 					selected = " selected='selected'";
@@ -330,6 +341,34 @@ function SlideShow () {
 	}
 	
 	/**
+	 * Go back to the beginning of the show.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function toStart () {
+		this.currentIndex = 0;
+		this.display();
+		
+		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
+	 * Go back to the end of the show.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function toEnd () {
+		this.currentIndex = this.slides.length - 1;
+		this.display();
+		
+		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
 	 * Play the slideshow.
 	 * 
 	 * @return void
@@ -338,9 +377,9 @@ function SlideShow () {
 	 */
 	function play () {
 		this.playing = true;
-		window._slideShow = this;
-		setTimeout("window._slideShow.playAdvance();", (this.slide_delay * 1000));
-		
+		setTimeout("getElementFromDocument('viewer')._slideShow.playAdvance();", 
+			(this.slide_delay * 1000));
+				
 		var playButton = getElementFromDocument('play_button');
 		playButton.disabled = true;
 		var pauseButton = getElementFromDocument('pause_button');
@@ -358,10 +397,15 @@ function SlideShow () {
 		if (this.playing == true) {
 			if (this.hasNext()) {
 				this.next();
-				window._slideShow = this;
-				setTimeout("window._slideShow.playAdvance();", (this.slide_delay * 1000));
+				setTimeout("getElementFromDocument('viewer')._slideShow.playAdvance();", 
+					(this.slide_delay * 1000));				
 			} else {
 				this.playing = false;
+				
+				var playButton = getElementFromDocument('play_button');
+				playButton.disabled = false;
+				var pauseButton = getElementFromDocument('pause_button');
+				pauseButton.disabled = true;
 			}
 		}
 	}
@@ -379,6 +423,18 @@ function SlideShow () {
 		playButton.disabled = false;
 		var pauseButton = getElementFromDocument('pause_button');
 		pauseButton.disabled = true;
+	}
+
+	/**
+	 * Change the media size.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/24/05
+	 */
+	function changeDelay () {
+		var delayElement = getElementFromDocument('slide_delay');
+		this.slide_delay = delayElement.value;
 	}
 	
 	/**
