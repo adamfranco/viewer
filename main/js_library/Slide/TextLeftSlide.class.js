@@ -24,9 +24,9 @@ TextLeftSlide.superclass = TextLeftSlide.prototype;
  *
  * @version $Id$
  */
-function TextLeftSlide ( viewerElementId, xmlDocument, slideXmlNode) {
+function TextLeftSlide ( viewerElementId, slideXmlNode) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, slideXmlNode );
+		this.init( viewerElementId, slideXmlNode );
 	}
 }
 	

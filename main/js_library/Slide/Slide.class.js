@@ -20,22 +20,21 @@
  *
  * @version $Id$
  */
-function Slide (viewerElementId, xmlDocument, slideXmlNode) {
+function Slide (viewerElementId, slideXmlNode) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, slideXmlNode );
+		this.init( viewerElementId, slideXmlNode );
 	}
 }
 	
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node slideXmlNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	Slide.prototype.init = function ( viewerElementId, xmlDocument, slideXmlNode ) {
+	Slide.prototype.init = function ( viewerElementId, slideXmlNode ) {
 		this.title;
 		this.caption;
 		this.media = new Array();
@@ -43,15 +42,15 @@ function Slide (viewerElementId, xmlDocument, slideXmlNode) {
 		this.currentMediaSize;
 		this.viewerElementId = viewerElementId;
 		
-		var titleElements = getElementsByPath(xmlDocument, slideXmlNode, "title");
+		var titleElements = slideXmlNode.getElementsByTagName("title");
 		this.title = titleElements[0].firstChild.nodeValue;
 		
-		var captionElements = getElementsByPath(xmlDocument, slideXmlNode, "caption");
+		var captionElements = slideXmlNode.getElementsByTagName("caption");
 		this.caption = captionElements[0].firstChild.nodeValue;
 		
-		var mediaElements = getElementsByPath(xmlDocument, slideXmlNode, "media");
+		var mediaElements = slideXmlNode.getElementsByTagName("media");
 		for (var i = 0; i < mediaElements.length; i++) {
-			this.media[i] = new MediaContainer( this.viewerElementId, xmlDocument, mediaElements[i]);
+			this.media[i] = new MediaContainer( this.viewerElementId, mediaElements[i]);
 		}
 	}
 	

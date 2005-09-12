@@ -24,22 +24,21 @@ AudioMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function AudioMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
+function AudioMedia ( viewerElementId, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, mediaXMLNode );
 	}
 }
 
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node mediaXMLNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	AudioMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
-		AudioMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
+	AudioMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
+		AudioMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 	}

@@ -24,22 +24,21 @@ VideoMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function VideoMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
+function VideoMedia ( viewerElementId, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, mediaXMLNode );
 	}
 }
 
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node mediaXMLNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	VideoMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
-		VideoMedia.superclass.init.call(this, xmlDocument, viewerElementId, mediaXMLNode);
+	VideoMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
+		VideoMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 	}

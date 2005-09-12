@@ -20,22 +20,21 @@
  *
  * @version $Id$
  */
-function Media ( viewerElementId, xmlDocument, mediaXMLNode) {
+function Media ( viewerElementId, mediaXMLNode) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, mediaXMLNode );
 	}
 }
 
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node mediaXMLNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	Media.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
+	Media.prototype.init = function ( viewerElementId, mediaXMLNode) {
 		
 		this.zoomLevel = 1;
 		this.zoomIncrement = 1.25;
@@ -44,19 +43,19 @@ function Media ( viewerElementId, xmlDocument, mediaXMLNode) {
 		this.scrollYPercent = 0.5;
 		this.viewerElementId = viewerElementId;
 				
-		var urlElements = getElementsByPath(xmlDocument, mediaXMLNode, "url");
+		var urlElements = mediaXMLNode.getElementsByTagName("url");
 		if (urlElements.length > 0)
 			this.url = urlElements[0].firstChild.nodeValue;
 		
-		var typeElements = getElementsByPath(xmlDocument, mediaXMLNode, "type");
+		var typeElements = mediaXMLNode.getElementsByTagName("type");
 		if (typeElements.length > 0)
 			this.type = typeElements[0].firstChild.nodeValue;
 		
-		var heightElements = getElementsByPath(xmlDocument, mediaXMLNode, "height");
+		var heightElements = mediaXMLNode.getElementsByTagName("height");
 		if (heightElements.length > 0)
 			this.height = heightElements[0].firstChild.nodeValue;
 		
-		var widthElements = getElementsByPath(xmlDocument, mediaXMLNode, "width");
+		var widthElements = mediaXMLNode.getElementsByTagName("width");
 		if (widthElements.length > 0)
 			this.width = widthElements[0].firstChild.nodeValue;
 	}

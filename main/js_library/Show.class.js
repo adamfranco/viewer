@@ -147,6 +147,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			// only if we get a good load should we continue.
 			if (req.status == 200) {
 				me.createSlides(req.responseXML);
+				me._xmlDocument = req.responseXML;
 			} else {
 				alert("There was a problem retrieving the XML data:\n" +
 					req.statusText);
@@ -163,29 +164,29 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @since 8/22/05
 	 */
 	function createSlides ( xmlDocument ) {		
-		var titleElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/title");
+		var titleElements = xmlDocument.documentElement.getElementsByTagName("title");
 		if (titleElements.length > 0) {
 			this.title = titleElements[0].firstChild.nodeValue;
 			document.title = this.title;
 		}
 		
-		var slideElements = getElementsByPath(xmlDocument, xmlDocument, "slideshow/slide");
+		var slideElements = xmlDocument.documentElement.getElementsByTagName("slide");
 		this.slides = new Array(slideElements.length);
 		for (var i = 0; i < slideElements.length; i++) {
-			var positionElements = getElementsByPath(xmlDocument, slideElements[i], "text-position");
+			var positionElements = slideElements[i].getElementsByTagName("text-position");
 			if (positionElements[0])
 				var position = positionElements[0].firstChild.nodeValue;
 			else
 				var position = null;
 			
 			if (position == 'right')
-	 			this.slides[i] = new TextRightSlide(viewerElementId, xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextRightSlide(viewerElementId, slideElements[i]);
 	 		else if (position == 'bottom')
-	 			this.slides[i] = new TextBottomSlide(viewerElementId, xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextBottomSlide(viewerElementId, slideElements[i]);
 	 		else if (position == 'top')
-	 			this.slides[i] = new TextTopSlide(viewerElementId, xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextTopSlide(viewerElementId, slideElements[i]);
 	 		else
-	 			this.slides[i] = new TextLeftSlide(viewerElementId, xmlDocument, slideElements[i]);
+	 			this.slides[i] = new TextLeftSlide(viewerElementId, slideElements[i]);
 		}
 		this.display();
 		this.cacheAround(this.currentIndex);

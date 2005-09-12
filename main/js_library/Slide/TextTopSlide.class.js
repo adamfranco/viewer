@@ -24,9 +24,9 @@ TextTopSlide.superclass = TextTopSlide.prototype;
  *
  * @version $Id$
  */
-function TextTopSlide ( viewerElementId, xmlDocument, slideXmlNode) {
+function TextTopSlide ( viewerElementId, slideXmlNode) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, slideXmlNode );
+		this.init( viewerElementId, slideXmlNode );
 	}
 }
 	

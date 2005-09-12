@@ -24,22 +24,21 @@ FileMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function FileMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
+function FileMedia ( viewerElementId, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, mediaXMLNode );
 	}
 }
 
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node mediaXMLNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	FileMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
-		FileMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
+	FileMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
+		FileMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 	}

@@ -24,24 +24,23 @@ ImageMedia.superclass = Media.prototype;
  *
  * @version $Id$
  */
-function ImageMedia ( viewerElementId, xmlDocument, mediaXMLNode) {
+function ImageMedia ( viewerElementId, mediaXMLNode) {
 		
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, mediaXMLNode );
+		this.init( viewerElementId, mediaXMLNode );
 	}
 }
 
 	/**
 	 * initialize our object. Necessary for proper inheritance to work.
 	 * 
-	 * @param object Document xmlDocument
 	 * @param object Node mediaXMLNode
 	 * @return void
 	 * @access public
 	 * @since 8/26/05
 	 */
-	ImageMedia.prototype.init = function ( viewerElementId, xmlDocument, mediaXMLNode) {
-		ImageMedia.superclass.init.call(this, viewerElementId, xmlDocument, mediaXMLNode);
+	ImageMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
+		ImageMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 			
 		this.startAtZoomToFit = true;
 		this.image = null;

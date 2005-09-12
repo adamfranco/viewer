@@ -20,7 +20,7 @@
  *
  * @version $Id$
  */
-function MediaContainer ( viewerElementId, xmlDocument, mediaXMLNode) {
+function MediaContainer ( viewerElementId, mediaXMLNode) {
 		
 	this.versions = new Array ();
 	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
@@ -38,26 +38,26 @@ function MediaContainer ( viewerElementId, xmlDocument, mediaXMLNode) {
 	this.zoomToFull = zoomToFull;
 	this.zoomToFit = zoomToFit;
 	
-	var versionElements = getElementsByPath(xmlDocument, mediaXMLNode, "version");
+	var versionElements = mediaXMLNode.getElementsByTagName("version");
 	for (var i = 0; i < versionElements.length; i++) {
-		var sizeElements = getElementsByPath(xmlDocument, versionElements[i], "size");
+		var sizeElements = versionElements[i].getElementsByTagName("size");
 		if (sizeElements.length > 0)
 			var size = this.getSizeIndex(sizeElements[0].firstChild.nodeValue);
 		else
 			var size = this.getSizeIndex('original');
 		
-		var typeElements = getElementsByPath(xmlDocument, versionElements[i], "type");
+		var typeElements = versionElements[i].getElementsByTagName("type");
 		if (typeElements.length > 0)
 			var type = typeElements[0].firstChild.nodeValue;
 		
 		if (type == 'image')
-			this.versions[size] = new ImageMedia(this.viewerElementId, xmlDocument, versionElements[i]);
+			this.versions[size] = new ImageMedia(this.viewerElementId, versionElements[i]);
 		else if (type == 'audio')
-			this.versions[size] = new AudioMedia(this.viewerElementId, xmlDocument, versionElements[i]);
+			this.versions[size] = new AudioMedia(this.viewerElementId, versionElements[i]);
 		else if (type == 'video')
-			this.versions[size] = new VideoMedia(this.viewerElementId, xmlDocument, versionElements[i]);
+			this.versions[size] = new VideoMedia(this.viewerElementId, versionElements[i]);
 		else
-			this.versions[size] = new FileMedia(this.viewerElementId, xmlDocument, versionElements[i]);
+			this.versions[size] = new FileMedia(this.viewerElementId, versionElements[i]);
 	}
 	
 	/**

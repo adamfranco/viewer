@@ -24,9 +24,9 @@ TextBottomSlide.superclass = TextBottomSlide.prototype;
  *
  * @version $Id$
  */
-function TextBottomSlide ( viewerElementId, xmlDocument, slideXmlNode) {
+function TextBottomSlide ( viewerElementId, slideXmlNode) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocument, slideXmlNode );
+		this.init( viewerElementId, slideXmlNode );
 	}
 }
 	
