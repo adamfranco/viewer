@@ -88,6 +88,18 @@ function Media ( viewerElementId, mediaXMLNode) {
 	}
 	
 	/**
+	 * Answer true if this media class supports the node passed
+	 * 
+	 * @param object Element xmlNode
+	 * @return boolean
+	 * @access public
+	 * @since 9/12/05
+	 */
+	Media.prototype.supportsNode = function (xmlNode) {
+		alert("Error: over-ride method Media.supportsNode(xmlNode) in child class!");
+	}
+	
+	/**
 	 * Load and cache the image
 	 * 
 	 * @param string mediaSize

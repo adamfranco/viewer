@@ -47,6 +47,24 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	}
 	
 	/**
+	 * Answer true if this media class supports the node passed
+	 * 
+	 * @param object Element xmlNode
+	 * @return boolean
+	 * @access public
+	 * @since 9/12/05
+	 */
+	ImageMedia.prototype.supportsNode = function (xmlNode) {
+		var typeElements = xmlNode.getElementsByTagName("type");
+		if (typeElements.length > 0) {
+			if (typeElements[0].firstChild.nodeValue == 'image')
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Display the slide content in the 'slide' div.
 	 * 
 	 * @param string mediaSize

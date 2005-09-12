@@ -42,3 +42,15 @@ function FileMedia ( viewerElementId, mediaXMLNode) {
 	FileMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
 		FileMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 	}
+	
+	/**
+	 * Answer true if this media class supports the node passed
+	 * 
+	 * @param object Element xmlNode
+	 * @return boolean
+	 * @access public
+	 * @since 9/12/05
+	 */
+	FileMedia.prototype.supportsNode = function (xmlNode) {
+		return true;
+	}

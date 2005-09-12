@@ -24,6 +24,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 		
 	this.versions = new Array ();
 	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
+	this.mediaClasses = new Array(ImageMedia, AudioMedia, VideoMedia, FileMedia);
 	this.currentMediaSize = 'original';
 	this.viewerElementId = viewerElementId;
 	
@@ -46,18 +47,12 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 		else
 			var size = this.getSizeIndex('original');
 		
-		var typeElements = versionElements[i].getElementsByTagName("type");
-		if (typeElements.length > 0)
-			var type = typeElements[0].firstChild.nodeValue;
-		
-		if (type == 'image')
-			this.versions[size] = new ImageMedia(this.viewerElementId, versionElements[i]);
-		else if (type == 'audio')
-			this.versions[size] = new AudioMedia(this.viewerElementId, versionElements[i]);
-		else if (type == 'video')
-			this.versions[size] = new VideoMedia(this.viewerElementId, versionElements[i]);
-		else
-			this.versions[size] = new FileMedia(this.viewerElementId, versionElements[i]);
+		for (var j = 0; j < this.mediaClasses.length; j++) {
+			if (this.mediaClasses[j].prototype.supportsNode(versionElements[i])) {
+				this.versions[size] = new this.mediaClasses[j] (this.viewerElementId, versionElements[i]);
+				break;
+			}
+		}
 	}
 	
 	/**

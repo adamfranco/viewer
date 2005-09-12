@@ -42,3 +42,15 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 	VideoMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
 		VideoMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
 	}
+	
+	/**
+	 * Answer true if this media class supports the node passed
+	 * 
+	 * @param object Element xmlNode
+	 * @return boolean
+	 * @access public
+	 * @since 9/12/05
+	 */
+	VideoMedia.prototype.supportsNode = function (xmlNode) {
+		return false;
+	}
