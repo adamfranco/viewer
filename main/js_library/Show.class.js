@@ -147,7 +147,6 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			// only if we get a good load should we continue.
 			if (req.status == 200) {
 				me.createSlides(req.responseXML);
-				me._xmlDocument = req.responseXML;
 			} else {
 				alert("There was a problem retrieving the XML data:\n" +
 					req.statusText);
