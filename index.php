@@ -45,12 +45,14 @@
 		</script>
 		<title>Concerto: Browsing Exhibition *Turkey* </title>
 	</head>
-	<body onload="Javascript:new SlideShow('viewerA', 'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml'); new SlideShow('viewerB', 'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml');">
+	<body onload="Javascript:new SlideShow('viewerA', 'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml');">
 		<div style='border: 2px dashed #0aa'>
 			<div id='viewerA' class='viewer' style='height: 500px; width: 600px; position: relative;' />
 		</div>
+<!-- 
 		<div style='border: 2px dashed #0aa'>
 			<div id='viewerB' class='viewer' style='height: 500px; width: 600px; position: relative;' />
 		</div>
+ -->
 	</body>
 </html>

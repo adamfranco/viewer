@@ -57,7 +57,8 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	ImageMedia.prototype.supportsNode = function (xmlNode) {
 		var typeElements = xmlNode.getElementsByTagName("type");
 		if (typeElements.length > 0) {
-			if (typeElements[0].firstChild.nodeValue == 'image')
+			var regex = new RegExp("^image(/[a-z]+)?$", "i");
+			if (regex.exec(typeElements[0].firstChild.nodeValue))
 				return true;
 		}
 		
