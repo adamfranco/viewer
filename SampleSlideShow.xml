@@ -16,6 +16,48 @@
 		</media>
 	</slide>
 	<slide>
+		<title>Jumping</title>
+		<caption>A guy on a mountain bike jumping</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video/quicktime</type>
+				<size>original</size>
+				<height>120px</height>
+				<width>160px</width>
+				<url>http://slug.middlebury.edu/~afranco/jumps.mov</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>All Your Base</title>
+		<caption>Audio from the "All Your Base" video.</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>audio</type>
+				<size>original</size>
+				<height>0px</height>
+				<width>0px</width>
+				<url>http://slug.middlebury.edu/~afranco/All_your_Base.mp3</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>Windows Media Sample</title>
+		<caption>Sample video that came with the windows media player.</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video/x-ms-wmv</type>
+				<size>original</size>
+				<height>480px</height>
+				<width>640px</width>
+				<url>http://slug.middlebury.edu/~afranco/Windows%20Media%20Sample.wmv</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
 		<title>The Second Slide</title>
 		<caption>This is a basket icon</caption>
 		<text-position>right</text-position>

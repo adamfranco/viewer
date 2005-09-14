@@ -24,7 +24,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 		
 	this.versions = new Array ();
 	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
-	this.mediaClasses = new Array(ImageMedia, AudioMedia, VideoMedia, FileMedia);
+	this.mediaClasses = new Array(ImageMedia, QuicktimeMedia, WindowsMediaMedia, AudioMedia, VideoMedia, FileMedia);
 	this.currentMediaSize = 'original';
 	this.viewerElementId = viewerElementId;
 	

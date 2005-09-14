@@ -159,6 +159,50 @@ function Media ( viewerElementId, mediaXMLNode) {
 	}
 	
 	/**
+	 * Answer the height
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getHeightPx = function () {
+		return pixelsToInteger(this.height);
+	}
+	
+	/**
+	 * Answer the width
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getWidthPx = function () {
+		return pixelsToInteger(this.width);
+	}
+	
+	/**
+	 * Answer the height after the zoom factor is taken into account
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getZoomedHeightPx = function () {
+		return this.getHeightPx() * this.zoomLevel;
+	}
+	
+	/**
+	 * Answer the width after the zoom factor is taken into account
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	Media.prototype.getZoomedWidthPx = function () {
+		return this.getWidthPx() * this.zoomLevel;
+	}
+	
+	/**
 	 * Zoom to fit and redisplay
 	 * 
 	 * @return void
@@ -168,11 +212,9 @@ function Media ( viewerElementId, mediaXMLNode) {
 	Media.prototype.zoomToFit = function () {
 		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
 		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
-		var imageHeight = pixelsToInteger(this.height);
-		var imageWidth = pixelsToInteger(this.width);
 		
-		var heightRatio = targetHeight/imageHeight;
-		var widthRatio = targetWidth/imageWidth;
+		var heightRatio = targetHeight/this.getHeightPx();
+		var widthRatio = targetWidth/this.getWidthPx();
 		
 		if (heightRatio <= widthRatio)
 			this.zoomLevel = heightRatio;
@@ -193,7 +235,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	Media.prototype.getCenteredX = function (imageWidth) {
 		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
 		if (imageWidth == null)
-			var imageWidth = pixelsToInteger(this.width) * this.zoomLevel;
+			var imageWidth = this.getZoomedWidthPx();
 		
 		if (imageWidth > targetWidth) {
 			return 0;
@@ -213,7 +255,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	Media.prototype.getCenteredY = function (imageHeight) {
 		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
 		if (imageHeight == null)
-			var imageHeight = pixelsToInteger(this.height) * this.zoomLevel;
+			var imageHeight = this.getZoomedHeightPx();
 		
 		if (imageHeight > targetHeight) {
 			return 0;
@@ -296,10 +338,8 @@ function Media ( viewerElementId, mediaXMLNode) {
 	Media.prototype.isLargerThanTarget = function () {
 		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
 		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
-		var imageHeight = pixelsToInteger(this.height);
-		var imageWidth = pixelsToInteger(this.width);
 		
-		if (imageHeight < targetHeight && imageWidth < targetWidth)
+		if (this.getHeightPx() < targetHeight && this.getWidthPx() < targetWidth)
 			return false;
 		else
 			return true;

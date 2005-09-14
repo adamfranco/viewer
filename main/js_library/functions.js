@@ -108,8 +108,11 @@ function getElementWidth (elementId) {
  * @since 8/25/05
  */
 function pixelsToInteger (pixelString) {
-	var sizeRegEx = new RegExp("([0-9]+)px", "i");
+	var sizeRegEx = new RegExp("^([0-9\.]+)(px)?$", "i");
 	var sizeString = new String (pixelString);
 	var matches = sizeString.match(sizeRegEx);
-	return matches[1];
+	if (matches)
+		return new Number(matches[1]);
+	else
+		alert ("Error: Invalid pixelString, " + pixelString);
 }

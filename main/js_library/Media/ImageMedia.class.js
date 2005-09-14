@@ -90,8 +90,8 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		var html = "";
  		html += "<img";
  		html += " src='" + this.image.src + "'";
- 		html += " height='" + (pixelsToInteger(this.height) * this.zoomLevel) + "px'";
- 		html += " width='" + (pixelsToInteger(this.width) * this.zoomLevel) + "px'";
+ 		html += " height='" + this.getZoomedHeightPx() + "px'";
+ 		html += " width='" + this.getZoomedWidthPx() + "px'";
  		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
  		
 		var destination = getElementFromDocument(this.viewerElementId + '_image');
