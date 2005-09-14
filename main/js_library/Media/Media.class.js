@@ -54,10 +54,14 @@ function Media ( viewerElementId, mediaXMLNode) {
 		var heightElements = mediaXMLNode.getElementsByTagName("height");
 		if (heightElements.length > 0)
 			this.height = heightElements[0].firstChild.nodeValue;
+		else
+			this.height = "0px";
 		
 		var widthElements = mediaXMLNode.getElementsByTagName("width");
 		if (widthElements.length > 0)
 			this.width = widthElements[0].firstChild.nodeValue;
+		else
+			this.width = "0px";
 	}
 	
 	/**
@@ -210,18 +214,20 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.zoomToFit = function () {
-		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
-		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
-		
-		var heightRatio = targetHeight/this.getHeightPx();
-		var widthRatio = targetWidth/this.getWidthPx();
-		
-		if (heightRatio <= widthRatio)
-			this.zoomLevel = heightRatio;
-		else
-			this.zoomLevel = widthRatio;
-		
-		this.display();
+		if (this.getHeightPx() != 0 && this.getWidthPx() != 0) {
+			var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
+			var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
+			
+			var heightRatio = targetHeight/this.getHeightPx();
+			var widthRatio = targetWidth/this.getWidthPx();
+			
+			if (heightRatio <= widthRatio)
+				this.zoomLevel = heightRatio;
+			else
+				this.zoomLevel = widthRatio;
+			
+			this.display();
+		}
 	}
 	
 	/**
