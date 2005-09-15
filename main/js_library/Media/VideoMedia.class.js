@@ -102,6 +102,8 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 		html += " autoplay='false'";
 		if (this.getPluginsPage())
 	 		html += " pluginspage='" + this.getPluginsPage() + "'";
+	 	if (this.getAdditionalAttras())
+	 		html += " " + this.getAdditionalAttras();
 		html += " src='" + this.url + "'";
 		html += " href='" + this.url + "'";
 		html += " width='" + this.getZoomedWidthPx() + "px'";
@@ -160,6 +162,17 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 	 * @since 9/12/05
 	 */
 	VideoMedia.prototype.getPluginsPage = function () {
+		return false;
+	}
+	
+	/**
+	 * Answer additional attributes to add to the embed tag
+	 * 
+	 * @return string OR false
+	 * @access public
+	 * @since 9/12/05
+	 */
+	VideoMedia.prototype.getAdditionalAttras = function () {
 		return false;
 	}
 	

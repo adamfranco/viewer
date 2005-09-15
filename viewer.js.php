@@ -37,6 +37,8 @@ require_once(dirname(__FILE__)."/main/js_library/Media/QuicktimeMedia.class.js")
 
 require_once(dirname(__FILE__)."/main/js_library/Media/WindowsMediaMedia.class.js");
 
+require_once(dirname(__FILE__)."/main/js_library/Media/RealMedia.class.js");
+
 require_once(dirname(__FILE__)."/main/js_library/Media/FileMedia.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/functions.js");

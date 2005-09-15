@@ -16,6 +16,20 @@
 		</media>
 	</slide>
 	<slide>
+		<title>Real Media Sample</title>
+		<caption>Sample video from real.com</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video</type>
+				<size>original</size>
+				<height>480px</height>
+				<width>720px</width>
+				<url>http://slug.middlebury.edu/~afranco/realvideo10_LAN.ram</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
 		<title>Jumping</title>
 		<caption>A guy on a mountain bike jumping</caption>
 		<text-position>right</text-position>
