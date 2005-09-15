@@ -83,7 +83,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 		html += "</a>";
 		html += "</div>";
 		
-		var destination = getElementFromDocument(this.viewerElementId + '_image');
+		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;
 		
 		var downloadLink = getElementFromDocument(this.viewerElementId + '_download_link');
@@ -215,8 +215,8 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 */
 	Media.prototype.zoomToFit = function () {
 		if (this.getHeightPx() != 0 && this.getWidthPx() != 0) {
-			var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
-			var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
+			var targetHeight = getElementHeight(this.viewerElementId + '_media') - this.fitMargin;
+			var targetWidth = getElementWidth(this.viewerElementId + '_media') - this.fitMargin;
 			
 			var heightRatio = targetHeight/this.getHeightPx();
 			var widthRatio = targetWidth/this.getWidthPx();
@@ -239,7 +239,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getCenteredX = function (imageWidth) {
-		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
+		var targetWidth = getElementWidth(this.viewerElementId + '_media') - this.fitMargin;
 		if (imageWidth == null)
 			var imageWidth = this.getZoomedWidthPx();
 		
@@ -259,7 +259,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getCenteredY = function (imageHeight) {
-		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
+		var targetHeight = getElementHeight(this.viewerElementId + '_media') - this.fitMargin;
 		if (imageHeight == null)
 			var imageHeight = this.getZoomedHeightPx();
 		
@@ -278,7 +278,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getScrollXPercent = function () {
-		var target = getElementFromDocument(this.viewerElementId + '_image');
+		var target = getElementFromDocument(this.viewerElementId + '_media');
 		return ((target.scrollLeft + target.clientWidth/2)/target.scrollWidth);
 	}
 	
@@ -290,7 +290,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.getScrollYPercent = function () {
-		var target = getElementFromDocument(this.viewerElementId + '_image');
+		var target = getElementFromDocument(this.viewerElementId + '_media');
 		return ((target.scrollTop + target.clientHeight/2)/target.scrollHeight);
 	}
 	
@@ -303,7 +303,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.setScrollXPercent = function (scrollPercent) {
-		var target = getElementFromDocument(this.viewerElementId + '_image');
+		var target = getElementFromDocument(this.viewerElementId + '_media');
 		target.scrollLeft = Math.round((target.scrollWidth * scrollPercent) - target.clientWidth/2);
 	}
 	
@@ -316,7 +316,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.setScrollYPercent = function (scrollPercent) {
-		var target = getElementFromDocument(this.viewerElementId + '_image');
+		var target = getElementFromDocument(this.viewerElementId + '_media');
 		target.scrollTop = Math.round((target.scrollHeight * scrollPercent) - target.clientHeight/2);
 	}
 	
@@ -342,8 +342,8 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 * @since 8/25/05
 	 */
 	Media.prototype.isLargerThanTarget = function () {
-		var targetHeight = getElementHeight(this.viewerElementId + '_image') - this.fitMargin;
-		var targetWidth = getElementWidth(this.viewerElementId + '_image') - this.fitMargin;
+		var targetHeight = getElementHeight(this.viewerElementId + '_media') - this.fitMargin;
+		var targetWidth = getElementWidth(this.viewerElementId + '_media') - this.fitMargin;
 		
 		if (this.getHeightPx() < targetHeight && this.getWidthPx() < targetWidth)
 			return false;

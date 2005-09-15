@@ -47,7 +47,7 @@
 	</head>
 	<body onload="Javascript:new SlideShow('viewerA', 'http://slug.middlebury.edu/~afranco/viewer2/SampleSlideShow.xml');">
 		<div style='border: 2px dashed #0aa'>
-			<div id='viewerA' class='viewer' style='height: 500px; width: 600px; position: relative;' />
+			<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 		</div>
 <!-- 
 		<div style='border: 2px dashed #0aa'>

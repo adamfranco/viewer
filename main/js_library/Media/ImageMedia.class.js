@@ -94,7 +94,7 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
  		html += " width='" + this.getZoomedWidthPx() + "px'";
  		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
  		
-		var destination = getElementFromDocument(this.viewerElementId + '_image');
+		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;
 		
 		destination._scrollTarget = this;

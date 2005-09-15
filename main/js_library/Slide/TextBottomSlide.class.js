@@ -46,10 +46,10 @@ function TextBottomSlide ( viewerElementId, slideXmlNode) {
 		
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media_buttons' class='toolbar' />";
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_slide_text' class='content' />";
-		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_image' />";
+		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' />";
 		
 		
-		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		var imageElement = getElementFromDocument(this.viewerElementId + '_media');
 		imageElement.style.position = "absolute";
 		imageElement.style.left = "0px";
 		imageElement.style.top = "0px";

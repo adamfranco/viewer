@@ -115,7 +115,7 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 		html += "</a>";
 		html += "</div>";
 		
-		var destination = getElementFromDocument(this.viewerElementId + '_image');
+		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;
 		
 		

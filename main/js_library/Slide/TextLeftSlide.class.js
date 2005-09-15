@@ -46,7 +46,7 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 		
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media_buttons' class='toolbar' />";
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_slide_text' class='content' />";
-		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_image' />";
+		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' />";
 		
 		var mediaButtonsElement = getElementFromDocument(this.viewerElementId + '_media_buttons');
 		mediaButtonsElement.style.position = "absolute";
@@ -72,7 +72,7 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 		textElement.innerHTML += "\n<br/>" + this.caption + "";
 		
 		
-		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		var imageElement = getElementFromDocument(this.viewerElementId + '_media');
 		imageElement.style.position = "absolute";
 		imageElement.style.left = "200px";
 		if (this.media.length > 1) {
