@@ -14,7 +14,9 @@ QuicktimeMedia.prototype.constructor = QuicktimeMedia;
 QuicktimeMedia.superclass = VideoMedia.prototype;
 
 /**
- * The media class represents a media file in a slide.
+ * The media class represents a media file in a slide. More information on 
+ * embedding Quicktime in web pages can be found at:
+ * 		http://www.apple.com/quicktime/tutorials/embed.html
  * 
  * @since 8/23/05
  * @package viewer.js_library
