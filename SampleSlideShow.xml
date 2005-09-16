@@ -25,7 +25,7 @@
 				<size>original</size>
 				<height>480px</height>
 				<width>720px</width>
-				<url>http://slug.middlebury.edu/~afranco/realvideo10_LAN.ram</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/realvideo10_LAN.ram</url>
 			</version>
 		</media>
 	</slide>
@@ -39,7 +39,7 @@
 				<size>original</size>
 				<height>120px</height>
 				<width>160px</width>
-				<url>http://slug.middlebury.edu/~afranco/jumps.mov</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/jumps.mov</url>
 			</version>
 		</media>
 	</slide>
@@ -51,7 +51,7 @@
 			<version>
 				<type>audio</type>
 				<size>original</size>
-				<url>http://slug.middlebury.edu/~afranco/All_your_Base.mp3</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/All_your_Base.mp3</url>
 			</version>
 		</media>
 	</slide>
@@ -65,7 +65,7 @@
 				<size>original</size>
 				<height>480px</height>
 				<width>640px</width>
-				<url>http://slug.middlebury.edu/~afranco/Windows%20Media%20Sample.wmv</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/Windows%20Media%20Sample.wmv</url>
 			</version>
 		</media>
 	</slide>
@@ -79,7 +79,7 @@
 				<size>original</size>
 				<height>396px</height>
 				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basket.png</url>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basket.png</url>
 			</version>
 		</media>
 		<media>
@@ -88,7 +88,7 @@
 				<size>original</size>
 				<height>396px</height>
 				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basketplus.png</url>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketplus.png</url>
 			</version>
 		</media>
 		<media>
@@ -97,7 +97,7 @@
 				<size>original</size>
 				<height>396px</height>
 				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony//main/library/Basket/icons/basketminus.png</url>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketminus.png</url>
 			</version>
 		</media>
 	</slide>
@@ -110,14 +110,14 @@
 				<size>original</size>
 				<height>500px</height>
 				<width>500px</width>
-				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
 			</version>
 			<version>
 				<type>image</type>
 				<size>thumb</size>
 				<height>100px</height>
 				<width>100px</width>
-				<url>http://slug.middlebury.edu/~afranco/miterbox.png</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
 			</version>
 		</media>
 	</slide>
@@ -130,7 +130,7 @@
 				<size>original</size>
 				<height>300px</height>
 				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/flower.jpg</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower.jpg</url>
 			</version>
 		</media>
 	</slide>
@@ -142,7 +142,7 @@
 				<size>original</size>
 				<height>300px</height>
 				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/flower2.jpg</url>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower2.jpg</url>
 			</version>
 		</media>			
 	</slide>
@@ -154,7 +154,7 @@
 				<size>original</size>
 				<height>600px</height>
 				<width>462px</width>
-				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/intr0201a-l05/Ducks.JPG</url>
+				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/test_media/intr0201a-l05/Ducks.JPG</url>
 			</version>
 		</media>
 	</slide>

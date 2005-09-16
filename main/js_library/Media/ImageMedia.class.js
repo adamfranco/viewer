@@ -89,6 +89,7 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 				
 		var html = "";
  		html += "<img";
+ 		html += " id='" + this.viewerElementId + "_image'";
  		html += " src='" + this.image.src + "'";
  		html += " height='" + this.getZoomedHeightPx() + "px'";
  		html += " width='" + this.getZoomedWidthPx() + "px'";
@@ -102,6 +103,11 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		
 		this.setScrollXPercent(this.scrollXPercent);
 		this.setScrollYPercent(this.scrollYPercent);
+		
+		
+		var image = getElementFromDocument(this.viewerElementId + '_image');
+		image._scrollTarget = this;
+		image.onclick= center;
 	}
 	
 	/**
@@ -128,5 +134,61 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 */
 	ImageMedia.prototype.unload = function () {
 		this.image = null;
+	}
+	
+	/**
+	 * Answer the distance X-direction from the edge of the image to the
+	 * center of the scrolled window.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	ImageMedia.prototype.getScrollCenterX = function () {
+		var target = getElementFromDocument(this.viewerElementId + '_media');
+		return target.scrollLeft + Math.round(target.clientWidth/2) + this.getCenteredX();
+	}
+	
+	/**
+	 * Answer the distance Y-direction from the edge of the image to the
+	 * center of the scrolled window.
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	ImageMedia.prototype.getScrollCenterY = function () {
+		var target = getElementFromDocument(this.viewerElementId + '_media');
+		return target.scrollTop + Math.round(target.clientHeight/2) + this.getCenteredY();
+	}
+	
+	/**
+	 * Center the image on the place where the mouse was clicked.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 9/15/05
+	 */
+	center = function (event) {
+		var changeX = -(this._scrollTarget.getScrollCenterX() - event.layerX);
+		var changeY = -(this._scrollTarget.getScrollCenterY() - event.layerY);
+		
+		
+		var target = getElementFromDocument(this._scrollTarget.viewerElementId + '_media');
+		
+		if (target.scrollLeft >= 0
+			&& target.scrollLeft <= (target.scrollWidth - target.clientWidth/2))
+		{
+			target.scrollLeft = target.scrollLeft + changeX;
+			this._scrollTarget.scrollXPercent = (target.clientWidth/2 + target.scrollLeft)/target.scrollWidth;
+		
+		}
+		
+		if (target.scrollTop >= 0 
+			&& target.scrollTop <= (target.scrollHeight - target.clientHeight/2))
+		{
+			target.scrollTop = target.scrollTop + changeY;
+			this._scrollTarget.scrollYPercent = (target.clientHeight/2 + target.scrollTop)/target.scrollHeight;
+		}
 	}
 
