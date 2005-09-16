@@ -38,7 +38,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 		
 		this.zoomLevel = 1;
 		this.zoomIncrement = 1.25;
-		this.fitMargin = 20;
+		this.fitMargin = 0;
 		this.scrollXPercent = 0.5;
 		this.scrollYPercent = 0.5;
 		this.viewerElementId = viewerElementId;
@@ -317,6 +317,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 	 */
 	Media.prototype.setScrollYPercent = function (scrollPercent) {
 		var target = getElementFromDocument(this.viewerElementId + '_media');
+		
 		target.scrollTop = Math.round((target.scrollHeight * scrollPercent) - target.clientHeight/2);
 	}
 	

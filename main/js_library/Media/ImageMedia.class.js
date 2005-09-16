@@ -170,8 +170,30 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 * @since 9/15/05
 	 */
 	center = function (event) {
-		var changeX = -(this._scrollTarget.getScrollCenterX() - event.layerX);
-		var changeY = -(this._scrollTarget.getScrollCenterY() - event.layerY);
+		var zoomIn = false;
+		var zoomOut = false;
+		
+		if (event) {
+			// Mozilla/Konqueror/Safari version
+			var clickedX = event.layerX;
+			var clickedY = event.layerY;
+		} else {
+			// IE version
+			var event = window.event;
+			var clickedX = window.event.offsetX;
+			var clickedY = window.event.offsetY;
+		}
+	
+		if (event.ctrlKey || event.metaKey) {
+			if (event.shiftKey)
+				zoomOut = true;
+			else
+				zoomIn = true;
+		}
+	
+	
+		var changeX = -(this._scrollTarget.getScrollCenterX() - clickedX);
+		var changeY = -(this._scrollTarget.getScrollCenterY() - clickedY);
 		
 		
 		var target = getElementFromDocument(this._scrollTarget.viewerElementId + '_media');
@@ -190,5 +212,10 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			target.scrollTop = target.scrollTop + changeY;
 			this._scrollTarget.scrollYPercent = (target.clientHeight/2 + target.scrollTop)/target.scrollHeight;
 		}
+		
+		if (zoomIn)
+			this._scrollTarget.zoomIn();
+		else if (zoomOut)
+			this._scrollTarget.zoomOut();
 	}
 
