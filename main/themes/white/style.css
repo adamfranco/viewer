@@ -1,0 +1,119 @@
+/*********************************************************
+ * General styles
+ *********************************************************/
+ 	.viewer {
+		 /*border: 1px solid #000;*/
+		 background-color: #FFF;
+		 color: #000;
+	}
+	
+	.loading{
+		color: green;
+		text-decoration: blink;
+	}
+	
+	.toolbar {}
+	
+	.content {}
+	
+	.slide_title {
+		margin-top: 30px;
+		font-weight: bold;
+	}
+	
+	.slide_caption {}
+	
+
+/*********************************************************
+ * Button image-replacements.
+ * Use text-indent to hide the button text
+ *********************************************************/
+	
+	.button {
+		width: 25px;
+		height: 25px;
+		
+		margin: 0;
+		padding: 0;
+		margin-left: 3px;
+		border: 0;
+		vertical-align: middle;
+		
+		text-indent: -1000em;
+		
+		cursor: pointer; /* hand-shaped cursor */
+		cursor: hand; /* for IE 5.x */
+	}
+	
+	.tostart_button {
+		background-image: url(images/viewer_back_full.gif);
+	}
+	
+	.previous_button {
+		background-image: url(images/viewer_back.gif);
+	}
+	
+	.next_button {
+		background: url(images/viewer_forward.gif);
+	}
+	
+	.toend_button {
+		background: url(images/viewer_forward_full.gif);
+	}
+	
+	.zoomin_button {
+		width: 16px;
+		background-image: url(images/zoom_in.gif);				
+	}
+	
+	.zoomout_button {
+		width: 16px;
+		background-image: url(images/zoom_out.gif);				
+	}
+	
+	.zoom100_button {
+		width: 33px;
+		background-image: url(images/100pc.gif);				
+	}
+	
+	.zoomfit_button {
+		background-image: url(images/fit.gif);				
+	}
+	
+	.controls_button {
+		width: 50px;
+		background-image: url(images/show.gif);				
+	}
+	
+	.close_controls_button {
+		width: 50px;
+		background-image: url(images/hide.gif);				
+	}
+	
+	.play_button {
+		width: 24px;
+		background-image: url(images/play.gif);
+	}
+	
+	.play_button[disabled] {
+		background-image: url(images/play2.gif);
+	}
+	
+	.pause_button {
+		width: 16px;
+		background-image: url(images/pause.gif);
+	}
+	
+	.pause_button[disabled] {
+		background-image: url(images/pause2.gif);
+	}
+	
+	.once_button {
+		width: 40px;
+		background-image: url(images/once.gif);
+	}
+	
+	.loop_button {
+		width: 40px;
+		background-image: url(images/loop.gif);
+	}
