@@ -107,7 +107,8 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		
 		var image = getElementFromDocument(this.viewerElementId + '_image');
 		image._scrollTarget = this;
-		image.onclick= center;
+		image.onclick = center;
+		image.onmousemove = setCursor;
 	}
 	
 	/**
@@ -219,3 +220,23 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			this._scrollTarget.zoomOut();
 	}
 
+	/**
+	 * Set the cursor based on the meta-keys pressed.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 9/15/05
+	 */
+	setCursor = function (event) {
+		if (!event)
+			event = window.event;
+		
+		if (event.ctrlKey || event.metaKey) {
+			if (event.shiftKey)
+				this.style.cursor = 'help';
+			else
+				this.style.cursor = 'crosshair';
+		} else {
+			this.style.cursor = 'default';
+		}
+	}
