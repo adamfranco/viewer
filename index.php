@@ -18,6 +18,10 @@
 		
 		<style type="text/css">
 			/* <![CDATA[ */
+			
+		/*********************************************************
+		 * General styles
+		 *********************************************************/
 			.loading{
 				color: green;
 				text-decoration: blink;
@@ -31,7 +35,111 @@
 				 border: 1px solid #500;
 			}
 			
-
+		
+		/*********************************************************
+		 * Button image-replacements.
+		 * Use text-indent to hide the button text
+		 *********************************************************/
+		 	
+		 	.button {
+		 		width: 20px;
+				height: 20px;
+				
+		 		margin: 0;
+				padding: 0;
+				margin-left: 3px;
+				border: 0;
+				vertical-align: middle;
+				
+				text-indent: -1000em;
+				
+		 		cursor: pointer; /* hand-shaped cursor */
+				cursor: hand; /* for IE 5.x */
+		 	}
+			
+			.tostart_button {
+				background-image: url(main/images/viewer_back_full.gif);
+			}
+			
+			.previous_button {
+				background-image: url(main/images/viewer_back.gif);
+			}
+			
+			.next_button {
+				background: url(main/images/viewer_forward.gif);
+			}
+			
+			.toend_button {
+				background: url(main/images/viewer_forward_full.gif);
+			}
+			
+			.zoomin_button {
+				width: 16px;
+				height: 16px;
+				background-image: url(main/images/zoom_in.gif);				
+			}
+			
+			.zoomout_button {
+				width: 16px;
+				height: 16px;
+				background-image: url(main/images/zoom_out.gif);				
+			}
+			
+			.zoom100_button {
+				width: 33px;
+				height: 26px;
+				background-image: url(main/images/100pc.gif);				
+			}
+			
+			.zoomfit_button {
+				width: 26px;
+				height: 26px;
+				background-image: url(main/images/fit.gif);				
+			}
+			
+			.controls_button {
+				width: 50px;
+				height: 25px;
+				background-image: url(main/images/show.gif);				
+			}
+			
+			.close_controls_button {
+				width: 50px;
+				height: 25px;
+				background-image: url(main/images/hide.gif);				
+			}
+			
+			.play_button {
+				width: 24px;
+				height: 24px;
+				background-image: url(main/images/play.gif);
+			}
+			
+			.play_button[disabled] {
+				background-image: url(main/images/play2.gif);
+			}
+			
+			.pause_button {
+				width: 24px;
+				height: 24px;
+				background-image: url(main/images/pause.gif);
+			}
+			
+			.pause_button[disabled] {
+				background-image: url(main/images/pause2.gif);
+			}
+			
+			.once_button {
+				width: 24px;
+				height: 24px;
+				background-image: url(main/images/hide.gif);
+			}
+			
+			.loop_button {
+				width: 24px;
+				height: 24px;
+				background-image: url(main/images/play.gif);
+			}
 			
 			/* ]]> */
 		</style>

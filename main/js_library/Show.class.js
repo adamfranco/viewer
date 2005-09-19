@@ -209,7 +209,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		var html = "";
 		
 		// Main Tool Bar
-		html += "\n<div id='" + this.viewerElementId + "_main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+		html += "\n<div class='main_toolbar' id='" + this.viewerElementId + "_main_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
 			
 		// Next/Previous buttons
 		var previousDisabled = "";
@@ -219,10 +219,10 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		if (this.currentIndex >= (this.slides.length - 1))
 			nextDisabled = " disabled='disabled'";
 			
-		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toStart()' value='&lt;&lt;'/>";
-		html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previous()' value='&lt;'/>";
-		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.next()' value='&gt;'/>";
-		html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toEnd()' value='&gt;&gt;'/>";
+		html += "\n&nbsp;<button" + previousDisabled + " class='button tostart_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toStart()'>&lt;&lt;</button>";
+		html += "\n<button" + previousDisabled + " class='button previous_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previous()'>&lt;</button>";
+		html += "\n<button" + nextDisabled + " class='button next_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.next()'>&gt;</button>";
+		html += "\n<button" + nextDisabled + " class='button toend_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toEnd()'>&gt;&gt;</button>";
 		
 		
 		html += "\n &nbsp;&nbsp; " + (this.currentIndex + 1);
@@ -244,15 +244,15 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 				
 		
 		// Zoom Buttons
-		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomIn()' value='+'/>";
-		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomOut()' value='-'/>";
-		html += " \n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFull()' value='100%'/>";
-		html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFit()' value='&lt;--&gt;'/>";
+		html += " \n<button class='button zoomin_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomIn()'>+</button>";
+		html += "\n<button class='button zoomout_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomOut()'>-</button>";
+		html += " \n<button class='button zoom100_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFull()'>100%</button>";
+		html += "\n<button class='button zoomfit_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFit()'>&lt;--&gt;</button>";
 		
 		if (this.showPlaybackToolbar == true)
-			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' value='... X'/>";
+			html += "\n<button class='button close_controls_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()'>... X</button>";
 		else
-			html += "\n<input type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' value='... &nbsp;'/>";
+			html += "\n<button class='button controls_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()'>... &nbsp;</button>";
 		
 		
 		html += "\n</div>";
@@ -261,15 +261,18 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		
 		if (this.showPlaybackToolbar == true) {
 			// Slideshow playing controls
-			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>";
+			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>&nbsp;";
 			
 			if (this.playing == true) {
-				html += " \n<input id='" + this.viewerElementId + "_play_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()' value='|&gt;' disabled='disabled'/>";
-				html += " \n<input id='" + this.viewerElementId + "_pause_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()' value='||'/>";
+				var playDisabled = " disabled='disabled'";
+				var pauseDisabled = "";
 			} else {
-				html += " \n<input id='" + this.viewerElementId + "_play_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()' value='|&gt;'/>";
-				html += " \n<input id='" + this.viewerElementId + "_pause_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()' value='||' disabled='disabled'/>";
+				var playDisabled = "";
+				var pauseDisabled = " disabled='disabled'";
 			}
+			html += " \n<button class='button play_button' id='" + this.viewerElementId + "_play_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()'" + playDisabled + ">|&gt;</button>";
+			html += " \n<button class='button pause_button' id='" + this.viewerElementId + "_pause_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()'" + pauseDisabled + ">||</button>";
+			
 			
 			// Media size selection
 			html += " &nbsp;&nbsp; Delay: ";
@@ -304,9 +307,9 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			html += " &nbsp;&nbsp; ";
 			
 			if (this.loop == true) {
-				html += " \n<input id='" + this.viewerElementId + "_loop_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()' value='<__]'/>";
+				html += " \n<button class='button loop_button' id='" + this.viewerElementId + "_loop_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()'>&lt;__]</button>";
 			} else {
-				html += " \n<input id='" + this.viewerElementId + "_loop_button' type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()' value='--&gt;|'/>";
+				html += " \n<button class='button once_button' id='" + this.viewerElementId + "_loop_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()'>--&gt;|</button>";
 			}
 			
 			html += "\n</div>";

@@ -16,6 +16,51 @@
 		</media>
 	</slide>
 	<slide>
+		<title>The Third Slide</title>
+		<caption>This is the second slide in the slideshow</caption>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>500px</height>
+				<width>500px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+			</version>
+			<version>
+				<type>image</type>
+				<size>thumb</size>
+				<height>100px</height>
+				<width>100px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Fourth Slide</title>
+		<caption>A Flower</caption>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>300px</height>
+				<width>222px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower.jpg</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Fifth Slide</title>
+		<caption>A second flower</caption>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>222px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower2.jpg</url>
+			</version>
+		</media>			
+	</slide>
+	<slide>
 		<title>Real Media Sample</title>
 		<caption>Sample video from real.com</caption>
 		<text-position>right</text-position>
@@ -101,51 +146,7 @@
 			</version>
 		</media>
 	</slide>
-	<slide>
-		<title>The Third Slide</title>
-		<caption>This is the second slide in the slideshow</caption>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>500px</height>
-				<width>500px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
-			</version>
-			<version>
-				<type>image</type>
-				<size>thumb</size>
-				<height>100px</height>
-				<width>100px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
-			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>The Fourth Slide</title>
-		<caption>A Flower</caption>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>300px</height>
-				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/flower.jpg</url>
-			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>The Fifth Slide</title>
-		<caption>A second flower</caption>
-		<media>
-			<version>
-				<size>original</size>
-				<height>300px</height>
-				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/flower2.jpg</url>
-			</version>
-		</media>			
-	</slide>
+
 	<slide>
 		<title>The Sixth Slide</title>
 		<caption>Ducks in the road.</caption>

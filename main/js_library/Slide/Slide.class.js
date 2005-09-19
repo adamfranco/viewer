@@ -101,8 +101,8 @@ function Slide (viewerElementId, slideXmlNode) {
 			if (this.currentMediaIndex >= (this.media.length - 1))
 				nextDisabled = " disabled='disabled'";
 				
-			html += "\n<input" + previousDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previousMedia()' value='&lt;'/>";
-			html += "\n<input" + nextDisabled + " type='button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.nextMedia()' value='&gt;'/>";
+			html += "\n<button" + previousDisabled + " class='button previous_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previousMedia()'>&lt;</button>";
+			html += "\n<button" + nextDisabled + " class='button next_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.nextMedia()'>&gt;</button>";
 			
 			destination.innerHTML = html;
 		} else {
