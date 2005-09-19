@@ -54,9 +54,9 @@ function TextBottomSlide ( viewerElementId, slideXmlNode) {
 		imageElement.style.left = "0px";
 		imageElement.style.top = "0px";
 		if (this.media.length > 1) {
-			imageElement.style.height = (getElementHeight(this.viewerElementId + '_slide') - 230) + "px";
+			imageElement.style.height = (getElementHeight(this.viewerElementId + '_slide') - 130) + "px";
 		} else {
-			imageElement.style.height = (getElementHeight(this.viewerElementId + '_slide') - 200) + "px";
+			imageElement.style.height = (getElementHeight(this.viewerElementId + '_slide') - 100) + "px";
 		}
 		imageElement.style.width = getElementWidth(this.viewerElementId + '_slide') + "px";
 		imageElement.style.overflow = "auto";
@@ -75,16 +75,17 @@ function TextBottomSlide ( viewerElementId, slideXmlNode) {
 		var textElement = getElementFromDocument(this.viewerElementId + '_slide_text');
 		textElement.style.position = "absolute";
 		textElement.style.left = "0px";
-		textElement.style.top = (getElementHeight(this.viewerElementId + '_slide') - 200) + "px";
-		textElement.style.height = "195px";
-		textElement.style.width = getElementWidth(this.viewerElementId + '_slide') + "px";
+		textElement.style.top = (getElementHeight(this.viewerElementId + '_slide') - 100) + "px";
+		textElement.style.height = "95px";
+		textElement.style.width = (getElementWidth(this.viewerElementId + '_slide') - 5) + "px";
 		textElement.style.overflow = "auto";
 		textElement.style.paddingTop = "5px";
 		textElement.style.paddingLeft = "5px";
+		textElement.style.textAlign = "center";
 // 		textElement.style.border = "1px solid #f00";
 		
-		textElement.innerHTML = "\n<strong>" + this.title + "</strong>";
-		textElement.innerHTML += "\n<br/>" + this.caption + "";
+		textElement.innerHTML = "\n<div class='slide_title'>" + this.title + "</div>";
+		textElement.innerHTML += "\n<div class='slide_caption'>" + this.caption + "</div>";
 
 		
 		

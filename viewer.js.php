@@ -11,6 +11,8 @@
  *
  * @version $Id$
  */ 
+ 
+header('Content-type: application/x-javascript');
 
 
 require_once(dirname(__FILE__)."/main/js_library/Show.class.js");

@@ -37,7 +37,18 @@
 	</slide>
 	<slide>
 		<title>The Fourth Slide</title>
-		<caption>A Flower</caption>
+		<caption>
+			<![CDATA[
+			<p>HTML allows authors to associate any number of external style sheets with a document. The style sheet language defines how multiple external style sheets interact (for example, the CSS "cascade" rules).</p>
+
+<p>Authors may specify a number of mutually exclusive style sheets called alternate style sheets. Users may select their favorite among these depending on their preferences. For instance, an author may specify one style sheet designed for small screens and another for users with weak vision (e.g., large fonts). User agents should allow users to select from alternate style sheets.</p>
+
+<p>The author may specify that one of the alternates is a preferred style sheet. User agents should apply the author's preferred style sheet unless the user has selected a different alternate.</p>
+
+<p>Authors may group several alternate style sheets (including the author's preferred style sheets) under a single style name. When a user selects a named style, the user agent must apply all style sheets with that name. User agents must not apply alternate style sheets with a different style name. The section on specifying external style sheets explains how to name a group of style sheets.</p>
+			]]>
+		</caption>
+		<text-position>bottom</text-position>
 		<media>
 			<version>
 				<type>image</type>

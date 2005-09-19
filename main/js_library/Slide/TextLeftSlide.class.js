@@ -68,8 +68,8 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 		textElement.style.paddingLeft = "5px";
 // 		textElement.style.border = "1px solid #f00";
 		
-		textElement.innerHTML = "\n<strong>" + this.title + "</strong>";
-		textElement.innerHTML += "\n<br/>" + this.caption + "";
+		textElement.innerHTML = "\n<div class='slide_title'>" + this.title + "</div>";
+		textElement.innerHTML += "\n<div class='slide_caption'>" + this.caption + "</div>";
 		
 		
 		var imageElement = getElementFromDocument(this.viewerElementId + '_media');
