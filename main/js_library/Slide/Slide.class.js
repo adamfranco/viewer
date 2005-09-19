@@ -46,7 +46,10 @@ function Slide (viewerElementId, slideXmlNode) {
 		this.title = titleElements[0].firstChild.nodeValue;
 		
 		var captionElements = slideXmlNode.getElementsByTagName("caption");
-		this.caption = captionElements[0].firstChild.nodeValue;
+		this.caption = "";
+		for (var i = 0; i < captionElements[0].childNodes.length; i++) {
+			this.caption += captionElements[0].childNodes.item(i).nodeValue;
+		}
 		
 		var mediaElements = slideXmlNode.getElementsByTagName("media");
 		for (var i = 0; i < mediaElements.length; i++) {
@@ -89,6 +92,12 @@ function Slide (viewerElementId, slideXmlNode) {
 		var toolbars = getElementFromDocument(this.viewerElementId + '_toolbars');
 		if (this.media.length > 1) {
 			destination.style.display = "block";
+			destination.style.verticalAlign = "center";
+			destination.style.textAlign = "center";
+			destination.style.paddingTop = "1px";
+			destination.style.height = "29px";
+			
+			
 			var html = "Media Number: ";
 			html += (this.currentMediaIndex + 1);
 			html += " of: ";
