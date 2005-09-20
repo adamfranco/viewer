@@ -65,10 +65,14 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	// Attach ourselves to the View obect for later referencing from static
 	// methods.
 	var viewerElement = getElementFromDocument(this.viewerElementId);
+	if (!viewerElement) {
+		alert("Error: Could not find div element with id, '" + this.viewerElementId 
+			+ "', on the page. Not loading viewer.");
+	}
+	viewerElement.style.position = "relative";
 	viewerElement._slideShow = this;
 	
 	// Write our main div elements
-	var viewerElement = getElementFromDocument(this.viewerElementId);
 	viewerElement.innerHTML = "";
 	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
 	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
