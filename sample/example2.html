@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<link rel='stylesheet' type='text/css' href='../main/themes/white/style.css' title='white'/>
+		<link rel='alternate stylesheet' type='text/css' href='../main/themes/black/style.css' title='black'/>
+
+		<script type='text/javascript' src='../viewer.js.php'></script>
+		
+		<title>My page with two viewers</title>
+
+	</head>
+	<body onload="Javascript:new SlideShow('viewerA', 'slideshow.xml'); new SlideShow('viewerB', 'slideshow2.xml');">
+		<p>Hello there. Look at my slideshow below!</p>
+		<div>
+			<div id='viewerA' class='viewer' style='height: 500px; width: 650px;' />
+		</div>
+		<p>Below is a second viewer!</p>
+		<div>
+			<div id='viewerB' class='viewer' style='height: 500px; width: 650px;' />
+		</div>
+		<p>Here is even more text....</p>
+	</body>
+</html>

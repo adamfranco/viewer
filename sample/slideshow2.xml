@@ -1,0 +1,181 @@
+<?xml version="1.0" standalone="yes"?>
+<slideshow>
+	<title>My Test Slideshow</title>
+
+	<slide>
+		<title>Flower from Sicily</title>
+		<caption>
+			<![CDATA[
+			<p>These paragraphs appear in a <em>&lt;![CDATA[.....]]&gt;</em> element in the source XML file. These <em>&lt;![CDATA[.....]]&gt;</em> elements can contain HTML/XHTML with arbitrary formatting such as <strong>&lt;strong&gt; tags</strong> and <em>&lt;em&gt; tags</em>.</p>
+			<p>Here is another paragraph.</p>
+			]]>
+		</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>300px</height>
+				<width>222px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower.jpg</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Third Slide</title>
+		<caption>This is the second slide in the slideshow</caption>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>500px</height>
+				<width>500px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+			</version>
+			<version>
+				<type>image</type>
+				<size>thumb</size>
+				<height>100px</height>
+				<width>100px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The First Slide</title>
+		<caption>This is the first slide in the slideshow</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>image/jpeg</type>
+				<size>original</size>
+				<height>36px</height>
+				<width>115px</width>
+				<url>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Fifth Slide</title>
+		<caption>A second flower</caption>
+		<media>
+			<version>
+				<size>original</size>
+				<height>300px</height>
+				<width>222px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/flower2.jpg</url>
+			</version>
+		</media>			
+	</slide>
+	<slide>
+		<title>Real Media Sample</title>
+		<caption>Sample video from real.com</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video</type>
+				<size>original</size>
+				<height>480px</height>
+				<width>720px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/realvideo10_LAN.ram</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>Jumping</title>
+		<caption>A guy on a mountain bike jumping</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video/quicktime</type>
+				<size>original</size>
+				<height>120px</height>
+				<width>160px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/jumps.mov</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>All Your Base</title>
+		<caption>Audio from the "All Your Base" video.</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>audio</type>
+				<size>original</size>
+				<url>http://slug.middlebury.edu/~afranco/test_media/All_your_Base.mp3</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>Windows Media Sample</title>
+		<caption>Sample video that came with the windows media player.</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>video/x-ms-wmv</type>
+				<size>original</size>
+				<height>480px</height>
+				<width>640px</width>
+				<url>http://slug.middlebury.edu/~afranco/test_media/Windows%20Media%20Sample.wmv</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Second Slide</title>
+		<caption>This is a basket icon</caption>
+		<text-position>right</text-position>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>396px</height>
+				<width>432px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basket.png</url>
+			</version>
+		</media>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>396px</height>
+				<width>432px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketplus.png</url>
+			</version>
+		</media>
+		<media>
+			<version>
+				<type>image</type>
+				<size>original</size>
+				<height>396px</height>
+				<width>432px</width>
+				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketminus.png</url>
+			</version>
+		</media>
+	</slide>
+
+	<slide>
+		<title>The Sixth Slide</title>
+		<caption>Ducks in the road.</caption>
+		<media>
+			<version>
+				<size>original</size>
+				<height>600px</height>
+				<width>462px</width>
+				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/test_media/intr0201a-l05/Ducks.JPG</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>The Seventh Slide</title>
+		<caption>Self portrait.</caption>
+		<media>
+			<version>
+				<size>original</size>
+				<height>1065px</height>
+				<width>1597px</width>
+				<url>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</url>
+			</version>
+		</media>
+	</slide>
+</slideshow>
