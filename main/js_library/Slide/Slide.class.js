@@ -38,7 +38,7 @@ function Slide (viewerElementId, slideXmlNode) {
 		this.title;
 		this.caption;
 		this.media = new Array();
-		this.currentMediaIndex = 0;
+		this.currentMediaIndex = null;
 		this.currentMediaSize;
 		this.viewerElementId = viewerElementId;
 		
@@ -52,6 +52,8 @@ function Slide (viewerElementId, slideXmlNode) {
 		}
 		
 		var mediaElements = slideXmlNode.getElementsByTagName("media");
+		if (mediaElements.length > 0)
+			this.currentMediaIndex = 0;
 		for (var i = 0; i < mediaElements.length; i++) {
 			this.media[i] = new MediaContainer( this.viewerElementId, mediaElements[i]);
 		}
@@ -193,7 +195,8 @@ function Slide (viewerElementId, slideXmlNode) {
 	 * @since 8/25/05
 	 */
 	Slide.prototype.zoomIn = function () {
-		this.media[this.currentMediaIndex].zoomIn();
+		if (this.currentMediaIndex != null)
+			this.media[this.currentMediaIndex].zoomIn();
 	}
 	
 	/**
@@ -204,7 +207,8 @@ function Slide (viewerElementId, slideXmlNode) {
 	 * @since 8/25/05
 	 */
 	Slide.prototype.zoomOut = function () {
-		this.media[this.currentMediaIndex].zoomOut();
+		if (this.currentMediaIndex != null)
+			this.media[this.currentMediaIndex].zoomOut();
 	}
 	
 	/**
@@ -215,7 +219,8 @@ function Slide (viewerElementId, slideXmlNode) {
 	 * @since 8/25/05
 	 */
 	Slide.prototype.zoomToFull = function () {
-		this.media[this.currentMediaIndex].zoomToFull();
+		if (this.currentMediaIndex != null)
+			this.media[this.currentMediaIndex].zoomToFull();
 	}
 	
 	/**
@@ -226,7 +231,8 @@ function Slide (viewerElementId, slideXmlNode) {
 	 * @since 8/25/05
 	 */
 	Slide.prototype.zoomToFit = function () {
-		this.media[this.currentMediaIndex].zoomToFit();
+		if (this.currentMediaIndex != null)
+			this.media[this.currentMediaIndex].zoomToFit();
 	}
 	
 	/**
