@@ -96,11 +96,40 @@ foreach ($themes as $name => $url) {
 			
 			function resizeToWindow() {
 				var viewerDiv = getElementFromDocument('viewerA');
-				viewerDiv.style.height = (window.innerHeight - 20) + "px";
-				viewerDiv.style.width = (window.innerWidth - 20) + "px";
 				
-				if (viewerDiv._slideShow)
+				// Mozilla version
+				if (typeof(window.innerHeight) == 'number') {
+					viewerDiv.style.height = (window.innerHeight - 35) + "px";
+					viewerDiv.style.width = (window.innerWidth - 25) + "px";
+				}
+				
+				// IE 6 'standards complient mode' version
+				else if (document.documentElement
+					&& (document.documentElement.clientHeight || document.documentElement.clientWidth)) 
+				{
+					viewerDiv.style.height = (document.documentElement.clientHeight - 30) + "px";
+					viewerDiv.style.width = (document.documentElement.clientWidth - 20) + "px";
+				}
+				
+				// IE 4,5,6
+				else if(document.body 
+					&& (document.body.clientWidth || document.body.clientHeight)) 
+				{
+					viewerDiv.style.height = (document.body.clientHeight - 30) + "px";
+					viewerDiv.style.width = (document.body.clientWidth - 20) + "px";
+				}
+				
+				// If we still haven't matched, we can't determine the window
+				// height, so lets just return
+				else {
+					return;
+				}
+				
+				// If we have a loaded slideshow, tell it to resize itself to the
+				// new size.
+				if (viewerDiv._slideShow) {
 					viewerDiv._slideShow.reloadSizes();
+				}
 			}
 			
 			/*]]>*/
@@ -108,7 +137,7 @@ foreach ($themes as $name => $url) {
 		
 		<title>Concerto Image Viewer</title>
 	</head>
-	<body onload="Javascript:resizeToWindow(); window.onresize = resizeToWindow; new SlideShow('viewerA', '<?php print $sourceURL; ?>');">
+	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" onresize="Javascript:resizeToWindow();">
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 	</body>
 </html>

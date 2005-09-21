@@ -691,10 +691,15 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @since 9/21/05
 	 */
 	function reloadSizes () {
-		this.layoutChildren();
-		for (var i = 0; i < this.slides.length; i++)
-			this.slides[i].resetZoom();
-		this.display();
+		// It seems that IE's body.onresize event gets called as the viewer
+		// changes the size of it div element (before our child slides are even
+		// loaded), so only run this if we actually have children to resize.
+		if (this.slides) {
+			this.layoutChildren();
+			for (var i = 0; i < this.slides.length; i++)
+				this.slides[i].resetZoom();
+			this.display();
+		}
 	}
 }
 
