@@ -134,8 +134,6 @@ foreach ($themes as $name => $url) {
 			
 			/*]]>*/
 		</script>
-		
-		<title>Concerto Image Viewer</title>
 	</head>
 	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" onresize="Javascript:resizeToWindow();">
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />

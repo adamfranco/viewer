@@ -160,7 +160,10 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		var titleElements = xmlDocument.documentElement.getElementsByTagName("title");
 		if (titleElements.length > 0) {
 			this.title = titleElements[0].firstChild.nodeValue;
-			document.title = this.title;
+			// Set the document's title to that of the slideshow if it is not
+			// already specified.
+			if (!document.title || document.title == "")
+				document.title = this.title;
 		}
 		
 		var slideElements = xmlDocument.documentElement.getElementsByTagName("slide");
