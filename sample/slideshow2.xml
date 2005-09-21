@@ -1,180 +1,484 @@
 <?xml version="1.0" standalone="yes"?>
 <slideshow>
-	<title>My Test Slideshow</title>
-
+	<title>Example Slideshow</title>
 	<slide>
-		<title>Flower from Sicily</title>
+		<title>Example Slideshow</title>
 		<caption>
 			<![CDATA[
-			<p>These paragraphs appear in a <em>&lt;![CDATA[.....]]&gt;</em> element in the source XML file. These <em>&lt;![CDATA[.....]]&gt;</em> elements can contain HTML/XHTML with arbitrary formatting such as <strong>&lt;strong&gt; tags</strong> and <em>&lt;em&gt; tags</em>.</p>
-			<p>Here is another paragraph.</p>
+			<div style='text-align: left;'>
+				<p>	Welcome to the example slideshow. This slideshow is intended to serve as an example of how the <em>Concerto <strong>Viewer</strong></em> can be used. This slideshow contains a number of images, audio, and video elements. If supported by your browser, these elements should appear next to the text of each slide.</p>
+				<p>In addition to various types of media, the viewer also supports multiple arrangements of text and media. The text can be to the right or left of the media, above it, or below it. As well, slides such as this one can have no media, while others can have no text.</p>
+			<p>Click the "Next" button above to advance to the next slide. At any time you can click the "Show Controls" button to view and operate the auto-playback functionality.</p>
+			<p>If such media are available, you can view the slide show with either the original size or other resized versions.</p>
+			</div>
+			<hr/>
+			<p>All media in this slideshow are provided under the <br/><a href='http://creativecommons.org/licenses/by-nc-sa/2.5/'><strong>Creative Commons <em>Attribution-NonCommercial-ShareAlike 2.5</em></strong></a><br/>license.<br/>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			]]>
+		</caption>
+		<text-position>center</text-position>
+	</slide>
+	<slide>
+		<title>Urn &amp; Railing</title>
+		<caption>
+			<![CDATA[
+			<p><em>Balcony at the Empress Zoe Hotel.</em</p>
+			<p>Istanbul, Turkey
+				<br/>2005-06-14
+				<br/>Photographer: Adam Franco
+			</p>
+			<hr/>
+			<p>These paragraphs appear in a <em>&lt;![CDATA[.....]]&gt;</em> element in the source XML file. These <em>&lt;![CDATA[.....]]&gt;</em> elements can contain HTML/XHTML with arbitrary formatting such as <strong>&lt;strong&gt; tags</strong> and <em>&lt;em&gt; tags</em>.</p>			
+			<hr/>
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
 			]]>
 		</caption>
 		<text-position>right</text-position>
 		<media>
 			<version>
-				<type>image</type>
+				<type>image/jpeg</type>
 				<size>original</size>
-				<height>300px</height>
-				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/flower.jpg</url>
-			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>The Third Slide</title>
-		<caption>This is the second slide in the slideshow</caption>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>500px</height>
-				<width>500px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+				<height>533px</height>
+				<width>800px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_4866_small.jpg</url>
 			</version>
 			<version>
-				<type>image</type>
+				<type>image/jpeg</type>
 				<size>thumb</size>
-				<height>100px</height>
+				<height>67px</height>
 				<width>100px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/miterbox.png</url>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_4866_thumb.jpg</url>
 			</version>
 		</media>
 	</slide>
 	<slide>
-		<title>The First Slide</title>
-		<caption>This is the first slide in the slideshow</caption>
+		<title>Trillium</title>
+		<caption>
+			<![CDATA[
+			<p>Large-flowered Trillium (<em>Trillium Grandiflorum</em>)</p>
+			<p><em>Trilliums along the trail at Snake Mountain.</em>
+			</p>
+			<p>Addison, Vermont, USA
+				<br/>2005-05-21
+				<br/>Photographer: Adam Franco
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			
+			<ul style='font-size: x-small;'>
+				<li>Clicking on a zoomed image will center the image to the point on which you clicked.</li>
+				<li>Holding down the <strong>CTRL</strong>(Win/Linux) or <strong>Command [Apple]</strong>(Mac) key while clicking will center the image as well as zoom in.</li>
+				<li>Holding down the <strong>SHIFT</strong> key in addition to the <strong>CTRL</strong>(Win/Linux) or <strong>Command [Apple]</strong>(Mac) key while clicking will center the image as well as zoom out.</li>
+			</ul>
+			]]>
+		</caption>
 		<text-position>right</text-position>
 		<media>
 			<version>
 				<type>image/jpeg</type>
 				<size>original</size>
-				<height>36px</height>
-				<width>115px</width>
-				<url>http://slug.middlebury.edu/~afranco/concerto/main/modules/window/logo.gif</url>
+				<height>800px</height>
+				<width>533px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_4147_small.jpg</url>
+			</version>
+			<version>
+				<type>image/jpeg</type>
+				<size>thumb</size>
+				<height>100px</height>
+				<width>67px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_4147_thumb.jpg</url>
 			</version>
 		</media>
 	</slide>
 	<slide>
-		<title>The Fifth Slide</title>
-		<caption>A second flower</caption>
+		<title>Mushrooms on Moss</title>
+		<caption>
+			<![CDATA[
+			<p><em>Mushrooms growing out of the moss on the side of a tree, about one mile south of the Lincoln-Warren road on the Long Trail.</em>
+			</p>
+			<p>Lincoln, Vermont, USA
+			<br/>2005-09-17
+			<br/>Photographer: Adam Franco
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			]]>
+		</caption>
+		<text-position>left</text-position>
 		<media>
 			<version>
+				<type>image/jpeg</type>
 				<size>original</size>
-				<height>300px</height>
-				<width>222px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/flower2.jpg</url>
+				<height>533px</height>
+				<width>800px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_9033_small.jpg</url>
 			</version>
-		</media>			
-	</slide>
-	<slide>
-		<title>Real Media Sample</title>
-		<caption>Sample video from real.com</caption>
-		<text-position>right</text-position>
-		<media>
 			<version>
-				<type>video</type>
-				<size>original</size>
-				<height>480px</height>
-				<width>720px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/realvideo10_LAN.ram</url>
+				<type>image/jpeg</type>
+				<size>thumb</size>
+				<height>67px</height>
+				<width>100px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_9033_thumb.jpg</url>
 			</version>
 		</media>
 	</slide>
 	<slide>
-		<title>Jumping</title>
-		<caption>A guy on a mountain bike jumping</caption>
-		<text-position>right</text-position>
+		<title>Wake-boarding</title>
+		<caption>
+			<![CDATA[
+			<p><em>Josh spinning through the air on a wake-board.</em>
+			</p>
+			<p>Island Pond, Vermont, USA
+			<br/>2005-08-27
+			<br/>Photographer: Adam Franco
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			]]>
+		</caption>
+		<text-position>bottom</text-position>
+		<media>
+			<version>
+				<type>image/jpeg</type>
+				<size>original</size>
+				<height>533px</height>
+				<width>800px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_8653_small.jpg</url>
+			</version>
+			<version>
+				<type>image/jpeg</type>
+				<size>thumb</size>
+				<height>67px</height>
+				<width>100px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/IMG_8653_thumb.jpg</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>Cargo Cult - Alchemy</title>
+		<caption>
+			<![CDATA[
+			<p>Artist: Cargo Cult
+			<br/>Album: Alchemy
+			<br/>Track Title: Alchemy
+			<br/>Site: <a href='http://magnatune.com/artists/albums/cargo-alchemy/'>Magnatune.com</a>
+			
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			<hr/>
+			<p>
+			This slide contains an embedded mp3 file.</p><p>If your browser has support for  mp3 playback (or has plugins that support mp3 playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
+			</p>
+			]]>
+		</caption>
+		<text-position>left</text-position>
+		<media>
+			<version>
+				<type>audio/mpeg</type>
+				<size>original</size>
+				<url>http://concerto.sourceforge.net/samplemedia/Cargo%20Cult%20-%20Alchemy.mp3</url>
+			</version>
+		</media>
+	</slide>
+	<slide>
+		<title>MooseFest 2002 - Quicktime</title>
+		<caption>
+			<![CDATA[
+			<p><em>A short clip of kayaking during the "Moose River Festival" in 2002.</em></p>
+			<p>Filmed on location, Old Forge, NY, USA - October 2002.
+			<br/>Director/Producer: Adam Franco
+			<br/>Soundtrack: Cargo Cult - "<em>Garden</em>"
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			<hr/>
+			<p>
+			This slide contains an embedded Quicktime file.</p><p>If your browser has support for Quicktime playback (or has plugins that support Quicktime playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
+			</p>
+			]]>
+		</caption>
+		<text-position>left</text-position>
 		<media>
 			<version>
 				<type>video/quicktime</type>
 				<size>original</size>
-				<height>120px</height>
-				<width>160px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/jumps.mov</url>
+				<height>240px</height>
+				<width>360px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/MooseFest2002clip.mov</url>
+			</version>
+			<version>
+				<type>video/quicktime</type>
+				<size>thumb</size>
+				<height>60px</height>
+				<width>90px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/MooseFest2002clip.mov</url>
 			</version>
 		</media>
 	</slide>
 	<slide>
-		<title>All Your Base</title>
-		<caption>Audio from the "All Your Base" video.</caption>
-		<text-position>right</text-position>
-		<media>
-			<version>
-				<type>audio</type>
-				<size>original</size>
-				<url>http://slug.middlebury.edu/~afranco/test_media/All_your_Base.mp3</url>
-			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>Windows Media Sample</title>
-		<caption>Sample video that came with the windows media player.</caption>
-		<text-position>right</text-position>
-		<media>
-			<version>
-				<type>video/x-ms-wmv</type>
-				<size>original</size>
-				<height>480px</height>
-				<width>640px</width>
-				<url>http://slug.middlebury.edu/~afranco/test_media/Windows%20Media%20Sample.wmv</url>
-			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>The Second Slide</title>
-		<caption>This is a basket icon</caption>
-		<text-position>right</text-position>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>396px</height>
-				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basket.png</url>
-			</version>
-		</media>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>396px</height>
-				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketplus.png</url>
-			</version>
-		</media>
-		<media>
-			<version>
-				<type>image</type>
-				<size>original</size>
-				<height>396px</height>
-				<width>432px</width>
-				<url>http://slug.middlebury.edu/~afranco/polyphony/main/library/Basket/icons/basketminus.png</url>
-			</version>
-		</media>
-	</slide>
+		<title>MooseFest 2002 - AVI</title>
+		<caption>
+			<![CDATA[
+			<p><em>A short clip of kayaking during the "Moose River Festival" in 2002.</em></p>
+			<p>Filmed on location, Old Forge, NY, USA - October 2002.
+			<br/>Director/Producer: Adam Franco
+			<br/>Soundtrack: Cargo Cult - "<em>Garden</em>"
+			</p>
+			
+			<p>
+<!-- Creative Commons License -->
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.png" /></a>
+<!-- /Creative Commons License -->
 
-	<slide>
-		<title>The Sixth Slide</title>
-		<caption>Ducks in the road.</caption>
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.5/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.5/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+			</p>
+			<hr/>
+			<p>
+			This slide contains an embedded AVI file.</p><p>If your browser has support for AVI playback (or has plugins that support AVI playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
+			</p>
+			]]>
+		</caption>
+		<text-position>right</text-position>
 		<media>
 			<version>
+				<type>video/x-msvideo</type>
 				<size>original</size>
-				<height>600px</height>
-				<width>462px</width>
-				<url>http://slug.middlebury.edu/~afranco/segue_userfiles/test_media/intr0201a-l05/Ducks.JPG</url>
+				<height>240px</height>
+				<width>360px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/MooseFest2002clip.avi</url>
 			</version>
-		</media>
-	</slide>
-	<slide>
-		<title>The Seventh Slide</title>
-		<caption>Self portrait.</caption>
-		<media>
 			<version>
-				<size>original</size>
-				<height>1065px</height>
-				<width>1597px</width>
-				<url>http://www2.adamfranco.com/dropbox/IMG_8426_small.jpg</url>
+				<type>video/x-msvideo</type>
+				<size>thumb</size>
+				<height>60px</height>
+				<width>90px</width>
+				<url>http://concerto.sourceforge.net/samplemedia/MooseFest2002clip.avi</url>
 			</version>
 		</media>
 	</slide>
