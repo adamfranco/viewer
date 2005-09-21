@@ -352,4 +352,13 @@ function Media ( viewerElementId, mediaXMLNode) {
 			return true;
 	}
 	
-	
+	/**
+	 * Clear the zoom level.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	Media.prototype.resetZoom = function () {
+		// Do nothing. Override in children that can zoom.
+	}

@@ -240,3 +240,15 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			this.style.cursor = 'default';
 		}
 	}
+	
+	/**
+	 * Clear the zoom level.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	ImageMedia.prototype.resetZoom = function () {
+		this.startAtZoomToFit = true;
+		this.zoomLevel = 1;
+	}

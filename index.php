@@ -91,9 +91,24 @@ foreach ($themes as $name => $url) {
 
 		<script type='text/javascript' src='viewer.js.php'></script>
 		
+		<script type='text/javascript'>
+			/*<![CDATA[*/
+			
+			function resizeToWindow() {
+				var viewerDiv = getElementFromDocument('viewerA');
+				viewerDiv.style.height = (window.innerHeight - 20) + "px";
+				viewerDiv.style.width = (window.innerWidth - 20) + "px";
+				
+				if (viewerDiv._slideShow)
+					viewerDiv._slideShow.reloadSizes();
+			}
+			
+			/*]]>*/
+		</script>
+		
 		<title>Concerto Image Viewer</title>
 	</head>
-	<body onload="Javascript:new SlideShow('viewerA', '<?php print $sourceURL; ?>');">
+	<body onload="Javascript:resizeToWindow(); window.onresize = resizeToWindow; new SlideShow('viewerA', '<?php print $sourceURL; ?>');">
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 	</body>
 </html>

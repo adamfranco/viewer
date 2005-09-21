@@ -38,6 +38,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	this.zoomOut = zoomOut;
 	this.zoomToFull = zoomToFull;
 	this.zoomToFit = zoomToFit;
+	this.resetZoom = resetZoom;
 	
 	var versionElements = mediaXMLNode.getElementsByTagName("version");
 	for (var i = 0; i < versionElements.length; i++) {
@@ -208,6 +209,20 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 */
 	function zoomToFit () {
 		this.versions[this.selectSizeIndex(this.currentMediaSize)].zoomToFit();
+	}
+	
+	/**
+	 * Clear the zoom levels of the media
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	function resetZoom () {
+		var sizes = this.getMediaSizes();
+		for (var i = 0; i < sizes.length; i++) {
+			this.versions[this.getSizeIndex(sizes[i])].resetZoom();
+		}
 	}
 }
 

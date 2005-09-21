@@ -190,3 +190,16 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 		else
 			return 100;
 	}
+	
+	/**
+	 * Clear the zoom level.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	VideoMedia.prototype.resetZoom = function () {
+		// Do nothing. Override in children that can zoom.
+		this.startAtZoomToFit = true;
+		this.zoomLevel = 1;
+	}

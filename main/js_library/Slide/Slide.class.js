@@ -228,3 +228,16 @@ function Slide (viewerElementId, slideXmlNode) {
 	Slide.prototype.zoomToFit = function () {
 		this.media[this.currentMediaIndex].zoomToFit();
 	}
+	
+	/**
+	 * Clear the zoom levels of the media
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	Slide.prototype.resetZoom = function () {
+		for (var i = 0; i < this.media.length; i++) {
+			this.media[i].resetZoom();
+		}
+	}

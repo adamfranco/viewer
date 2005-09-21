@@ -61,6 +61,8 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	this.getViewerHeight = getViewerHeight;
 	this.getViewerWidth = getViewerWidth;
 	this.getToolbarHeight = getToolbarHeight;
+	this.layoutChildren = layoutChildren;
+	this.reloadSizes = reloadSizes;
 	
 	// Attach ourselves to the View obect for later referencing from static
 	// methods.
@@ -78,19 +80,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
 	viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='loading'>loading...</span>";
 	
-	var toolbarsElement = getElementFromDocument(this.viewerElementId + '_toolbars');
-	toolbarsElement.style.height =  this.getToolbarHeight() + "px";
-	toolbarsElement.style.width =  this.getViewerWidth() + "px";
-	toolbarsElement.style.position = "absolute";
-	toolbarsElement.style.left = "0px";
-	toolbarsElement.style.top = "0px";
-	
-	var slideElement = getElementFromDocument(this.viewerElementId + '_slide');
-	slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
-	slideElement.style.width =  this.getViewerWidth() + "px";
-	slideElement.style.position = "absolute";
-	slideElement.style.left = "0px";
-	slideElement.style.top = this.getToolbarHeight() + "px";
+	this.layoutChildren();
 	
 	
 	// Load our xmlDocument
@@ -667,6 +657,44 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			return '60';
 		else
 			return '30';
+	}
+	
+	/**
+	 * Layout the child elements positions with respect to the viewer element
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 9/21/05
+	 */
+	function layoutChildren () {
+		var toolbarsElement = getElementFromDocument(this.viewerElementId + '_toolbars');
+		toolbarsElement.style.height =  this.getToolbarHeight() + "px";
+		toolbarsElement.style.width =  this.getViewerWidth() + "px";
+		toolbarsElement.style.position = "absolute";
+		toolbarsElement.style.left = "0px";
+		toolbarsElement.style.top = "0px";
+		
+		var slideElement = getElementFromDocument(this.viewerElementId + '_slide');
+		slideElement.style.height =  (this.getViewerHeight() - this.getToolbarHeight())  + "px";
+		slideElement.style.width =  this.getViewerWidth() + "px";
+		slideElement.style.position = "absolute";
+		slideElement.style.left = "0px";
+		slideElement.style.top = this.getToolbarHeight() + "px";
+	}
+	
+	/**
+	 * Reload the sizes of the viewer. This may be used on window resizing or 
+	 * other events.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 9/21/05
+	 */
+	function reloadSizes () {
+		this.layoutChildren();
+		for (var i = 0; i < this.slides.length; i++)
+			this.slides[i].resetZoom();
+		this.display();
 	}
 }
 
