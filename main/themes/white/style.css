@@ -49,16 +49,36 @@
 		background-image: url(images/viewer_back_full.gif);
 	}
 	
+	.tostart_button[disabled] {
+		background-image: url(images/viewer_back_full_dis.gif);
+		cursor: default;
+	}
+	
 	.previous_button {
 		background-image: url(images/viewer_back.gif);
+	}
+	
+	.previous_button[disabled] {
+		background-image: url(images/viewer_back_dis.gif);
+		cursor: default;
 	}
 	
 	.next_button {
 		background: url(images/viewer_forward.gif);
 	}
 	
+	.next_button[disabled] {
+		background: url(images/viewer_forward_dis.gif);
+		cursor: default;
+	}
+	
 	.toend_button {
 		background: url(images/viewer_forward_full.gif);
+	}
+	
+	.toend_button[disabled] {
+		background: url(images/viewer_forward_full_dis.gif);
+		cursor: default;
 	}
 	
 	.zoomin_button {
