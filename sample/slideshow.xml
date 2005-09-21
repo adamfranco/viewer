@@ -395,8 +395,9 @@
 -->
 			</p>
 			<hr/>
-			<p>
-			This slide contains an embedded Quicktime file.</p><p>If your browser has support for Quicktime playback (or has plugins that support Quicktime playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
+			<p style='font-size: small'>
+			This slide contains an embedded Quicktime file.</p>
+			<p style='font-size: small'>If your browser has support for Quicktime playback (or has plugins that support Quicktime playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
 			</p>
 			]]>
 		</caption>
@@ -459,8 +460,9 @@
 -->
 			</p>
 			<hr/>
-			<p>
-			This slide contains an embedded AVI file.</p><p>If your browser has support for AVI playback (or has plugins that support AVI playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
+			<p style='font-size: small'>
+			This slide contains an embedded AVI file.</p>
+			<p style='font-size: small'>If your browser has support for AVI playback (or has plugins that support AVI playback), a player should appear to the right. If playing the file from within the browser is not supported, a link is provided to download the file for playing via another application.
 			</p>
 			]]>
 		</caption>
