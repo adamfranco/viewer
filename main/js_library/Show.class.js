@@ -21,73 +21,55 @@
  * @version $Id$
  */
 function SlideShow (viewerElementId, xmlDocumentUrl) {
-	var req;
-	this.slides;
-	this.currentIndex = 0;
-	this.mediaSize = 'original';
-	this.title = 'SlideShow';
-	this.showPlaybackToolbar = false;
-	this.playing = false;
-	this.slide_delay = 3;
-	this.loop = false;
-	this.viewerElementId = viewerElementId;
-	
-	
-	var me = this;
-	this.loadXMLDoc = loadXMLDoc;
-	this.display = display;
-	this.next = next;
-	this.hasNext = hasNext;
-	this.previous = previous;
-	this.toStart = toStart;
-	this.toEnd = toEnd;
-	this.play = play;
-	this.playAdvance = playAdvance;
-	this.pause = pause;
-	this.changeDelay = changeDelay;
-	this.togglePlayControls = togglePlayControls;
-	this.toggleLoop = toggleLoop;
-	this.processReqChange = processReqChange;
-	this.createSlides = createSlides;
-	this.cacheAround = cacheAround;
-	this.getMediaSizes = getMediaSizes;
-	this.changeMediaSize = changeMediaSize;
-	this.nextMedia = nextMedia;
-	this.previousMedia = previousMedia;
-	this.zoomIn = zoomIn;
-	this.zoomOut = zoomOut;
-	this.zoomToFull = zoomToFull;
-	this.zoomToFit = zoomToFit;
-	this.getViewerHeight = getViewerHeight;
-	this.getViewerWidth = getViewerWidth;
-	this.getToolbarHeight = getToolbarHeight;
-	this.layoutChildren = layoutChildren;
-	this.reloadSizes = reloadSizes;
-	
-	// Attach ourselves to the View obect for later referencing from static
-	// methods.
-	var viewerElement = getElementFromDocument(this.viewerElementId);
-	if (!viewerElement) {
-		alert("Error: Could not find div element with id, '" + this.viewerElementId 
-			+ "', on the page. Not loading viewer.");
+	if ( arguments.length > 0 ) {
+		this.init( viewerElementId, xmlDocumentUrl );
 	}
-	viewerElement.style.position = "relative";
-	viewerElement._slideShow = this;
+}
 	
-	// Write our main div elements
-	viewerElement.innerHTML = "";
-	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
-	viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
-	viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='loading'>loading...</span>";
-	
-	this.layoutChildren();
-	
-	
-	// Load our xmlDocument
-	this.loadXMLDoc(xmlDocumentUrl);
-	
-//----------------------------------------------------------------------------
-	
+	/**
+	 * Initialize this object
+	 * 
+	 * @param string viewerElementId
+	 * @param string xmlDocumentUrl
+	 * @return void
+	 * @access public
+	 * @since 9/21/05
+	 */
+	SlideShow.prototype.init = function (viewerElementId, xmlDocumentUrl) {
+		var req = this.req;
+		
+		this.slides;
+		this.currentIndex = 0;
+		this.mediaSize = 'original';
+		this.title = 'SlideShow';
+		this.showPlaybackToolbar = false;
+		this.playing = false;
+		this.slide_delay = 3;
+		this.loop = false;
+		this.viewerElementId = viewerElementId;
+		
+		// Attach ourselves to the View obect for later referencing from static
+		// methods.
+		var viewerElement = getElementFromDocument(this.viewerElementId);
+		if (!viewerElement) {
+			alert("Error: Could not find div element with id, '" + this.viewerElementId 
+				+ "', on the page. Not loading viewer.");
+		}
+		viewerElement.style.position = "relative";
+		viewerElement._slideShow = this;
+		
+		// Write our main div elements
+		viewerElement.innerHTML = "";
+		viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
+		viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
+		viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='loading'>loading...</span>";
+		
+		this.layoutChildren();
+		
+		
+		// Load our xmlDocument
+		this.loadXMLDoc(xmlDocumentUrl);
+	}
 		
 	/**
 	 * Load the XML document and set the callback to process when loading
@@ -100,51 +82,46 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function loadXMLDoc (url) {
-		// branch for native XMLHttpRequest object
-		if (window.XMLHttpRequest) {
-			req = new XMLHttpRequest();
-			req.onreadystatechange = processReqChange;
+	SlideShow.prototype.loadXMLDoc = function (url) {
+		// Define a variable to point at this slideshow that will be in the
+		// scope of the request-processing function, since 'this' will (at that
+		// point) be that function.
+		var slideShow = this;
+					
+		// branch for native XMLHttpRequest object (Mozilla, Safari, etc)
+		if (window.XMLHttpRequest)
+			var req = new XMLHttpRequest();
+			
+		// branch for IE/Windows ActiveX version
+		else if (window.ActiveXObject)
+			var req = new ActiveXObject("Microsoft.XMLHTTP");
+		
+		
+		if (req) {
+			req.onreadystatechange = function () {
+				// For some reason IE6 fails if the 'var' is not
+				// placed before working.
+				var working = getElementFromDocument(slideShow.viewerElementId + '_loading');
+				if (req.readyState > 0 && req.readyState < 4) {
+					working.style.display = 'inline';
+				} else {
+					working.style.display = 'none';
+				}
+						
+				// only if req shows "loaded"
+				if (req.readyState == 4) {
+					// only if we get a good load should we continue.
+					if (req.status == 200) {
+						slideShow.createSlides(req.responseXML);
+					} else {
+						alert("There was a problem retrieving the XML data:\n" +
+							req.statusText);
+					}
+				}
+			}
+			
 			req.open("GET", url, true);
 			req.send(null);
-		// branch for IE/Windows ActiveX version
-		} else if (window.ActiveXObject) {
-			req = new ActiveXObject("Microsoft.XMLHTTP");
-			if (req) {
-				req.onreadystatechange = me.processReqChange;
-				req.open("GET", url, true);
-				req.send();
-			}
-		}
-	}
-
-	/**
-	 * Process the XMLHTTP input when the loading state changes.
-	 * 
-	 * @return void
-	 * @access public
-	 * @since 8/22/05
-	 */
-	function processReqChange () {
-
-		// For some reason IE6 fails if the 'var' is not
-		// placed before working.
-		var working = getElementFromDocument(me.viewerElementId + '_loading');
-		if (req.readyState > 0 && req.readyState < 4) {
-			working.style.display = 'inline';
-		} else {
-			working.style.display = 'none';
-		}
-				
-		// only if req shows "loaded"
-		if (req.readyState == 4) {
-			// only if we get a good load should we continue.
-			if (req.status == 200) {
-				me.createSlides(req.responseXML);
-			} else {
-				alert("There was a problem retrieving the XML data:\n" +
-					req.statusText);
-			}
 		}
 	}	
 	
@@ -156,7 +133,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function createSlides ( xmlDocument ) {		
+	SlideShow.prototype.createSlides = function ( xmlDocument ) {		
 		var titleElements = xmlDocument.documentElement.getElementsByTagName("title");
 		if (titleElements.length > 0) {
 			this.title = titleElements[0].firstChild.nodeValue;
@@ -176,15 +153,15 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 				var position = null;
 			
 			if (position == 'right')
-	 			this.slides[i] = new TextRightSlide(viewerElementId, slideElements[i]);
+	 			this.slides[i] = new TextRightSlide(this.viewerElementId, slideElements[i]);
 	 		else if (position == 'bottom')
-	 			this.slides[i] = new TextBottomSlide(viewerElementId, slideElements[i]);
+	 			this.slides[i] = new TextBottomSlide(this.viewerElementId, slideElements[i]);
 	 		else if (position == 'top')
-	 			this.slides[i] = new TextTopSlide(viewerElementId, slideElements[i]);
+	 			this.slides[i] = new TextTopSlide(this.viewerElementId, slideElements[i]);
 	 		else if (position == 'center')
-	 			this.slides[i] = new TextCenterSlide(viewerElementId, slideElements[i]);
+	 			this.slides[i] = new TextCenterSlide(this.viewerElementId, slideElements[i]);
 	 		else
-	 			this.slides[i] = new TextLeftSlide(viewerElementId, slideElements[i]);
+	 			this.slides[i] = new TextLeftSlide(this.viewerElementId, slideElements[i]);
 		}
 		this.display();
 		this.cacheAround(this.currentIndex);
@@ -197,7 +174,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function display () {		
+	SlideShow.prototype.display = function () {		
 		var destination = getElementFromDocument(this.viewerElementId + '_toolbars');
 		destination.style.height =  this.getToolbarHeight() + "px";
 		
@@ -327,7 +304,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function next () {
+	SlideShow.prototype.next = function () {
 		if (this.currentIndex < (this.slides.length - 1)) {
 			this.currentIndex++;
 		} else if (this.loop == true) {
@@ -345,7 +322,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function hasNext () {
+	SlideShow.prototype.hasNext = function () {
 		if (this.currentIndex < (this.slides.length - 1)) {
 			return true;
 		} else if (this.loop == true) {
@@ -362,7 +339,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function previous () {
+	SlideShow.prototype.previous = function () {
 		this.currentIndex--;
 		this.display();
 		
@@ -376,7 +353,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function toStart () {
+	SlideShow.prototype.toStart = function () {
 		this.currentIndex = 0;
 		this.display();
 		
@@ -390,7 +367,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function toEnd () {
+	SlideShow.prototype.toEnd = function () {
 		this.currentIndex = this.slides.length - 1;
 		this.display();
 		
@@ -404,7 +381,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function play () {
+	SlideShow.prototype.play = function () {
 		this.playing = true;
 		setTimeout("getElementFromDocument('" + this.viewerElementId + "')._slideShow.playAdvance();", 
 			(this.slide_delay * 1000));
@@ -422,7 +399,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function playAdvance () {
+	SlideShow.prototype.playAdvance = function () {
 		if (this.playing == true) {
 			if (this.hasNext()) {
 				this.next();
@@ -446,7 +423,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function pause () {
+	SlideShow.prototype.pause = function () {
 		this.playing = false;
 		var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 		playButton.disabled = false;
@@ -461,7 +438,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function changeDelay () {
+	SlideShow.prototype.changeDelay = function () {
 		var delayElement = getElementFromDocument(this.viewerElementId + '_slide_delay');
 		this.slide_delay = delayElement.value;
 	}
@@ -473,7 +450,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function togglePlayControls () {
+	SlideShow.prototype.togglePlayControls = function () {
 		this.showPlaybackToolbar = !(this.showPlaybackToolbar);
 		this.display();
 	}
@@ -485,7 +462,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function toggleLoop () {
+	SlideShow.prototype.toggleLoop = function () {
 		this.loop = !(this.loop);
 		this.display();
 	}
@@ -499,7 +476,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function cacheAround ( index ) {
+	SlideShow.prototype.cacheAround = function ( index ) {
 		var numToCacheAhead = 5;
 		var numToCacheBehind = 5;
 				
@@ -527,7 +504,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function getMediaSizes () {
+	SlideShow.prototype.getMediaSizes = function () {
 		if (this.sizes == null) {
 			var sizes = new Array();
 			for (var i = 0; i < this.slides.length; i++) {
@@ -545,7 +522,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function changeMediaSize () {
+	SlideShow.prototype.changeMediaSize = function () {
 		var sizeElement = getElementFromDocument(this.viewerElementId + '_media_size');
 		this.mediaSize = sizeElement.value;
 		this.display();
@@ -559,7 +536,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function nextMedia () {
+	SlideShow.prototype.nextMedia = function () {
 		this.slides[this.currentIndex].nextMedia();
 	}
 	
@@ -570,7 +547,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function previousMedia () {
+	SlideShow.prototype.previousMedia = function () {
 		this.slides[this.currentIndex].previousMedia();
 	}
 	
@@ -581,7 +558,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomIn () {
+	SlideShow.prototype.zoomIn = function () {
 		this.slides[this.currentIndex].zoomIn();
 	}
 	
@@ -592,7 +569,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomOut () {
+	SlideShow.prototype.zoomOut = function () {
 		this.slides[this.currentIndex].zoomOut();
 	}
 	
@@ -603,7 +580,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFull () {
+	SlideShow.prototype.zoomToFull = function () {
 		this.slides[this.currentIndex].zoomToFull();
 	}
 	
@@ -614,7 +591,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFit () {
+	SlideShow.prototype.zoomToFit = function () {
 		this.slides[this.currentIndex].zoomToFit();
 	}
 	
@@ -627,7 +604,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function getViewerHeight () {
+	SlideShow.prototype.getViewerHeight = function () {
 		return getElementHeight(this.viewerElementId);
 		
 		// @todo, add window size sniffing.
@@ -642,7 +619,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function getViewerWidth () {
+	SlideShow.prototype.getViewerWidth = function () {
 		return getElementWidth(this.viewerElementId);
 		
 		// @todo, add window size sniffing.
@@ -655,7 +632,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function getToolbarHeight () {
+	SlideShow.prototype.getToolbarHeight = function () {
 		if (this.showPlaybackToolbar == true)
 			return '60';
 		else
@@ -669,7 +646,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 9/21/05
 	 */
-	function layoutChildren () {
+	SlideShow.prototype.layoutChildren = function () {
 		var toolbarsElement = getElementFromDocument(this.viewerElementId + '_toolbars');
 		toolbarsElement.style.height =  this.getToolbarHeight() + "px";
 		toolbarsElement.style.width =  this.getViewerWidth() + "px";
@@ -693,7 +670,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 9/21/05
 	 */
-	function reloadSizes () {
+	SlideShow.prototype.reloadSizes = function () {
 		// It seems that IE's body.onresize event gets called as the viewer
 		// changes the size of it div element (before our child slides are even
 		// loaded), so only run this if we actually have children to resize.
@@ -704,5 +681,3 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			this.display();
 		}
 	}
-}
-

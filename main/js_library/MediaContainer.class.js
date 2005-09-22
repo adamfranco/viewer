@@ -21,37 +21,40 @@
  * @version $Id$
  */
 function MediaContainer ( viewerElementId, mediaXMLNode) {
-		
-	this.versions = new Array ();
-	this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
-	this.mediaClasses = new Array(ImageMedia, QuicktimeMedia, RealMedia, WindowsMediaMedia, VideoMedia, FileMedia);
-	this.currentMediaSize = 'original';
-	this.viewerElementId = viewerElementId;
+	if ( arguments.length > 0 ) {
+		this.init( viewerElementId, mediaXMLNode );
+	}
+}
 	
-	this.display = display;
-	this.load = load;
-	this.unload = unload;
-	this.getMediaSizes = getMediaSizes;
-	this.getSizeIndex = getSizeIndex;
-	this.selectSizeIndex = selectSizeIndex;
-	this.zoomIn = zoomIn;
-	this.zoomOut = zoomOut;
-	this.zoomToFull = zoomToFull;
-	this.zoomToFit = zoomToFit;
-	this.resetZoom = resetZoom;
-	
-	var versionElements = mediaXMLNode.getElementsByTagName("version");
-	for (var i = 0; i < versionElements.length; i++) {
-		var sizeElements = versionElements[i].getElementsByTagName("size");
-		if (sizeElements.length > 0)
-			var size = this.getSizeIndex(sizeElements[0].firstChild.nodeValue);
-		else
-			var size = this.getSizeIndex('original');
+	/**
+	 * Initialize this object
+	 * 
+	 * @param string viewerElementId
+	 * @param string xmlDocumentUrl
+	 * @return void
+	 * @access public
+	 * @since 9/21/05
+	 */
+	MediaContainer.prototype.init = function ( viewerElementId, mediaXMLNode) {
+		this.versions = new Array ();
+		this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
+		this.mediaClasses = new Array(ImageMedia, QuicktimeMedia, RealMedia, WindowsMediaMedia, VideoMedia, FileMedia);
+		this.currentMediaSize = 'original';
+		this.viewerElementId = viewerElementId;
 		
-		for (var j = 0; j < this.mediaClasses.length; j++) {
-			if (this.mediaClasses[j].prototype.supportsNode(versionElements[i])) {
-				this.versions[size] = new this.mediaClasses[j] (this.viewerElementId, versionElements[i]);
-				break;
+		var versionElements = mediaXMLNode.getElementsByTagName("version");
+		for (var i = 0; i < versionElements.length; i++) {
+			var sizeElements = versionElements[i].getElementsByTagName("size");
+			if (sizeElements.length > 0)
+				var size = this.getSizeIndex(sizeElements[0].firstChild.nodeValue);
+			else
+				var size = this.getSizeIndex('original');
+			
+			for (var j = 0; j < this.mediaClasses.length; j++) {
+				if (this.mediaClasses[j].prototype.supportsNode(versionElements[i])) {
+					this.versions[size] = new this.mediaClasses[j] (this.viewerElementId, versionElements[i]);
+					break;
+				}
 			}
 		}
 	}
@@ -64,7 +67,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	function display (mediaSize) {
+	MediaContainer.prototype.display = function (mediaSize) {
 		this.currentMediaSize = mediaSize;
 		var size = this.selectSizeIndex(mediaSize);
 		this.versions[size].display();
@@ -77,7 +80,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function redisplay () {
+	MediaContainer.prototype.redisplay = function () {
 		this.display(this.currentMediaSize);
 	}
 	
@@ -89,7 +92,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function load (mediaSize) {
+	MediaContainer.prototype.load = function (mediaSize) {
 		var size = this.selectSizeIndex(mediaSize);
 		this.versions[size].load();
 	}
@@ -101,7 +104,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function unload () {
+	MediaContainer.prototype.unload = function () {
 		for (var i in this.versions) {
 			this.versions[i].unload();
 		}
@@ -114,7 +117,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function getMediaSizes () {
+	MediaContainer.prototype.getMediaSizes = function () {
 		var sizes = new Array();
 		for (var i in this.versions) {
 			sizes.push(this.sizeOptions[i]);
@@ -130,7 +133,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function getSizeIndex (sizeName) {
+	MediaContainer.prototype.getSizeIndex = function (sizeName) {
 		for (var i = 0; i < this.sizeOptions.length; i++) {
 			if (sizeName == this.sizeOptions[i])
 				return i;
@@ -149,7 +152,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/24/05
 	 */
-	function selectSizeIndex (sizeName) {
+	MediaContainer.prototype.selectSizeIndex = function (sizeName) {
 		var targetIndex = this.getSizeIndex(sizeName);
 
 		// Look for the desired or larger versions
@@ -174,7 +177,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomIn () {
+	MediaContainer.prototype.zoomIn = function () {
 		this.versions[this.selectSizeIndex(this.currentMediaSize)].zoomIn();
 	}
 	
@@ -185,7 +188,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomOut () {
+	MediaContainer.prototype.zoomOut = function () {
 		this.versions[this.selectSizeIndex(this.currentMediaSize)].zoomOut();
 	}
 	
@@ -196,7 +199,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFull () {
+	MediaContainer.prototype.zoomToFull = function () {
 		this.versions[this.selectSizeIndex(this.currentMediaSize)].zoomToFull();
 	}
 	
@@ -207,7 +210,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/25/05
 	 */
-	function zoomToFit () {
+	MediaContainer.prototype.zoomToFit = function () {
 		this.versions[this.selectSizeIndex(this.currentMediaSize)].zoomToFit();
 	}
 	
@@ -218,11 +221,9 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 8/23/05
 	 */
-	function resetZoom () {
+	MediaContainer.prototype.resetZoom = function () {
 		var sizes = this.getMediaSizes();
 		for (var i = 0; i < sizes.length; i++) {
 			this.versions[this.getSizeIndex(sizes[i])].resetZoom();
 		}
 	}
-}
-
