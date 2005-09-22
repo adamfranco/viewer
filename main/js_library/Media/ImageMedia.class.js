@@ -90,13 +90,18 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		var html = "";
  		html += "<img";
  		html += " id='" + this.viewerElementId + "_image'";
- 		html += " src='" + this.image.src + "'";
- 		html += " height='" + this.getZoomedHeightPx() + "px'";
- 		html += " width='" + this.getZoomedWidthPx() + "px'";
- 		html += " style='position: absolute; top: " + this.getCenteredY() + "px; left: " + this.getCenteredX() + "px;' />";
+ 		html += " src='" + this.image.src + "'/>";
  		
 		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;
+		
+		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		imageElement.height = this.getZoomedHeightPx();
+		imageElement.width = this.getZoomedWidthPx();
+		imageElement.style.position = 'absolute';
+		imageElement.style.top = this.getCenteredY() + "px";
+		imageElement.style.left = this.getCenteredX() + "px";
+		
 		
 		destination._scrollTarget = this;
 		destination.onscroll = updateScroll;
@@ -135,6 +140,56 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 */
 	ImageMedia.prototype.unload = function () {
 		this.image = null;
+	}
+	
+	/**
+	 * Answer the height
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	ImageMedia.prototype.getHeightPx = function () {
+		if (pixelsToInteger(this.height) > 0)
+			return pixelsToInteger(this.height);
+		
+		// If the height wasn't specified, try the image height.
+		else if (this.image.height)
+			return this.image.height;
+		
+		// if we still don't have a height, try getting the height from the
+		// browser's rendering of the image-tag.
+		// This is required for Safari
+		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		return imageElement.naturalHeight;
+			
+		// Default value of 200 just so that we can see the image
+		return 200;
+	}
+	
+	/**
+	 * Answer the width
+	 * 
+	 * @return integer
+	 * @access public
+	 * @since 8/25/05
+	 */
+	ImageMedia.prototype.getWidthPx = function () {
+		if (pixelsToInteger(this.width) > 0)
+			return pixelsToInteger(this.width);
+		
+		// If the height wasn't specified, try the image height.
+		else if (this.image.width)
+			return this.image.width;
+		
+		// if we still don't have a width, try getting the width from the
+		// browser's rendering of the image-tag.
+		// This is required for Safari
+		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		return imageElement.naturalWidth;
+		
+		// Default value of 200 just so that we can see the image
+		return 200;
 	}
 	
 	/**
