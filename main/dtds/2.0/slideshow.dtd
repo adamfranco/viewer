@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+/**
+ * This DTD defines a document for describing a slideshow that can be displayed
+ * in the viewer.
+ *
+ * @package viewer.dtds
+ * @copyright Copyright &copy; 2005, Middlebury College
+ * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @version $Id$
+ *
+ */
+ -->
+
+<!DOCTYPE slideshow [
+	<!ELEMENT slideshow			(title,slide*)>
+	<!ELEMENT slide				(title,caption,text-position,media*)>
+	<!ELEMENT media				(version+)>
+	<!ELEMENT version			(type,size,height?,width?,url)>
+	<!ELEMENT title				(#PCDATA)>
+	<!ELEMENT caption			(#PCDATA)>
+	<!ELEMENT text-position		(#PCDATA)>
+	<!ELEMENT type				(#PCDATA)>
+	<!ELEMENT size				(#PCDATA)>
+	<!ELEMENT height			(#PCDATA)>
+	<!ELEMENT width				(#PCDATA)>
+	<!ELEMENT url				(#PCDATA)>
+]>
