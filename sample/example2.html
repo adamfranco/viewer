@@ -8,18 +8,20 @@
 
 		<script type='text/javascript' src='../viewer.js.php'></script>
 		
-		<title>My page with two viewers</title>
+		<title>My Page with a viewer</title>
 
 	</head>
-	<body onload="Javascript:new SlideShow('viewerA', 'slideshow.xml'); new SlideShow('viewerB', 'slideshow2.xml');">
-		<p>Hello there. Look at my slideshow below!</p>
+	<body onload="Javascript:new SlideShow('viewerA', 'slideshow.xml');">
+		<p>
+			Hello there. Look at my slideshow below! This is the same as 
+			<a href='example1.html'>example #1</a>, but with a white theme
+			by default.
+		</p>
 		<div>
 			<div id='viewerA' class='viewer' style='height: 500px; width: 650px;' />
 		</div>
-		<p>Below is a second viewer!</p>
-		<div>
-			<div id='viewerB' class='viewer' style='height: 500px; width: 650px;' />
-		</div>
-		<p>Here is even more text....</p>
+		<p>This is some more text....</p>
+		<p>You can also put two slideshows on a page as demonstrated in
+		<a href='example3.html'>example #3</a></p>
 	</body>
 </html>
