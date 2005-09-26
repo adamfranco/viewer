@@ -112,8 +112,8 @@ function Slide (viewerElementId, slideXmlNode) {
 			if (this.currentMediaIndex >= (this.media.length - 1))
 				nextDisabled = " disabled='disabled'";
 				
-			html += "\n<button" + previousDisabled + " class='button previous_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previousMedia()'>&lt;</button>";
-			html += "\n<button" + nextDisabled + " class='button next_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.nextMedia()'>&gt;</button>";
+			html += "\n<button" + previousDisabled + " class='button previous_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.previousMedia()' title='Previous Media'>&lt;</button>";
+			html += "\n<button" + nextDisabled + " class='button next_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.nextMedia()' title='Next Media'>&gt;</button>";
 			
 			destination.innerHTML = html;
 		} else {
@@ -164,7 +164,7 @@ function Slide (viewerElementId, slideXmlNode) {
 	}
 	
 	/**
-	 * Advance to the next slide and display it.
+	 * Advance to the next media and display it.
 	 * 
 	 * @return void
 	 * @access public
@@ -176,7 +176,21 @@ function Slide (viewerElementId, slideXmlNode) {
 	}
 	
 	/**
-	 * Go back to the previous slide and display it.
+	 * Answer true if there is a next media
+	 * 
+	 * @return boolean
+	 * @access public
+	 * @since 8/23/05
+	 */
+	Slide.prototype.hasNextMedia = function () {
+		if (this.currentMediaIndex < (this.media.length - 1))
+			return true;
+		else
+			return false;
+	}
+	
+	/**
+	 * Go back to the previous media and display it.
 	 * 
 	 * @return void
 	 * @access public
@@ -184,6 +198,18 @@ function Slide (viewerElementId, slideXmlNode) {
 	 */
 	Slide.prototype.previousMedia = function () {
 		this.currentMediaIndex--;
+		this.redisplay();
+	}
+	
+	/**
+	 * Go back to the first media and display it.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	Slide.prototype.goToFirstMedia = function () {
+		this.currentMediaIndex = 0;
 		this.redisplay();
 	}
 	

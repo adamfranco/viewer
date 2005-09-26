@@ -240,11 +240,11 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>&nbsp;";
 			
 			if (this.playing == true) {
-				var playDisabled = " disabled='disabled'";
+				var playDisabled = " disabled='disabled' style='display: none'";
 				var pauseDisabled = " accesskey='p'";
 			} else {
 				var playDisabled = " accesskey='p'";
-				var pauseDisabled = " disabled='disabled'";
+				var pauseDisabled = " disabled='disabled' style='display: none'";
 			}
 			html += " \n<button class='button play_button' id='" + this.viewerElementId + "_play_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.play()'" + playDisabled + " title='Play'>|&gt;</button>";
 			html += " \n<button class='button pause_button' id='" + this.viewerElementId + "_pause_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.pause()'" + pauseDisabled + " title='Pause'>||</button>";
@@ -333,6 +333,17 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	}
 	
 	/**
+	 * Answer true if there is a next media in the current slide
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	SlideShow.prototype.hasNextMedia = function () {
+		return this.slides[this.currentIndex].hasNextMedia();
+	}
+	
+	/**
 	 * Go back to the previous slide and display it.
 	 * 
 	 * @return void
@@ -388,8 +399,10 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 				
 		var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 		playButton.disabled = true;
+		playButton.style.display = 'none';
 		var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 		pauseButton.disabled = false;
+		pauseButton.style.display = 'inline';
 	}
 	
 	/**
@@ -401,8 +414,16 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 */
 	SlideShow.prototype.playAdvance = function () {
 		if (this.playing == true) {
-			if (this.hasNext()) {
-				this.next();
+			if (this.hasNext()
+				|| this.hasNextMedia()) 
+			{
+				if (this.hasNextMedia())
+					this.slides[this.currentIndex].nextMedia();
+				else {
+					this.next();
+					this.slides[this.currentIndex].goToFirstMedia();
+				}
+				
 				setTimeout("getElementFromDocument('" + this.viewerElementId + "')._slideShow.playAdvance();", 
 					(this.slide_delay * 1000));				
 			} else {
@@ -410,8 +431,10 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 				
 				var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 				playButton.disabled = false;
+				playButton.style.display = 'inline';
 				var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 				pauseButton.disabled = true;
+				pauseButton.style.display = 'none';
 			}
 		}
 	}
@@ -427,8 +450,10 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		this.playing = false;
 		var playButton = getElementFromDocument(this.viewerElementId + '_play_button');
 		playButton.disabled = false;
+		playButton.style.display = 'inline';
 		var pauseButton = getElementFromDocument(this.viewerElementId + '_pause_button');
 		pauseButton.disabled = true;
+		pauseButton.style.display = 'none';
 	}
 
 	/**
