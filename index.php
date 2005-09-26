@@ -88,7 +88,12 @@ foreach ($themes as $name => $url) {
 
 
 ?>
-
+		<style type='text/css'>
+			.viewer {
+				border: 0px;
+			}
+		</style>
+		
 		<script type='text/javascript' src='viewer.js.php'></script>
 		
 		<script type='text/javascript'>
@@ -99,24 +104,24 @@ foreach ($themes as $name => $url) {
 				
 				// Mozilla version
 				if (typeof(window.innerHeight) == 'number') {
-					viewerDiv.style.height = (window.innerHeight - 35) + "px";
-					viewerDiv.style.width = (window.innerWidth - 25) + "px";
+					viewerDiv.style.height = (window.innerHeight - 19) + "px";
+					viewerDiv.style.width = (window.innerWidth - 4) + "px";
 				}
 				
 				// IE 6 'standards complient mode' version
 				else if (document.documentElement
 					&& (document.documentElement.clientHeight || document.documentElement.clientWidth)) 
 				{
-					viewerDiv.style.height = (document.documentElement.clientHeight - 30) + "px";
-					viewerDiv.style.width = (document.documentElement.clientWidth - 20) + "px";
+					viewerDiv.style.height = (document.documentElement.clientHeight - 4) + "px";
+					viewerDiv.style.width = (document.documentElement.clientWidth - 4) + "px";
 				}
 				
 				// IE 4,5,6
 				else if(document.body 
 					&& (document.body.clientWidth || document.body.clientHeight)) 
 				{
-					viewerDiv.style.height = (document.body.clientHeight - 30) + "px";
-					viewerDiv.style.width = (document.body.clientWidth - 20) + "px";
+					viewerDiv.style.height = (document.body.clientHeight - 4) + "px";
+					viewerDiv.style.width = (document.body.clientWidth - 4) + "px";
 				}
 				
 				// If we still haven't matched, we can't determine the window
@@ -135,7 +140,7 @@ foreach ($themes as $name => $url) {
 			/*]]>*/
 		</script>
 	</head>
-	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" onresize="Javascript:resizeToWindow();">
+	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" onresize="Javascript:resizeToWindow();" style='margin: 0px; padding: 0px;'>
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 	</body>
 </html>
