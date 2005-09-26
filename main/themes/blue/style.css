@@ -1,0 +1,142 @@
+/*********************************************************
+ * General styles
+ *********************************************************/
+ 	.viewer {
+		 background-color: #0082A6;
+		 color: #000000;
+		 border: 3px solid #005B74;
+	}
+	
+	.loading{
+		color: #FFB980;
+		text-decoration: blink;
+	}
+	
+	.toolbar {}
+	
+	.content {}
+	
+	.slide_title {
+		margin-top: 30px;
+		font-weight: bold;
+		color: #FFB980;
+	}
+	
+	.slide_caption {
+		color: #BFF1FF;
+	}
+	
+
+/*********************************************************
+ * Button image-replacements.
+ * Use text-indent to hide the button text
+ *********************************************************/
+	
+	.button {
+		width: 25px;
+		height: 25px;
+		
+		margin: 0;
+		padding: 0;
+		margin-left: 3px;
+		border: 0;
+		vertical-align: middle;
+		
+		text-indent: -1000em;
+		
+		cursor: pointer; /* hand-shaped cursor */
+		cursor: hand; /* for IE 5.x */
+	}
+	
+	.tostart_button {
+		background-image: url(images/viewer_back_full.gif);
+	}
+	
+	.tostart_button[disabled] {
+		background-image: url(images/viewer_back_full_dis.gif);
+		cursor: default;
+	}
+	
+	.previous_button {
+		background-image: url(images/viewer_back.gif);
+	}
+	
+	.previous_button[disabled] {
+		background-image: url(images/viewer_back_dis.gif);
+		cursor: default;
+	}
+	
+	.next_button {
+		background: url(images/viewer_forward.gif);
+	}
+	
+	.next_button[disabled] {
+		background: url(images/viewer_forward_dis.gif);
+		cursor: default;
+	}
+	
+	.toend_button {
+		background: url(images/viewer_forward_full.gif);
+	}
+	
+	.toend_button[disabled] {
+		background: url(images/viewer_forward_full_dis.gif);
+		cursor: default;
+	}
+	
+	.zoomin_button {
+		width: 16px;
+		background-image: url(images/zoom_in.gif);				
+	}
+	
+	.zoomout_button {
+		width: 16px;
+		background-image: url(images/zoom_out.gif);				
+	}
+	
+	.zoom100_button {
+		width: 33px;
+		background-image: url(images/100pc.gif);				
+	}
+	
+	.zoomfit_button {
+		background-image: url(images/fit.gif);				
+	}
+	
+	.controls_button {
+		width: 50px;
+		background-image: url(images/show.gif);				
+	}
+	
+	.close_controls_button {
+		width: 50px;
+		background-image: url(images/hide.gif);				
+	}
+	
+	.play_button {
+		width: 24px;
+		background-image: url(images/play.gif);
+	}
+	
+	.play_button[disabled] {
+		background-image: url(images/play2.gif);
+	}
+	
+	.pause_button {
+		width: 16px;
+		background-image: url(images/pause.gif);
+	}
+	
+	.pause_button[disabled] {
+		background-image: url(images/pause2.gif);
+	}
+	
+	.once_button {
+		width: 40px;
+		background-image: url(images/once.gif);
+	}
+	
+	.loop_button {
+		width: 40px;
+		background-image: url(images/loop.gif);
+	}
