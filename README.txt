@@ -4,8 +4,14 @@
 |                                                       |
 |-------------------------------------------------------|
 
+I. About
+II. License
+III. Usage
+	1. Stand-Alone Viewer
+	2. Included Viewer
+
 ---------------------
-| About
+| I. About
 ---------------------
 This package is released as part of the Concerto project. Please visit 
 	http://sourceforge.net/projects/concerto 
@@ -17,14 +23,14 @@ This package was developed by Adam Franco (Educational Technology, Middlebury Co
 
 
 ---------------------
-| License
+| II. License
 ---------------------
 GNU General Public License (GPL) http://www.gnu.org/copyleft/gpl.html
-See the LICENSE text file for text of the license.
+See the LICENSE.txt text file for text of the license.
 
 
 ---------------------
-| Usage of this package
+| III. Usage of this package
 ---------------------
 
 This package can be used in two ways:
