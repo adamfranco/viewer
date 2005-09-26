@@ -9,9 +9,22 @@
 		<script type='text/javascript' src='../viewer.js'></script>
 		
 		<title>My Page with a viewer</title>
-
+		
+		<style type='text/css'>
+			.breadcrumbs a, span {
+				border: 1px solid #00F;
+				background-color: #EEF;
+				padding: 3px;
+			}
+		</style>
 	</head>
-	<body onload="Javascript:new SlideShow('viewerA', 'slideshow.xml');">
+	<body onload="Javascript:new SlideShow('viewerA', 'slideshow2.xml');">
+		<p class='breadcrumbs'>
+			<a href='example1.html'>example #1</a>
+			<span>example #2</span>
+			<a href='example3.html'>example #3</a>
+			<a href='example4.html'>example #4</a>
+		</p>
 		<p>
 			Hello there. Look at my slideshow below! This is the same as 
 			<a href='example1.html'>example #1</a>, but with a white theme

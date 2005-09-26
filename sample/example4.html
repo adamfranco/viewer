@@ -2,9 +2,22 @@
 <html>
 	<head>
 		<title>Click to pop-up a viewer</title>
-
+		
+		<style type='text/css'>
+			.breadcrumbs a, span {
+				border: 1px solid #00F;
+				background-color: #EEF;
+				padding: 3px;
+			}
+		</style>
 	</head>
 	<body>
+		<p class='breadcrumbs'>
+			<a href='example1.html'>example #1</a>
+			<a href='example2.html'>example #2</a>
+			<a href='example3.html'>example #3</a>
+			<span>example #4</span>
+		</p>
 		<p>
 			Click 
 			<a href='#' onclick='Javascript:window.open("../index.php", "viewer", "toolbar=no,location=no,directories=no,status=yes,scrollbars=no,resizable=yes,copyhistory=no,width=800,height=600");'>

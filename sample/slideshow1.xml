@@ -14,14 +14,14 @@
 			<hr/>
 			<p style='font-size: small'>For More information about the Concerto Viewer, please see the following:
 				<ul style='font-size: small'>
-					<li><a href='README.txt'>README.txt</a></li>
-					<li><a href='LICENSE.txt'>LICENSE.txt</a></li>
+					<li><a href='../README.txt'>README.txt</a></li>
+					<li><a href='../LICENSE.txt'>LICENSE.txt</a></li>
 					<li>
-						<a href='sample'>sample/</a> - example usages of the viewer: 
-						<a href='sample/example1.html'>#1</a>, 
-						<a href='sample/example2.html'>#2</a>, 
-						<a href='sample/example3.html'>#3</a>, 
-						<a href='sample/example4.html'>#4</a>
+						<a href='./'>sample/</a> - example usages of the viewer: 
+						<a href='example1.html'>#1</a>, 
+						<a href='example2.html'>#2</a>, 
+						<a href='example3.html'>#3</a>, 
+						<a href='example4.html'>#4</a>
 					</li>
 					<li><a href='http://concerto.sourceforge.net/dtds/viewer/2.0/slideshow.dtd'>http://concerto.sourceforge.net/dtds/viewer/2.0/slideshow.dtd</a> - Document Type Definition for Slideshow XML sources.</li>
 				</ul>

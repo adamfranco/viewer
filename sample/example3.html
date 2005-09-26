@@ -10,9 +10,22 @@
 		<script type='text/javascript' src='../viewer.js'></script>
 		
 		<title>My page with two viewers</title>
-
+		
+		<style type='text/css'>
+			.breadcrumbs a, span {
+				border: 1px solid #00F;
+				background-color: #EEF;
+				padding: 3px;
+			}
+		</style>
 	</head>
-	<body onload="Javascript:new SlideShow('viewerA', 'slideshow.xml'); new SlideShow('viewerB', 'slideshow2.xml');">
+	<body onload="Javascript:new SlideShow('viewerA', 'slideshow1.xml'); new SlideShow('viewerB', 'slideshow2.xml');">
+		<p class='breadcrumbs'>
+			<a href='example1.html'>example #1</a>
+			<a href='example2.html'>example #2</a>
+			<span>example #3</span>
+			<a href='example4.html'>example #4</a>
+		</p>
 		<p>
 			This page has two slideshows on it, unlike <a href='example1.html'>example #1</a> 
 			and <a href='example2.html'>example #2</a> which only have one slideshow each
