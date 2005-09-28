@@ -35,14 +35,14 @@ $themes = array();
 
 // XML File URL
 if (isset($_REQUEST['source']))
-	$sourceURL = $_REQUEST['source'];
+	$sourceURL = urldecode($_REQUEST['source']);
 else
 	$sourceURL = dirname($_SERVER['PHP_SELF'])."/sample/slideshow.xml";
 
 
 // Themes
 if (isset($_REQUEST['themesource']))
-	$themeURL = $_REQUEST['themesource'];
+	$themeURL = urldecode($_REQUEST['themesource']);
 else {
 	if (isset($_REQUEST['theme']))
 		$defaultTheme = $_REQUEST['theme'];

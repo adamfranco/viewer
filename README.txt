@@ -1,6 +1,6 @@
 |-------------------------------------------------------|
 |                                                       |
-| Concerto Viewer version 2.0.0                         |
+| Concerto Viewer version 2.0.1                         |
 |                                                       |
 |-------------------------------------------------------|
 
@@ -170,6 +170,15 @@ This package can be used in two ways:
 ---------------------
 | 4. Changelog
 ---------------------
+
+******************************
+Version 2.0.1
+The Nebulous Future...
+------------------------------
+ - Now uses urldecode to support url-encoded source and theme urls that may 
+   contain &'s and parameters themselves.
+   
+   
 
 ******************************
 Version 2.0.0
