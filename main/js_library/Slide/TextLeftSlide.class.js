@@ -86,8 +86,9 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 		imageElement.style.overflow = "auto";
 // 		imageElement.style.border = "1px solid #00f";
 		
-		
-		this.media[this.currentMediaIndex].display(mediaSize);
+		if (this.media[this.currentMediaIndex])
+			this.media[this.currentMediaIndex].display(mediaSize);
+			
  		this.displayMediaButtons();
 	}
 	

@@ -88,7 +88,9 @@ function TextTopSlide ( viewerElementId, slideXmlNode) {
 
 		
 		
-		this.media[this.currentMediaIndex].display(mediaSize);
+		if (this.media[this.currentMediaIndex])
+			this.media[this.currentMediaIndex].display(mediaSize);
+		
  		this.displayMediaButtons();
 	}
 	

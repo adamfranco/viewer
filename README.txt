@@ -177,7 +177,8 @@ The Nebulous Future...
 ------------------------------
  - Now uses urldecode to support url-encoded source and theme urls that may 
    contain &'s and parameters themselves.
-   
+ - Now text-left/right/top/bottom slides  now don't throw errors if no media are
+   given.
    
 
 ******************************

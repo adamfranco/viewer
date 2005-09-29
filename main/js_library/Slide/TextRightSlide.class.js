@@ -87,7 +87,9 @@ function TextRightSlide ( viewerElementId, slideXmlNode) {
 		textElement.innerHTML += "\n<div class='slide_caption'>" + this.caption + "</div>";
 		
 		
-		this.media[this.currentMediaIndex].display(mediaSize);
+		if (this.media[this.currentMediaIndex])
+			this.media[this.currentMediaIndex].display(mediaSize);
+		
  		this.displayMediaButtons();
 	}
 	
