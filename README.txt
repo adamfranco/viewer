@@ -179,6 +179,7 @@ The Nebulous Future...
    contain &'s and parameters themselves.
  - Now text-left/right/top/bottom slides  now don't throw errors if no media are
    given.
+ - Now allows for text-only and media-only slides, both centered on the viewer.
    
 
 ******************************

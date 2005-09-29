@@ -56,7 +56,25 @@ function TextCenterSlide ( viewerElementId, slideXmlNode) {
 		textElement.style.textAlign = "center";
 // 		textElement.style.border = "1px solid #f00";
 		
-		textElement.innerHTML = "\n<div class='slide_title'>" + this.title + "</div>";
-		textElement.innerHTML += "\n<div class='slide_caption'>" + this.caption + "</div>";
+		var html = "\n<div id='" + this.viewerElementId + "_innertext'>";
+		html += "\n\t<div class='slide_title'>" + this.title + "</div>";
+		html += "\n\t<div class='slide_caption'>" + this.caption + "</div>";
+		html += "\n</div>";
+		textElement.innerHTML = html;
+		
+		var innertextElement = getElementFromDocument(this.viewerElementId + '_innertext');
+		innertextElement.style.position = "absolute";
+		var centeredTop = (getElementHeight(this.viewerElementId + '_slide_text')/2 - innertextElement.offsetHeight/2);
+		if (centeredTop > 0)
+			innertextElement.style.top = centeredTop + "px";
+		else 
+			innertextElement.style.top = "0px";
+		
+		var centeredLeft = (getElementWidth(this.viewerElementId + '_slide_text')/2 - innertextElement.offsetWidth/2);
+		if (centeredLeft > 0)
+			innertextElement.style.left = centeredLeft + "px";
+		else 
+			innertextElement.style.left = "0px";
+
 	}
 	

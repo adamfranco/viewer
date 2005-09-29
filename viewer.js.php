@@ -46,6 +46,8 @@ require_once(dirname(__FILE__)."/main/js_library/Slide/TextTopSlide.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/Slide/TextCenterSlide.class.js");
 
+require_once(dirname(__FILE__)."/main/js_library/Slide/NoTextSlide.class.js");
+
 require_once(dirname(__FILE__)."/main/js_library/MediaContainer.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/Media/Media.class.js");

@@ -160,6 +160,8 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 			this.slides[i] = new TextTopSlide(this.viewerElementId, slideElements[i]);
 	 		else if (position == 'center')
 	 			this.slides[i] = new TextCenterSlide(this.viewerElementId, slideElements[i]);
+	 		else if (position == 'none')
+	 			this.slides[i] = new NoTextSlide(this.viewerElementId, slideElements[i]);
 	 		else
 	 			this.slides[i] = new TextLeftSlide(this.viewerElementId, slideElements[i]);
 		}
