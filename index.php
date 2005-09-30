@@ -71,6 +71,8 @@ ksort($themes);
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
+		<!-- Default Title, will be overwritten via javascript. -->
+		<title>Concerto Viewer</title>
 <?php
 
 // Default Theme

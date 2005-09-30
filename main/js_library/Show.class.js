@@ -139,7 +139,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 			this.title = titleElements[0].firstChild.nodeValue;
 			// Set the document's title to that of the slideshow if it is not
 			// already specified.
-			if (!document.title || document.title == "")
+			if (!document.title || document.title == "" || document.title == "Concerto Viewer")
 				document.title = this.title;
 		}
 		
