@@ -180,6 +180,8 @@ The Nebulous Future...
  - Now text-left/right/top/bottom slides  now don't throw errors if no media are
    given.
  - Now allows for text-only and media-only slides, both centered on the viewer.
+ - Added a default "title" and "noscript" elements to the stand-alone viewer to improve
+   accessibility.
    
 
 ******************************
