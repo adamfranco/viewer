@@ -182,6 +182,8 @@ The Nebulous Future...
  - Now allows for text-only and media-only slides, both centered on the viewer.
  - Added a default "title" and "noscript" elements to the stand-alone viewer to improve
    accessibility.
+ - Moved stand-alone viewer's onresize declaration out of the body tag and into
+   the script to allow for valid XHTML 1.0.
    
 
 ******************************

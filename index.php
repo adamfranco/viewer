@@ -139,25 +139,31 @@ foreach ($themes as $name => $url) {
 				}
 			}
 			
+			// set the window's resize event here since it is XHTML 1.0 does not
+			// allow the body element to have an onresize attribute;
+			window.onresize = resizeToWindow;
+			
 			/*]]>*/
 		</script>
 	</head>
-	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" onresize="Javascript:resizeToWindow();" style='margin: 0px; padding: 0px;'>
+	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" style='margin: 0px; padding: 0px;'>
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 		<noscript>
-			<h2 style='margin: 20px;'>Error: JavaScript not available in your browser</h2>
-			<p style='margin: 20px;'>
-				Javascript must be enabled in your browser to view this slideshow.
+			<div style='margin: 20px;'>
+				<h2>Error: JavaScript not available in your browser</h2>
+				<p>
+					Javascript must be enabled in your browser to view this slideshow.
+				</p>
 				<ul>
 					<li><strong>Mozilla/Firefox</strong> - This option is called <em>Enable JavaScript</em> and is located under:<br/><em>Preferences</em> --&gt; <em>Web Features</em></li>
 					<li><strong>Safari</strong> - This option is called <em>Enable JavaScript</em> and is located under:<br/><em>Preferences</em> --&gt; <em>Security</em> --&gt; <em>Web Content</em></li>
 					<li><strong>Opera</strong> - This option is called <em>Enable JavaScript</em> and is located under:<br/><em>Preferences</em> --&gt; <em>Advanced</em> --&gt; <em>Content</em></li>
 					<li><strong>Internet Explorer</strong> - This option is called <em>Active scripting</em> and is located under:<br/><em>Internet Options</em> --&gt; <em>Security</em> --&gt; <em>Custom Level</em> --&gt; <em>Scripting</em></li>
 				</ul>
-			</p>
-			<p style='margin: 20px;'>
-				Please enable JavaScript in your browser and reload this page. <br/>If you browser does not support JavaScript, please try this page with one of the browsers listed above or another modern browser.
-			</p>
+				<p style='margin: 20px;'>
+					Please enable JavaScript in your browser and reload this page. <br/>If you browser does not support JavaScript, please try this page with one of the browsers listed above or another modern browser.
+				</p>
+			</div>
 		</noscript>
 	</body>
 </html>
