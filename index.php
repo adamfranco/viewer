@@ -65,6 +65,12 @@ if ($handle = opendir(dirname(__FILE__)."/main/themes")) {
 ksort($themes);	
 
 
+if (isset($_REQUEST['start'])) {
+	$startingSlide = intval($_REQUEST['start']);
+} else {
+	$startingSlide = 0;
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang='en'>
@@ -146,7 +152,7 @@ foreach ($themes as $name => $url) {
 			/*]]>*/
 		</script>
 	</head>
-	<body onload="Javascript:resizeToWindow(); new SlideShow('viewerA', '<?php print $sourceURL; ?>');" style='margin: 0px; padding: 0px;'>
+	<body onload="Javascript:resizeToWindow(); var show = new SlideShow('viewerA', '<?php print $sourceURL; ?>', <?php print $startingSlide; ?>);" style='margin: 0px; padding: 0px;'>
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
 		<noscript>
 			<div style='margin: 20px;'>

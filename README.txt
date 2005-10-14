@@ -184,6 +184,8 @@ The Nebulous Future...
    accessibility.
  - Moved stand-alone viewer's onresize declaration out of the body tag and into
    the script to allow for valid XHTML 1.0.
+ - Now can take in a slide index with which to start display. Useful for displaying
+   items in the middle of large result sets.
    
 
 ******************************

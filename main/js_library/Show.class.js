@@ -20,9 +20,9 @@
  *
  * @version $Id$
  */
-function SlideShow (viewerElementId, xmlDocumentUrl) {
+function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocumentUrl );
+		this.init( viewerElementId, xmlDocumentUrl, startingSlide );
 	}
 }
 	
@@ -35,11 +35,16 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 9/21/05
 	 */
-	SlideShow.prototype.init = function (viewerElementId, xmlDocumentUrl) {
+	SlideShow.prototype.init = function (viewerElementId, xmlDocumentUrl, startingSlide ) {
 		var req = this.req;
 		
 		this.slides;
-		this.currentIndex = 0;
+		
+		if (startingSlide)
+			this.currentIndex = startingSlide;
+		else
+			this.currentIndex = 0;
+			
 		this.mediaSize = 'original';
 		this.title = 'SlideShow';
 		this.showPlaybackToolbar = false;
@@ -165,6 +170,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 		else
 	 			this.slides[i] = new TextLeftSlide(this.viewerElementId, slideElements[i]);
 		}
+		
 		this.display();
 		this.cacheAround(this.currentIndex);
 	}
@@ -176,7 +182,13 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	SlideShow.prototype.display = function () {		
+	SlideShow.prototype.display = function () {
+		// make sure that our currentIndex is in-bounds
+		if (this.currentIndex < 0)
+			this.currentIndex = 0;
+		if (this.currentIndex >= this.slides.length)
+			this.currentIndex = this.slides.length - 1;
+		
 		var destination = getElementFromDocument(this.viewerElementId + '_toolbars');
 		destination.style.height =  this.getToolbarHeight() + "px";
 		
@@ -385,6 +397,23 @@ function SlideShow (viewerElementId, xmlDocumentUrl) {
 		this.display();
 		
 		this.cacheAround(this.currentIndex);
+	}
+	
+	/**
+	 * Go a particular slide.
+	 * 
+	 * @param integer The index to go to.
+	 * @return void
+	 * @access public
+	 * @since 10/16/05
+	 */
+	SlideShow.prototype.toSlideIndex = function (index) {
+		if (index >= 0 && index < this.slides.length) {
+			this.currentIndex = index;
+			this.display();
+		
+			this.cacheAround(this.currentIndex);
+		}
 	}
 	
 	/**
