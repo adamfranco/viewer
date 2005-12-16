@@ -76,6 +76,14 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	ImageMedia.prototype.display = function (mediaSize) {
 		this.load();
 		
+		var html = "";
+ 		html += "<img";
+ 		html += " id='" + this.viewerElementId + "_image'";
+ 		html += " src='" + this.image.src + "'/>";
+ 		
+		var destination = getElementFromDocument(this.viewerElementId + '_media');
+		destination.innerHTML = html;
+		
 		// If we haven't displayed this media yet, zoom to fit.
 		if (this.startAtZoomToFit != null) {
 			this.startAtZoomToFit = null;
@@ -84,16 +92,6 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 				return;
 			}
 		}
-		
-		
-				
-		var html = "";
- 		html += "<img";
- 		html += " id='" + this.viewerElementId + "_image'";
- 		html += " src='" + this.image.src + "'/>";
- 		
-		var destination = getElementFromDocument(this.viewerElementId + '_media');
-		destination.innerHTML = html;
 		
 		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
 		imageElement.height = this.getZoomedHeightPx();
@@ -154,14 +152,15 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			return pixelsToInteger(this.height);
 		
 		// If the height wasn't specified, try the image height.
-		else if (this.image.height)
+		if (this.image.height > 0)
 			return this.image.height;
 		
 		// if we still don't have a height, try getting the height from the
 		// browser's rendering of the image-tag.
 		// This is required for Safari
 		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
-		return imageElement.naturalHeight;
+		if (imageElement && imageElement.naturalHeight > 0)
+			return imageElement.naturalHeight;
 			
 		// Default value of 200 just so that we can see the image
 		return 200;
@@ -179,14 +178,15 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			return pixelsToInteger(this.width);
 		
 		// If the height wasn't specified, try the image height.
-		else if (this.image.width)
+		if (this.image.width > 0)
 			return this.image.width;
 		
 		// if we still don't have a width, try getting the width from the
 		// browser's rendering of the image-tag.
 		// This is required for Safari
 		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
-		return imageElement.naturalWidth;
+		if (imageElement && imageElement.naturalWidth > 0)
+			return imageElement.naturalWidth;
 		
 		// Default value of 200 just so that we can see the image
 		return 200;

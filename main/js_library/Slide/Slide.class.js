@@ -46,8 +46,8 @@ function Slide (viewerElementId, slideXmlNode) {
 		// then our current slideXmlNode is just a skeleton and we need to
 		// asynchronously load the document at the 'source' and populate
 		// our properties from it when we are asked to load.
-		if (slideXmlNode.attributes.source && slideXmlNode.attributes.source.value) {
-			this.source = slideXmlNode.attributes.source.value;
+		if (slideXmlNode.getAttribute('source')) {
+			this.source = slideXmlNode.getAttribute('source');
 		}
 		// We have the full slide info in our current slide node
 		else {
@@ -175,7 +175,12 @@ function Slide (viewerElementId, slideXmlNode) {
 		// scope of the request-processing function, since 'this' will (at that
 		// point) be that function.
 		var slide = this;
-					
+		
+		// Safari 
+		var regex = /&#38;/
+		while (url.match(regex))
+			url = url.replace(regex, '&');
+							
 		// branch for native XMLHttpRequest object (Mozilla, Safari, etc)
 		if (window.XMLHttpRequest)
 			var req = new XMLHttpRequest();
