@@ -148,6 +148,17 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 				document.title = this.title;
 		}
 		
+		
+		// Load the sizes if possible.
+		var sizeElements = xmlDocument.documentElement.getElementsByTagName("size");
+		if (sizeElements.length > 0 && this.sizes == null) {
+			var sizes = new Array();
+			for (var i = 0; i < sizeElements.length; i++) {
+				sizes[i] = sizeElements[i].firstChild.nodeValue;
+			}
+			this.sizes = arrayUnique(sizes);
+		}
+		
 		var slideElements = xmlDocument.documentElement.getElementsByTagName("slide");
 		this.slides = new Array(slideElements.length);
 		for (var i = 0; i < slideElements.length; i++) {
