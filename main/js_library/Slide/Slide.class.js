@@ -42,6 +42,28 @@ function Slide (viewerElementId, slideXmlNode) {
 		this.currentMediaSize;
 		this.viewerElementId = viewerElementId;
 		
+		// If we are passed a source attribute in the slideXmlNode,
+		// then our current slideXmlNode is just a skeleton and we need to
+		// asynchronously load the document at the 'source' and populate
+		// our properties from it when we are asked to load.
+		if (slideXmlNode.attributes.source && slideXmlNode.attributes.source.value) {
+			this.source = slideXmlNode.attributes.source.value;
+		}
+		// We have the full slide info in our current slide node
+		else {
+			this.initFromXml (slideXmlNode);
+		}
+	}
+	
+	/**
+	 * Initialize this slide from an xml Node
+	 * 
+	 * @param object Node slideXmlNode
+	 * @return void
+	 * @access public
+	 * @since 12/16/05
+	 */
+	Slide.prototype.initFromXml = function ( slideXmlNode ) {
 		var titleElements = slideXmlNode.getElementsByTagName("title");
 		this.title = titleElements[0].firstChild.nodeValue;
 		
@@ -68,7 +90,22 @@ function Slide (viewerElementId, slideXmlNode) {
 	 * @since 8/22/05
 	 */
 	Slide.prototype.display = function (mediaSize) {
-		alert ("display() must be overridden by a child class of Slide.");
+		if (this.source)
+			this.loadXMLDoc(this.source, mediaSize, true);
+		else
+			this.doDisplay(mediaSize);
+	}
+	
+	/**
+	 * Display the slide content in the 'slide' div.
+	 * 
+	 * @param string mediaSize
+	 * @return void
+	 * @access public
+	 * @since 8/22/05
+	 */
+	Slide.prototype.doDisplay = function (mediaSize) {
+		alert ("doDisplay() must be overridden by a child class of Slide.");
 	}
 	
 	/**
@@ -122,13 +159,88 @@ function Slide (viewerElementId, slideXmlNode) {
 	}
 	
 	/**
-	 * Load and cache the image
+	 * Load the XML document and set the callback to process when loading
+	 * state changes.
+	 *
+	 * From: http://developer.apple.com/internet/webcontent/xmlhttpreq.html
+	 * 
+	 * @param string url
+	 * @param string mediaSize
+	 * @return void
+	 * @access public
+	 * @since 8/22/05
+	 */
+	Slide.prototype.loadXMLDoc = function (url, mediaSize, doDisplay) {
+		// Define a variable to point at this slide that will be in the
+		// scope of the request-processing function, since 'this' will (at that
+		// point) be that function.
+		var slide = this;
+					
+		// branch for native XMLHttpRequest object (Mozilla, Safari, etc)
+		if (window.XMLHttpRequest)
+			var req = new XMLHttpRequest();
+			
+		// branch for IE/Windows ActiveX version
+		else if (window.ActiveXObject)
+			var req = new ActiveXObject("Microsoft.XMLHTTP");
+		
+		
+		if (req) {
+			req.onreadystatechange = function () {
+				// For some reason IE6 fails if the 'var' is not
+				// placed before working.
+				var working = getElementFromDocument(slide.viewerElementId + '_loading');
+				if (req.readyState > 0 && req.readyState < 4) {
+					working.style.display = 'inline';
+				} else {
+					working.style.display = 'none';
+				}
+						
+				// only if req shows "loaded"
+				if (req.readyState == 4) {
+					// only if we get a good load should we continue.
+					if (req.status == 200) {
+						slide.initFromXml(req.responseXML.documentElement);
+						slide.source = null;
+						slide.loadMedia(mediaSize);
+						if (doDisplay) {
+							slide.display(mediaSize);
+						}
+					} else {
+						alert("There was a problem retrieving the XML data:\n" +
+							req.statusText);
+					}
+				}
+			}
+			
+			req.open("GET", url, true);
+			req.send(null);
+		}
+	}	
+	
+	/**
+	 * Load and cache the image Or initiate loading of the Slide XML
+	 * and then the media.
 	 * 
 	 * @return void
 	 * @access public
 	 * @since 8/23/05
 	 */
 	Slide.prototype.load = function (mediaSize) {
+		if (this.source)
+			this.loadXMLDoc(this.source, mediaSize, false);
+		else
+			this.loadMedia(mediaSize);
+	}
+	
+	/**
+	 * Load and cache the image
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 8/23/05
+	 */
+	Slide.prototype.loadMedia = function (mediaSize) {
 		for (var i = 0; i < this.media.length; i++) {
 			this.media[i].load(mediaSize);
 		}

@@ -38,7 +38,7 @@ function TextCenterSlide ( viewerElementId, slideXmlNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	TextCenterSlide.prototype.display = function (mediaSize) {
+	TextCenterSlide.prototype.doDisplay = function (mediaSize) {
 		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var destination = getElementFromDocument(this.viewerElementId + '_slide');

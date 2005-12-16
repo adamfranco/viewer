@@ -38,7 +38,7 @@ function TextTopSlide ( viewerElementId, slideXmlNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	TextTopSlide.prototype.display = function (mediaSize) {
+	TextTopSlide.prototype.doDisplay = function (mediaSize) {
 		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var destination = getElementFromDocument(this.viewerElementId + '_slide');

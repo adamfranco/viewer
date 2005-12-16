@@ -172,7 +172,7 @@ This package can be used in two ways:
 ---------------------
 
 ******************************
-Version 2.0.1
+Version 2.1.0
 The Nebulous Future...
 ------------------------------
  - Now uses urldecode to support url-encoded source and theme urls that may 
@@ -186,7 +186,10 @@ The Nebulous Future...
    the script to allow for valid XHTML 1.0.
  - Now can take in a slide index with which to start display. Useful for displaying
    items in the middle of large result sets.
-   
+ - Now supports slide-by-slide loading via AJAX.
+   A slideshow-skeleton is loaded with a 'source' attribute and the text-position
+   element for each slide. The content is then fetched for the slide as the
+   load() or display() is called on the slide.
 
 ******************************
 Version 2.0.0

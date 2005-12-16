@@ -38,7 +38,7 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 	 * @access public
 	 * @since 8/22/05
 	 */
-	TextLeftSlide.prototype.display = function (mediaSize) {
+	TextLeftSlide.prototype.doDisplay = function (mediaSize) {
 		this.currentMediaSize = mediaSize;
 		this.load(mediaSize);
 		var destination = getElementFromDocument(this.viewerElementId + '_slide');
