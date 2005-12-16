@@ -191,6 +191,7 @@ The Nebulous Future...
    element for each slide. The content is then fetched for the slide as the
    load() or display() is called on the slide.
  - Can now media sizes from outline xml.
+ - Now doesn't die on lack of title value
 
 ******************************
 Version 2.0.0

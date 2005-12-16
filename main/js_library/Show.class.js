@@ -140,7 +140,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 	 */
 	SlideShow.prototype.createSlides = function ( xmlDocument ) {		
 		var titleElements = xmlDocument.documentElement.getElementsByTagName("title");
-		if (titleElements.length > 0) {
+		if (titleElements.length > 0 && titleElements[0].firstChild) {
 			this.title = titleElements[0].firstChild.nodeValue;
 			// Set the document's title to that of the slideshow if it is not
 			// already specified.
