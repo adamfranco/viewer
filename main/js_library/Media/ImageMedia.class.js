@@ -141,6 +141,42 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	}
 	
 	/**
+	 * Resize the image once it has finished loading
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 1/05/06
+	 */
+	ImageMedia.prototype.resizeOnComplete = function () {
+		if (!window.media_objects)
+			window.media_objects = new Array();
+		
+		window.media_objects[this.url] = this;
+		window.setTimeout('resizeIfComplete("' + this.url + '");', 300);
+	}
+	
+	/**
+	 * Resize the the media to fit if it has been loaded.
+	 * 
+	 * @param string url
+	 * @return void
+	 * @access public
+	 * @since 1/5/06
+	 */
+	function resizeIfComplete (url) {
+		var media_object = this.media_objects[url];
+		var imageElement = getElementFromDocument(media_object.viewerElementId + '_image');
+		
+		if ((media_object.image.height && media_object.image.height > 0) 
+			|| (imageElement && imageElement.naturalHeight > 0)) 
+		{
+			media_object.zoomToFit();
+		} else {
+			window.setTimeout('resizeIfComplete("' + url + '");', 100);
+		}
+	}
+	
+	/**
 	 * Answer the height
 	 * 
 	 * @return integer
@@ -163,6 +199,7 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			return imageElement.naturalHeight;
 			
 		// Default value of 200 just so that we can see the image
+		this.resizeOnComplete();
 		return 200;
 	}
 	
