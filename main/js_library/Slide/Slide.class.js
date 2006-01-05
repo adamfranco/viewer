@@ -65,7 +65,10 @@ function Slide (viewerElementId, slideXmlNode) {
 	 */
 	Slide.prototype.initFromXml = function ( slideXmlNode ) {
 		var titleElements = slideXmlNode.getElementsByTagName("title");
-		this.title = titleElements[0].firstChild.nodeValue;
+		if (titleElements[0].firstChild)
+			this.title = titleElements[0].firstChild.nodeValue;
+		else
+			this.title = "";
 		
 		var captionElements = slideXmlNode.getElementsByTagName("caption");
 		this.caption = "";
