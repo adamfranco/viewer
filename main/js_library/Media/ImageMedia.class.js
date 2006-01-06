@@ -83,7 +83,123 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
  		
 		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;
+
+		destination._scrollTarget = this;
+		destination.onscroll = updateScroll;
 		
+		var image = getElementFromDocument(this.viewerElementId + '_image');
+		image._scrollTarget = this;
+		image.onclick = center;
+		image.onmousemove = setCursor;
+		
+		// Wait for our image to load, and then set-up the initital position
+		this.setUpPositionOnComplete()
+	}
+	
+	/**
+	 * Resize the image once it has finished loading
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 1/05/06
+	 */
+	ImageMedia.prototype.setUpPositionOnComplete = function () {
+		if (this.isComplete()) {
+			this.setStartingPositionAndZoom();
+		} else {
+			if (!window.media_objects)
+				window.media_objects = new Array();
+			
+			window.media_objects[this.url] = this;
+			window.setTimeout('setUpPositionIfComplete("' + this.url + '");', 100);
+		}
+	}
+	
+	/**
+	 * Resize the the media if it has been loaded.
+	 * 
+	 * @param string url
+	 * @return void
+	 * @access public
+	 * @since 1/5/06
+	 */
+	function setUpPositionIfComplete (url) {
+		var media_object = this.media_objects[url];
+		
+		if (media_object.isComplete()) {
+			media_object.setStartingPositionAndZoom();
+		} else
+			window.setTimeout('setUpPositionIfComplete("' + url + '");', 100);
+	}
+	
+	/**
+	 * Answer true if the size of the image is known
+	 * 
+	 * @return boolean
+	 * @access public
+	 * @since 1/5/06
+	 */
+	ImageMedia.prototype.isComplete = function () {	
+		if (this.height && this.height != "0px" 
+			&& this.width && this.width != "0px")
+		{
+			return true;
+		} else {
+			return this.loadNaturalSize();
+		}
+	}
+	
+	/**
+	 * Answer true if the image has finished loading (and has a non-zero height
+	 * and width). Put the natural height in this object
+	 * 
+	 * @return boolean
+	 * @access public
+	 * @since 1/5/06
+	 */
+	ImageMedia.prototype.loadNaturalSize = function () {	
+		
+		// It seems that IE first returns invalid sizes in the
+		// image itself, before it loads the image element with
+		// the correct size.
+// 		if (this.image.height > 0 && this.image.width > 0) {
+// 			alert ("this.image.height=" + this.image.height 
+// 				+ " this.image.width=" + this.image.width);
+// 			this.height = this.image.height;
+// 			this.width = this.image.width;
+// 			return true;
+// 		}
+		
+		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
+		
+		if (imageElement.height > 0 && imageElement.width > 0) {
+// 			alert ("imageElement.height=" + imageElement.height
+// 				+ "imageElement.width=" + imageElement.width);
+			this.height = imageElement.height;
+			this.width = imageElement.width;
+			return true;
+		}
+		
+		if (imageElement.naturalHeight > 0 && imageElement.naturalWidth > 0) {
+// 			alert ("imageElement.naturalHeight=" + imageElement.naturalHeight + 
+// 				"imageElement.naturalWidth=" + imageElement.naturalWidth);
+			this.height = imageElement.naturalHeight;
+			this.width = imageElement.naturalWidth;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Set up the starting zoom and scroll.
+	 * 
+	 * @param string mediaSize
+	 * @return void
+	 * @access public
+	 * @since 8/22/05
+	 */
+	ImageMedia.prototype.setStartingPositionAndZoom = function () {
 		// If we haven't displayed this media yet, zoom to fit.
 		if (this.startAtZoomToFit != null) {
 			this.startAtZoomToFit = null;
@@ -100,18 +216,8 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		imageElement.style.top = this.getCenteredY() + "px";
 		imageElement.style.left = this.getCenteredX() + "px";
 		
-		
-		destination._scrollTarget = this;
-		destination.onscroll = updateScroll;
-		
 		this.setScrollXPercent(this.scrollXPercent);
 		this.setScrollYPercent(this.scrollYPercent);
-		
-		
-		var image = getElementFromDocument(this.viewerElementId + '_image');
-		image._scrollTarget = this;
-		image.onclick = center;
-		image.onmousemove = setCursor;
 	}
 	
 	/**
@@ -138,95 +244,6 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 */
 	ImageMedia.prototype.unload = function () {
 		this.image = null;
-	}
-	
-	/**
-	 * Resize the image once it has finished loading
-	 * 
-	 * @return void
-	 * @access public
-	 * @since 1/05/06
-	 */
-	ImageMedia.prototype.resizeOnComplete = function () {
-		if (!window.media_objects)
-			window.media_objects = new Array();
-		
-		window.media_objects[this.url] = this;
-		window.setTimeout('resizeIfComplete("' + this.url + '");', 300);
-	}
-	
-	/**
-	 * Resize the the media to fit if it has been loaded.
-	 * 
-	 * @param string url
-	 * @return void
-	 * @access public
-	 * @since 1/5/06
-	 */
-	function resizeIfComplete (url) {
-		var media_object = this.media_objects[url];
-		var imageElement = getElementFromDocument(media_object.viewerElementId + '_image');
-		
-		if ((media_object.image.height && media_object.image.height > 0) 
-			|| (imageElement && imageElement.naturalHeight > 0)) 
-		{
-			media_object.zoomToFit();
-		} else {
-			window.setTimeout('resizeIfComplete("' + url + '");', 100);
-		}
-	}
-	
-	/**
-	 * Answer the height
-	 * 
-	 * @return integer
-	 * @access public
-	 * @since 8/25/05
-	 */
-	ImageMedia.prototype.getHeightPx = function () {
-		if (pixelsToInteger(this.height) > 0)
-			return pixelsToInteger(this.height);
-		
-		// If the height wasn't specified, try the image height.
-		if (this.image.height > 0)
-			return this.image.height;
-		
-		// if we still don't have a height, try getting the height from the
-		// browser's rendering of the image-tag.
-		// This is required for Safari
-		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
-		if (imageElement && imageElement.naturalHeight > 0)
-			return imageElement.naturalHeight;
-			
-		// Default value of 200 just so that we can see the image
-		this.resizeOnComplete();
-		return 200;
-	}
-	
-	/**
-	 * Answer the width
-	 * 
-	 * @return integer
-	 * @access public
-	 * @since 8/25/05
-	 */
-	ImageMedia.prototype.getWidthPx = function () {
-		if (pixelsToInteger(this.width) > 0)
-			return pixelsToInteger(this.width);
-		
-		// If the height wasn't specified, try the image height.
-		if (this.image.width > 0)
-			return this.image.width;
-		
-		// if we still don't have a width, try getting the width from the
-		// browser's rendering of the image-tag.
-		// This is required for Safari
-		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
-		if (imageElement && imageElement.naturalWidth > 0)
-			return imageElement.naturalWidth;
-		
-		// Default value of 200 just so that we can see the image
-		return 200;
 	}
 	
 	/**

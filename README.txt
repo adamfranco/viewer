@@ -190,8 +190,9 @@ The Nebulous Future...
    A slideshow-skeleton is loaded with a 'source' attribute and the text-position
    element for each slide. The content is then fetched for the slide as the
    load() or display() is called on the slide.
- - Can now media sizes from outline xml.
+ - Can now extract media sizes from outline xml.
  - Now doesn't die on lack of title value
+ - Now reliably sizes media in Firefox/Gecko, IE 6, Safari
 
 ******************************
 Version 2.0.0
