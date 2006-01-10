@@ -173,7 +173,7 @@ This package can be used in two ways:
 
 ******************************
 Version 2.1.0
-The Nebulous Future...
+2006-01-10
 ------------------------------
  - Now uses urldecode to support url-encoded source and theme urls that may 
    contain &'s and parameters themselves.
