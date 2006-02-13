@@ -159,6 +159,12 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 			this.sizes = arrayUnique(sizes);
 		}
 		
+		// Load the default slide if possible.
+		var defaultSizeElements = xmlDocument.documentElement.getElementsByTagName("default_size");
+		if (defaultSizeElements.length > 0) {
+			this.mediaSize = defaultSizeElements[0].firstChild.nodeValue;
+		}
+		
 		var slideElements = xmlDocument.documentElement.getElementsByTagName("slide");
 		this.slides = new Array(slideElements.length);
 		for (var i = 0; i < slideElements.length; i++) {

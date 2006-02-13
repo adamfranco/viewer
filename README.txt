@@ -170,7 +170,12 @@ This package can be used in two ways:
 ---------------------
 | 4. Changelog
 ---------------------
-
+******************************
+Version 2.1.1
+The Future
+------------------------------
+ - Now supports default media size
+ 
 ******************************
 Version 2.1.0
 2006-01-10

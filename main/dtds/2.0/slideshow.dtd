@@ -13,11 +13,15 @@
  -->
 
 <!DOCTYPE slideshow [
-	<!ELEMENT slideshow			(title,slide*)>
-	<!ELEMENT slide				(title,caption,text-position,media*)>
+	<!ELEMENT slideshow			(title,media-sizes?,default_size?,slide*)>
+	<!ELEMENT slide				(title?,caption?,text-position,media*)>
+	<!ATTLIST slide				
+				source CDATA #IMPLIED>
 	<!ELEMENT media				(version+)>
 	<!ELEMENT version			(type,size,height?,width?,url)>
+	<!ELEMENT media-sizes		(size+)>
 	<!ELEMENT title				(#PCDATA)>
+	<!ELEMENT default_size		(#PCDATA)>
 	<!ELEMENT caption			(#PCDATA)>
 	<!ELEMENT text-position		(#PCDATA)>
 	<!ELEMENT type				(#PCDATA)>
