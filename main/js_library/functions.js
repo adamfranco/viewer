@@ -114,5 +114,5 @@ function pixelsToInteger (pixelString) {
 	if (matches)
 		return new Number(matches[1]);
 	else
-		alert ("Error: Invalid pixelString, " + pixelString);
+		return 0;
 }

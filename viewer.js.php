@@ -56,6 +56,8 @@ require_once(dirname(__FILE__)."/main/js_library/Media/ImageMedia.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/Media/VideoMedia.class.js");
 
+require_once(dirname(__FILE__)."/main/js_library/Media/TiffMedia.class.js");
+
 require_once(dirname(__FILE__)."/main/js_library/Media/QuicktimeMedia.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/Media/WindowsMediaMedia.class.js");

@@ -175,6 +175,8 @@ Version 2.1.1
 The Future
 ------------------------------
  - Now supports default media size
+ - Now puts a download link under Tiff images to allow their access if the browser
+   doesn't support their inline display (i.e. FireFox)
  
 ******************************
 Version 2.1.0

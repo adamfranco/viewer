@@ -38,7 +38,7 @@ function MediaContainer ( viewerElementId, mediaXMLNode) {
 	MediaContainer.prototype.init = function ( viewerElementId, mediaXMLNode) {
 		this.versions = new Array ();
 		this.sizeOptions = new Array('thumb', 'small', 'medium', 'large', 'original');
-		this.mediaClasses = new Array(ImageMedia, QuicktimeMedia, RealMedia, WindowsMediaMedia, VideoMedia, FileMedia);
+		this.mediaClasses = new Array(TiffMedia, ImageMedia, QuicktimeMedia, RealMedia, WindowsMediaMedia, VideoMedia, FileMedia);
 		this.currentMediaSize = 'original';
 		this.viewerElementId = viewerElementId;
 		
