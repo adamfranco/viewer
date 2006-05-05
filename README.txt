@@ -172,7 +172,7 @@ This package can be used in two ways:
 ---------------------
 ******************************
 Version 2.1.1
-The Future
+2006-05-05
 ------------------------------
  - Now supports default media size
  - Now puts a download link under Tiff images to allow their access if the browser
