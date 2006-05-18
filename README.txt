@@ -171,6 +171,22 @@ This package can be used in two ways:
 | 4. Changelog
 ---------------------
 ******************************
+Version 2.1.2
+2006-05-05
+------------------------------
+ - Default theme is now black
+ - Themes specify a body background-color style, so pages including
+   the viewer will need to override that body style with their own.
+   This was required for properly theming the full stand-alone window.
+ - Stand-alone viewer now has additional margins on left and right.
+
+******************************
+Version 2.1.2
+2006-05-05
+------------------------------
+ - Fixed an invalid alignment property in the media-buttons rendering.
+
+******************************
 Version 2.1.1
 2006-05-05
 ------------------------------

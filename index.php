@@ -47,7 +47,7 @@ else {
 	if (isset($_REQUEST['theme']))
 		$defaultTheme = $_REQUEST['theme'];
 	else
-		$defaultTheme = 'white';
+		$defaultTheme = 'black';
 }
 
 if ($handle = opendir(dirname(__FILE__)."/main/themes")) {
@@ -113,7 +113,7 @@ foreach ($themes as $name => $url) {
 				// Mozilla version
 				if (typeof(window.innerHeight) == 'number') {
 					viewerDiv.style.height = (window.innerHeight - 19) + "px";
-					viewerDiv.style.width = (window.innerWidth - 4) + "px";
+					viewerDiv.style.width = (window.innerWidth - 14) + "px";
 				}
 				
 				// IE 6 'standards complient mode' version
@@ -121,7 +121,7 @@ foreach ($themes as $name => $url) {
 					&& (document.documentElement.clientHeight || document.documentElement.clientWidth)) 
 				{
 					viewerDiv.style.height = (document.documentElement.clientHeight - 4) + "px";
-					viewerDiv.style.width = (document.documentElement.clientWidth - 4) + "px";
+					viewerDiv.style.width = (document.documentElement.clientWidth - 14) + "px";
 				}
 				
 				// IE 4,5,6
@@ -129,7 +129,7 @@ foreach ($themes as $name => $url) {
 					&& (document.body.clientWidth || document.body.clientHeight)) 
 				{
 					viewerDiv.style.height = (document.body.clientHeight - 4) + "px";
-					viewerDiv.style.width = (document.body.clientWidth - 4) + "px";
+					viewerDiv.style.width = (document.body.clientWidth - 14) + "px";
 				}
 				
 				// If we still haven't matched, we can't determine the window
@@ -153,7 +153,7 @@ foreach ($themes as $name => $url) {
 		</script>
 	</head>
 	<body onload="Javascript:resizeToWindow(); var show = new SlideShow('viewerA', '<?php print $sourceURL; ?>', <?php print $startingSlide; ?>);" style='margin: 0px; padding: 0px;'>
-		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative;' />
+		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative; margin-left: 5px; margin-right: 5px;' />
 		<noscript>
 			<div style='margin: 20px;'>
 				<h2>Error: JavaScript not available in your browser</h2>

@@ -134,7 +134,7 @@ function Slide (viewerElementId, slideXmlNode) {
 		var toolbars = getElementFromDocument(this.viewerElementId + '_toolbars');
 		if (this.media.length > 1) {
 			destination.style.display = "block";
-			destination.style.verticalAlign = "center";
+			destination.style.verticalAlign = "middle";
 			destination.style.textAlign = "center";
 			destination.style.paddingTop = "1px";
 			destination.style.height = "29px";
