@@ -172,7 +172,7 @@ This package can be used in two ways:
 ---------------------
 ******************************
 Version 2.1.2
-2006-05-05
+2006-05-19
 ------------------------------
  - Default theme is now black
  - Themes specify a body background-color style, so pages including
