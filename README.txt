@@ -171,14 +171,16 @@ This package can be used in two ways:
 | 4. Changelog
 ---------------------
 ******************************
-Version 2.1.2
-2006-05-19
+Version 2.1.3
+2006-
 ------------------------------
  - Default theme is now black
  - Themes specify a body background-color style, so pages including
    the viewer will need to override that body style with their own.
    This was required for properly theming the full stand-alone window.
  - Stand-alone viewer now has additional margins on left and right.
+ - Fixed IE sizing issues.
+ - Default slide playing time is now 10 seconds
 
 ******************************
 Version 2.1.2

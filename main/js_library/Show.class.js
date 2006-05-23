@@ -49,7 +49,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 		this.title = 'SlideShow';
 		this.showPlaybackToolbar = false;
 		this.playing = false;
-		this.slide_delay = 3;
+		this.slide_delay = 10;
 		this.loop = false;
 		this.viewerElementId = viewerElementId;
 		

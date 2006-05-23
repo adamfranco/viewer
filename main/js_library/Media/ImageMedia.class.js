@@ -157,28 +157,8 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 * @access public
 	 * @since 1/5/06
 	 */
-	ImageMedia.prototype.loadNaturalSize = function () {	
-		
-		// It seems that IE first returns invalid sizes in the
-		// image itself, before it loads the image element with
-		// the correct size.
-// 		if (this.image.height > 0 && this.image.width > 0) {
-// 			alert ("this.image.height=" + this.image.height 
-// 				+ " this.image.width=" + this.image.width);
-// 			this.height = this.image.height;
-// 			this.width = this.image.width;
-// 			return true;
-// 		}
-		
+	ImageMedia.prototype.loadNaturalSize = function () {		
 		var imageElement = getElementFromDocument(this.viewerElementId + '_image');
-		
-		if (imageElement.height > 0 && imageElement.width > 0) {
-// 			alert ("imageElement.height=" + imageElement.height
-// 				+ "imageElement.width=" + imageElement.width);
-			this.height = imageElement.height;
-			this.width = imageElement.width;
-			return true;
-		}
 		
 		if (imageElement.naturalHeight > 0 && imageElement.naturalWidth > 0) {
 // 			alert ("imageElement.naturalHeight=" + imageElement.naturalHeight + 
@@ -187,6 +167,19 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 			this.width = imageElement.naturalWidth;
 			return true;
 		}
+		
+		// It seems that IE first returns invalid sizes in the
+		// image itself, before it loads the image element with
+		// the correct size.
+		if (imageElement.complete && imageElement.height > 0 && imageElement.width > 0) {
+// 			alert ("imageElement.height=" + imageElement.height
+// 				+ "imageElement.width=" + imageElement.width);
+			this.height = imageElement.height;
+			this.width = imageElement.width;
+			return true;
+		}
+		
+
 		
 		return false;
 	}
