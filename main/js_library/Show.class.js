@@ -20,9 +20,9 @@
  *
  * @version $Id$
  */
-function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
+function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare) {
 	if ( arguments.length > 0 ) {
-		this.init( viewerElementId, xmlDocumentUrl, startingSlide );
+		this.init( viewerElementId, xmlDocumentUrl, startingSlide, allowCompare );
 	}
 }
 	
@@ -35,7 +35,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 	 * @access public
 	 * @since 9/21/05
 	 */
-	SlideShow.prototype.init = function (viewerElementId, xmlDocumentUrl, startingSlide ) {
+	SlideShow.prototype.init = function (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare ) {
 		var req = this.req;
 		
 		this.slides;
@@ -52,6 +52,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 		this.slide_delay = 10;
 		this.loop = false;
 		this.viewerElementId = viewerElementId;
+		this.allowCompare = allowCompare;
 		
 		// Attach ourselves to the View obect for later referencing from static
 		// methods.
@@ -256,10 +257,13 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 		html += " \n<button class='button zoom100_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFull()' title='Zoom 100%' accesskey='1'>100%</button>";
 		html += "\n<button class='button zoomfit_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.zoomToFit()' title='Zoom to Fit' accesskey='f'>&lt;--&gt;</button>";
 		
+		if (this.allowCompare)
+			html += "\n<button class='button compare_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.compare()' title='Compare in a new window.' accesskey='n'>Compare</button>";
+		
 		if (this.showPlaybackToolbar == true)
 			html += "\n<button class='button close_controls_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' title='Hide Controls' accesskey='c'>HideControls</button>";
 		else
-			html += "\n<button class='button controls_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' title='Show Controls' accesskey='c'>ShowControls</button>";
+			html += "\n<button class='button controls_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.togglePlayControls()' title='Show Controls' accesskey='m'>ShowControls</button>";
 		
 		
 		html += "\n</div>";
@@ -268,7 +272,8 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 		
 		if (this.showPlaybackToolbar == true) {
 			// Slideshow playing controls
-			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' style='padding: 2px; text-align: center; width: " + destination.style.width + "; border: 0px solid #0f0'>&nbsp;";
+			html += "\n<div id='" + this.viewerElementId + "_playback_toolbar' width: " + destination.style.width + ";'>";
+			html += "\n\t<div style='float: left;'>&nbsp;";
 			
 			if (this.playing == true) {
 				var playDisabled = " disabled='disabled' style='display: none'";
@@ -318,6 +323,21 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 			} else {
 				html += " \n<button class='button once_button' id='" + this.viewerElementId + "_loop_button' onclick='Javascript:getElementFromDocument(\"" + this.viewerElementId + "\")._slideShow.toggleLoop()' title='Toggle Looping' accesskey='l'>--&gt;|</button>";
 			}
+			
+			html += "\n\t</div>";
+			html += "\n\t<div style='float: right;'>Page Style:";
+			html += "\n\t\t<select onchange='Javascript:setActiveStyleSheet(this.value)'>";
+			var sheets = getStyleSheets();
+			var currentSheet = getActiveStyleSheet();
+			for (var i = 0; i < sheets.length; i++) {
+				if (sheets[i] == currentSheet)
+					selected = " selected='selected'";
+				else
+					selected = '';
+				html += "\n\t\t\t<option value='" + sheets[i] + "'" + selected + ">" + sheets[i] + "</option>";
+			}
+			html += "\n\t\t</select>";
+			html += "\n\t</div>";
 			
 			html += "\n</div>";
 		}
@@ -753,4 +773,70 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide) {
 				this.slides[i].resetZoom();
 			this.display();
 		}
+	}
+
+	/**
+	 * Open a new viewer on the same slide.
+	 * 
+	 * @return void
+	 * @access public
+	 * @since 5/23/06
+	 */
+	SlideShow.prototype.compare = function () {		
+		var myUrl = window.location.toString();
+		// Clean off the parameters that we are going to set
+		var regex = /&start=[0-9]*/;
+		myUrl = myUrl.replace(regex, '');
+		var regex = /&theme=[a-zA-Z0-9_\-]*/;
+		myUrl = myUrl.replace(regex, '');
+		
+		
+		// Add our parameters back on.
+		var regex = /.*\?.*/;
+		if (!myUrl.match(regex))
+			myUrl += '?';
+		
+		myUrl += '&start=' + this.currentIndex;
+		
+		var activeStyleSheet = getActiveStyleSheet();
+		if (activeStyleSheet)
+			myUrl += '&theme=' + activeStyleSheet;
+		
+		
+		var options = "copyhistory=no,";
+		options += "toolbar=" + ((window.toolbar.visible)?'yes':'no') + ",";
+		options += "location=" + ((window.locationbar.visible)?'yes':'no') + ",";
+		options += "directories=" + ((window.personalbar.visible)?'yes':'no') + ",";
+		options += "statusbar=" + ((window.statusbar.visible)?'yes':'no') + ",";
+		options += "scrollbars=" + ((window.scrollbars.visible)?'yes':'no') + ",";
+		options += "resizable=" + ((true)?'yes':'no') + ",";
+		options += "width=" + window.innerWidth + ",";
+		options += "height=" + window.innerHeight;
+		var newWindow = window.open(myUrl, '_blank', options);
+		window.focus();
+		if (screen.width && screen.height && confirm('Fit to screen?')) {
+			if (confirm("Yes/OK for side by side\nNo/Cancel for above/below")) {
+				var width = screen.width/2;
+				var height = screen.height;
+				var positionX = width;
+				var positionY = 0;
+			} else {
+				var width = screen.width;
+				var height = screen.height/2;
+				var positionX = 0;
+				var positionY = height;
+			}
+			
+			window.moveTo(0, 0);
+			window.outerWidth = width;
+			window.outerHeight = height;
+			
+			newWindow.outerWidth = width;
+			newWindow.outerHeight = height;
+			// moveto doesn't seem to quite work, so, first put it at the origen
+			// then use moveBy.
+			newWindow.moveTo(0, 0);
+			newWindow.moveBy(positionX, positionY);
+		}
+		newWindow.focus();
 	}

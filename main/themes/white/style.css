@@ -100,6 +100,11 @@
 		background-image: url(images/fit.gif);				
 	}
 	
+	.compare_button {
+		width: 50px;
+		background-image: url(images/compare.gif);				
+	}
+	
 	.controls_button {
 		width: 50px;
 		background-image: url(images/show.gif);				

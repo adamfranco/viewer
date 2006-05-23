@@ -68,5 +68,7 @@ require_once(dirname(__FILE__)."/main/js_library/Media/FileMedia.class.js");
 
 require_once(dirname(__FILE__)."/main/js_library/functions.js");
 
+require_once(dirname(__FILE__)."/main/js_library/styleswitcher.js");
+
 
 ?>

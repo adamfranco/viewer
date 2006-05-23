@@ -181,6 +181,8 @@ Version 2.1.3
  - Stand-alone viewer now has additional margins on left and right.
  - Fixed IE sizing issues.
  - Default slide playing time is now 10 seconds
+ - Added a compare button to open a second viewer on the same slide.
+ - Added style-sheet choosing.
 
 ******************************
 Version 2.1.2

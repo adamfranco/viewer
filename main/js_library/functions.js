@@ -116,3 +116,25 @@ function pixelsToInteger (pixelString) {
 	else
 		return 0;
 }
+
+
+/**
+ * Inspect an object in a popup window
+ * 
+ * @param object object
+ * @return void
+ * @access public
+ * @since 5/23/06
+ */
+function inspect (object) {
+	var temp = "\n<div>Inspecting: " + object.constructor.toString() + "</div>";
+	temp += "\n<table border='1'>";
+	for (x in object)
+		temp += "\n\t<tr>\n\t\t<td>" + x + "</td>\n\t\t<td style='white-space: pre'>" + object[x] + "</td>\n\t</tr>";
+	temp += "\n</table>";
+	
+	var newWindow = window.open("", "_blank", "toolbar=no,location=no,directories=no,statusbar=no,scrollbars=yes,resizable=yes,width=800,height=800");
+	newWindow.document.write(temp);
+	newWindow.document.close();
+	newWindow.focus();
+}

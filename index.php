@@ -152,7 +152,7 @@ foreach ($themes as $name => $url) {
 			/*]]>*/
 		</script>
 	</head>
-	<body onload="Javascript:resizeToWindow(); var show = new SlideShow('viewerA', '<?php print $sourceURL; ?>', <?php print $startingSlide; ?>);" style='margin: 0px; padding: 0px;'>
+	<body onload="Javascript:resizeToWindow(); var show = new SlideShow('viewerA', '<?php print $sourceURL; ?>', <?php print $startingSlide; ?>, true);" style='margin: 0px; padding: 0px;'>
 		<div id='viewerA' class='viewer' style='height: 500px; width: 650px; position: relative; margin-left: 5px; margin-right: 5px;' />
 		<noscript>
 			<div style='margin: 20px;'>
