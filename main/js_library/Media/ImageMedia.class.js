@@ -41,7 +41,7 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 	 */
 	ImageMedia.prototype.init = function ( viewerElementId, mediaXMLNode) {
 		ImageMedia.superclass.init.call(this, viewerElementId, mediaXMLNode);
-			
+		
 		this.startAtZoomToFit = true;
 		this.image = null;
 	}
@@ -127,9 +127,16 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		var media_object = this.media_objects[url];
 		
 		if (media_object.isComplete()) {
+			var loading = getElementFromDocument(media_object.viewerElementId + '_loading')
+			loading.style.display = 'none'; 
+			
 			media_object.setStartingPositionAndZoom();
-		} else
+		} else {
+			var loading = getElementFromDocument(media_object.viewerElementId + '_loading')
+			loading.style.display = 'block'; 
+			
 			window.setTimeout('setUpPositionIfComplete("' + url + '");', 100);
+		}
 	}
 	
 	/**

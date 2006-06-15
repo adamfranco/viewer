@@ -46,7 +46,7 @@ function TextLeftSlide ( viewerElementId, slideXmlNode) {
 		
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media_buttons' class='toolbar' />";
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_slide_text' class='content' />";
-		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' />";
+		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' class='media' />";
 		
 		var mediaButtonsElement = getElementFromDocument(this.viewerElementId + '_media_buttons');
 		mediaButtonsElement.style.position = "absolute";

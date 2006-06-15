@@ -199,7 +199,7 @@ function Slide (viewerElementId, slideXmlNode) {
 				// placed before working.
 				var working = getElementFromDocument(slide.viewerElementId + '_loading');
 				if (req.readyState > 0 && req.readyState < 4) {
-					working.style.display = 'inline';
+					working.style.display = 'block';
 				} else {
 					working.style.display = 'none';
 				}

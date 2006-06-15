@@ -13,13 +13,22 @@
 	
 	.loading {
 		text-align: center;
-		color: green;
-		text-decoration: blink;
+		color: #aaa;
+		font-weight: bolder;
+		font-size: 40px;
+		/*text-decoration: blink;*/
+		z-index: 10;
 	}
 	
 	.toolbar {}
 	
-	.content {}
+	.content {
+		z-index: 20;
+	}
+	
+	.media {
+		z-index: 20;
+	}
 	
 	.slide_title {
 		margin-top: 30px;

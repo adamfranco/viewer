@@ -109,7 +109,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare
 				// placed before working.
 				var working = getElementFromDocument(slideShow.viewerElementId + '_loading');
 				if (req.readyState > 0 && req.readyState < 4) {
-					working.style.display = 'inline';
+					working.style.display = 'block';
 				} else {
 					working.style.display = 'none';
 				}
@@ -570,8 +570,8 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare
 	 * @since 8/23/05
 	 */
 	SlideShow.prototype.cacheAround = function ( index ) {
-		var numToCacheAhead = 5;
-		var numToCacheBehind = 5;
+		var numToCacheAhead = 10;
+		var numToCacheBehind = 10;
 				
 		// Load the needed images
 		for (i = index + 1; (i <= (index + numToCacheAhead) && (i < this.slides.length)); i++) {

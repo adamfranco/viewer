@@ -45,7 +45,7 @@ function NoTextSlide ( viewerElementId, slideXmlNode) {
 		destination.innerHTML = "";
 		
 		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media_buttons' class='toolbar' />";
-		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' />";
+		destination.innerHTML += "\n<div id='" + this.viewerElementId + "_media' class='media' />";
 
 		var imageElement = getElementFromDocument(this.viewerElementId + '_media');
 		imageElement.style.position = "absolute";
