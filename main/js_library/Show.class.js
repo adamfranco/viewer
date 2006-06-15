@@ -68,7 +68,7 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare
 		viewerElement.innerHTML = "";
 		viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_toolbars' class='toolbar' />";
 		viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_slide' />";
-		viewerElement.innerHTML += "\n<span id='" + this.viewerElementId + "_loading' class='loading'>loading...</span>";
+		viewerElement.innerHTML += "\n<div id='" + this.viewerElementId + "_loading' class='loading'>loading...</div>";
 		
 		this.layoutChildren();
 		
@@ -753,6 +753,13 @@ function SlideShow (viewerElementId, xmlDocumentUrl, startingSlide, allowCompare
 		slideElement.style.position = "absolute";
 		slideElement.style.left = "0px";
 		slideElement.style.top = this.getToolbarHeight() + "px";
+		
+		var loadingElement = getElementFromDocument(this.viewerElementId + '_loading');
+		loadingElement.style.height =  Math.floor((this.getViewerHeight() - this.getToolbarHeight())/2)  + "px";
+		loadingElement.style.width =  this.getViewerWidth() + "px";
+		loadingElement.style.position = "absolute";
+		loadingElement.style.left = "0px";
+		loadingElement.style.top = Math.floor((this.getViewerHeight() - this.getToolbarHeight())/2) + "px";
 	}
 	
 	/**

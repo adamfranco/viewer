@@ -11,8 +11,9 @@
 		 border: 3px solid #005B74;
 	}
 	
-	.loading{
-		color: #FFB980;
+	.loading {
+		text-align: center;
+		color: green;
 		text-decoration: blink;
 	}
 	
