@@ -172,7 +172,7 @@ This package can be used in two ways:
 ---------------------
 ******************************
 Version 2.1.4
-2006-06-future
+2006-06-16
 ------------------------------
  - Loading indicator is now centered on the screen and displayed during image loading.
  
