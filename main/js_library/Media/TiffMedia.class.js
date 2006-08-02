@@ -89,7 +89,7 @@ function TiffMedia ( viewerElementId, mediaXMLNode) {
 		
 		var html = "<div id='" + this.viewerElementId + "_download_link' style='position: absolute;'>";
 		html += "<a";
-		html += " href='" + this.url + "'>";
+		html += " href='" + this.url.replace(/&/g, '&amp;') + "'>";
 		html += "Download the Media";
 		html += "</a>";
 		html += "</div>";

@@ -45,7 +45,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 				
 		var urlElements = mediaXMLNode.getElementsByTagName("url");
 		if (urlElements.length > 0)
-			this.url = urlElements[0].firstChild.nodeValue;
+			this.url = urlElements[0].firstChild.nodeValue.replace(/&amp;/g, '&');
 		
 		var typeElements = mediaXMLNode.getElementsByTagName("type");
 		if (typeElements.length > 0)
@@ -78,7 +78,7 @@ function Media ( viewerElementId, mediaXMLNode) {
 		var html = "";
 		html += "<div id='" + this.viewerElementId + "_download_link' style='position: absolute;'>";
 		html += "<a";
-		html += " href='" + this.url + "'>";
+		html += " href='" + this.url.replace(/&/g, '&amp;') + "'>";
 		html += "Download the Media";
 		html += "</a>";
 		html += "</div>";

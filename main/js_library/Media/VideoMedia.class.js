@@ -104,15 +104,15 @@ function VideoMedia ( viewerElementId, mediaXMLNode) {
 	 		html += " pluginspage='" + this.getPluginsPage() + "'";
 	 	if (this.getAdditionalAttras())
 	 		html += " " + this.getAdditionalAttras();
-		html += " src='" + this.url + "'";
-		html += " href='" + this.url + "'";
+		html += " src='" + this.url.replace(/&/g, '&amp;') + "'";
+		html += " href='" + this.url.replace(/&/g, '&amp;') + "'";
 		html += " width='" + this.getZoomedWidthPx() + "px'";
 		html += " height='" + (this.getZoomedHeightPx() + this.getControlHeight()) + "px'";
 		html += " />";
 		
 		html += "<div id='" + this.viewerElementId + "_download_link' style='position: absolute;'>";
 		html += "<a";
-		html += " href='" + this.url + "'>";
+		html += " href='" + this.url.replace(/&/g, '&amp;') + "'>";
 		html += "Download the Media";
 		html += "</a>";
 		html += "</div>";

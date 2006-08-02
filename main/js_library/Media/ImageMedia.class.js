@@ -79,7 +79,7 @@ function ImageMedia ( viewerElementId, mediaXMLNode) {
 		var html = "";
  		html += "<img";
  		html += " id='" + this.viewerElementId + "_image'";
- 		html += " src='" + this.image.src + "'/>";
+ 		html += " src='" + this.image.src.replace(/&/g, '&amp;') + "'/>";
  		
 		var destination = getElementFromDocument(this.viewerElementId + '_media');
 		destination.innerHTML = html;

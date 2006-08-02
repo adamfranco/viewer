@@ -1,6 +1,6 @@
 |-------------------------------------------------------|
 |                                                       |
-| Concerto Viewer version 2.1.3                         |
+| Concerto Viewer				                        |
 |                                                       |
 |-------------------------------------------------------|
 
@@ -170,6 +170,16 @@ This package can be used in two ways:
 ---------------------
 | 4. Changelog
 ---------------------
+******************************
+Version 2.1.5
+2006-08-02
+------------------------------
+ - Fixed image caching for destination URLs with ampersands in them.
+   URLs that had ampersands stored as '&amp;' in the source XML were not being
+   converted back to '&' when doing the caching, rendering the url invalid.
+   All URLs are now stripped to '&' for JS caching calls and converted to '&amp;'
+   in printed URLs.
+ 
 ******************************
 Version 2.1.4
 2006-06-16
